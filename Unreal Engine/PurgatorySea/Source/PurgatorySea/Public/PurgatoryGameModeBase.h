@@ -6,9 +6,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-
-#include "Board.h"
-
 #include "PurgatoryGameModeBase.generated.h"
 
 /**
