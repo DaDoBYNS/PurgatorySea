@@ -6,12 +6,14 @@
 
 class FBoard
 {
-    std::shared_ptr<FShip> Ship;
+    std::vector<std::shared_ptr<FShip>> Ships;
 public:
     FBoard();
     
+    void CreateShip(int InDimension); 
+    
     // Getter 
-    std::shared_ptr<FShip> GetShip();
+    std::vector<std::shared_ptr<FShip>> GetShips();
     
     // Setter
     

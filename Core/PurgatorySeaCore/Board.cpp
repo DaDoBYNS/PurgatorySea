@@ -2,10 +2,14 @@
 
 FBoard::FBoard()
 {
-    Ship = std::make_shared<FShip>();
 }
 
-std::shared_ptr<FShip> FBoard::GetShip()
+void FBoard::CreateShip(int InDimension)
 {
-    return Ship; 
+    Ships.emplace_back(std::make_shared<FShip>(InDimension)); 
+}
+
+std::vector<std::shared_ptr<FShip>> FBoard::GetShips()
+{
+    return Ships;
 }

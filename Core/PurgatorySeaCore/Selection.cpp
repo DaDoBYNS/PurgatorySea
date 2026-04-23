@@ -3,17 +3,37 @@
 #include "Position.h"
 
 FSelection::FSelection()
-{
-    Board = std::make_shared<FBoard>();
-}
+{}
 
 std::shared_ptr<FShip> FSelection::GetShipAt(FPosition InPosition) const
 {
-    if (Board->GetShip()->GetPosition().Letter == InPosition.Letter && 
-        Board->GetShip()->GetPosition().Number == InPosition.Number)
+    if (Board)
     {
-        Board->GetShip()->SetIsSelected(true);
-        return Board->GetShip();   
+        for (const auto& Ship : Board->GetShips())
+        {
+            for (const auto Position : Ship->GetPositions())
+            {
+                if (Position.Letter == InPosition.Letter && Position.Number == InPosition.Number)
+                {
+                    Ship->SetIsSelected(true);
+                    return Ship; 
+                }
+            }
+        }
+        
+        /*for (const auto Position : Board->GetShip(0)->GetPositions())
+        {
+            if (Position.Letter == InPosition.Letter && Position.Number == InPosition.Number)
+            {
+                Board->GetShip(0)->SetIsSelected(true);
+                return Board->GetShip(0);
+            }
+        }*/
     }
     return nullptr;
+}
+
+void FSelection::SetBoard(std::shared_ptr<FBoard> InBoard)
+{
+    Board = InBoard; 
 }
