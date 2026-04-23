@@ -6,6 +6,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+
 #include "PurgatoryGameModeBase.generated.h"
 
 /**
@@ -15,7 +16,6 @@ UCLASS()
 class PURGATORYSEA_API APurgatoryGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
 public: 
 	APurgatoryGameModeBase(); 
 	
