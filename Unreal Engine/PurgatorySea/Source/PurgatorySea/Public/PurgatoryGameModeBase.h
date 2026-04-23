@@ -19,8 +19,6 @@ class PURGATORYSEA_API APurgatoryGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-	std::shared_ptr<FBoard> Board;
-	
 public: 
 	APurgatoryGameModeBase(); 
 	
