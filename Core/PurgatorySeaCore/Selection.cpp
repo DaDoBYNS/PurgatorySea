@@ -3,9 +3,11 @@
 #include "Position.h"
 
 FSelection::FSelection()
+    : Board(nullptr)
+    , SelectedShip(nullptr) 
 {}
 
-std::shared_ptr<FShip> FSelection::GetShipAt(FPosition InPosition) const
+std::shared_ptr<FShip> FSelection::SelectShipAt(FPosition InPosition)
 {
     if (Board)
     {
@@ -16,21 +18,18 @@ std::shared_ptr<FShip> FSelection::GetShipAt(FPosition InPosition) const
                 if (Position.Letter == InPosition.Letter && Position.Number == InPosition.Number)
                 {
                     Ship->SetIsSelected(true);
-                    return Ship; 
+                    SelectedShip = Ship; 
+                    return SelectedShip; 
                 }
             }
         }
-        
-        /*for (const auto Position : Board->GetShip(0)->GetPositions())
-        {
-            if (Position.Letter == InPosition.Letter && Position.Number == InPosition.Number)
-            {
-                Board->GetShip(0)->SetIsSelected(true);
-                return Board->GetShip(0);
-            }
-        }*/
     }
     return nullptr;
+}
+
+std::shared_ptr<FShip> FSelection::GetSelectedShip() const
+{
+    return SelectedShip;
 }
 
 void FSelection::SetBoard(std::shared_ptr<FBoard> InBoard)

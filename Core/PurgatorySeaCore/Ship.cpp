@@ -6,8 +6,8 @@ FShip::FShip(FPosition InPosition, int InDimension)
 {
     for (int Y = 0; Y < Dimension; Y++)
     {
-        int Number = static_cast<int>(InPosition.Number); 
-        SetPosition(FPosition{InPosition.Letter, static_cast<ENumber>(Number-Y)}); 
+        int Number = InPosition.Number; 
+        SetPosition(FPosition{InPosition.Letter, Number-Y}); 
     }
 }
 
