@@ -10,7 +10,7 @@ class FBoard
 public:
     FBoard();
     
-    void CreateShip(int InDimension); 
+    void CreateShip(FPosition InPosition); 
     
     // Getter 
     std::vector<std::shared_ptr<FShip>> GetShips();

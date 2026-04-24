@@ -9,7 +9,7 @@ class FShip
     std::vector<FPosition> Positions; 
     int Dimension; 
 public:
-    FShip();
+    FShip(FPosition InPosition);
     FShip(int InDimension);
     
     // Getter

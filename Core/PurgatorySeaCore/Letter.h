@@ -2,5 +2,8 @@
 
 enum class ELetter : int
 {
-    A = 0 
+    A = 0,
+    B,
+    C,
+    D
 };
