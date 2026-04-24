@@ -10,7 +10,6 @@ class FShip
     int Dimension; 
 public:
     FShip(FPosition InPosition, int InDimension);
-    FShip(int InDimension);
     
     // Getter
     bool GetIsSelected() const;

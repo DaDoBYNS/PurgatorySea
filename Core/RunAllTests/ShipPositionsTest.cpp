@@ -91,23 +91,33 @@ TEST(ShipsPosition, ship_should_be_selectable_at_different_positions)
 
 TEST(ShipsPosition, ship_selection_should_always_be_in_the_first_position)
 {
-    bool bConditionToTest = false; 
+    FPosition StartPosition = FPosition{ELetter::B, ENumber::Four}; 
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
     Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3);
     
     FSelection Selection;
     Selection.SetBoard(Board);
-    std::shared_ptr<FShip> Ship = Selection.GetShipAt(FPosition{ELetter::B, ENumber::Four}); 
+    std::shared_ptr<FShip> Ship = Selection.GetShipAt(StartPosition); 
     
-    EXPECT_TRUE((Ship->GetFirstPosition() == FPosition{ELetter::B, ENumber::Four})); 
+    EXPECT_TRUE((Ship->GetFirstPosition() == StartPosition)); 
     
     Ship->SetIsSelected(false);
     Ship = Selection.GetShipAt(FPosition{ELetter::B, ENumber::Three}); 
     
-    EXPECT_TRUE((Ship->GetFirstPosition() == FPosition{ELetter::B, ENumber::Four})); 
+    EXPECT_TRUE((Ship->GetFirstPosition() == StartPosition)); 
     
     Ship->SetIsSelected(false);
     Ship = Selection.GetShipAt(FPosition{ELetter::B, ENumber::Two}); 
     
-    EXPECT_TRUE((Ship->GetFirstPosition() == FPosition{ELetter::B, ENumber::Four})); 
+    EXPECT_TRUE((Ship->GetFirstPosition() == StartPosition)); 
+}
+ 
+TEST(ShipsPosition, ship_can_be_created_even_if_partially_outside_board)
+{
+    FPosition StartPosition = FPosition{ELetter::B, ENumber::Two}; 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(StartPosition, 3);
+ 
+    EXPECT_TRUE(Ship != nullptr);
 }

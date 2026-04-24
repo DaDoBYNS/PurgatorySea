@@ -9,5 +9,7 @@ enum class ENumber : int
     Five,
     Six,
     Seven,
-    Eight
+    Eight,
+    Nine,
+    Ten
 };

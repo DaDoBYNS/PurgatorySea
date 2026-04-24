@@ -11,16 +11,6 @@ FShip::FShip(FPosition InPosition, int InDimension)
     }
 }
 
-FShip::FShip(int InDimension)
-    : bIsSelected(false)
-    , Dimension(InDimension)
-{
-    for (int Y = 0; Y < Dimension; Y++)
-    {
-        SetPosition(FPosition{ELetter::A, static_cast<ENumber>(Y)}); 
-    }
-}
-
 bool FShip::GetIsSelected() const
 {
     return bIsSelected;
