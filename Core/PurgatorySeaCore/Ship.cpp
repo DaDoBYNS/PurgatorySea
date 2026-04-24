@@ -7,7 +7,7 @@ FShip::FShip(FPosition InPosition, int InDimension)
     for (int Y = 0; Y < Dimension; Y++)
     {
         int Number = static_cast<int>(InPosition.Number); 
-        SetPosition(FPosition{InPosition.Letter, static_cast<ENumber>(Number+Y)}); 
+        SetPosition(FPosition{InPosition.Letter, static_cast<ENumber>(Number-Y)}); 
     }
 }
 
@@ -34,6 +34,11 @@ std::vector<FPosition> FShip::GetPositions() const
 int FShip::GetDimension() const
 {
     return Dimension;
+}
+
+FPosition FShip::GetFirstPosition() const
+{
+    return Positions.front();
 }
 
 void FShip::SetDimension(int InDimension)

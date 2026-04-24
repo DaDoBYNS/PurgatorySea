@@ -16,6 +16,7 @@ public:
     bool GetIsSelected() const;
     std::vector<FPosition> GetPositions() const;
     int GetDimension() const;
+    FPosition GetFirstPosition() const;
 
     // Setter
     void SetIsSelected(bool bInIsSelected);
