@@ -36,6 +36,13 @@ TEST(ShipsPosition, ship_should_be_selected_from_selection_class)
     EXPECT_EQ(Ship, SelectedShip);
 }
 
+TEST(ShipsPosition, system_will_not_crash_if_board_is_not_valid_inside_of_selection_class)
+{
+    FSelection Selection;
+    
+    EXPECT_NO_THROW(Selection.SelectShipAt(FPosition{ELetter::A, ENumber::Eight})); 
+}
+
 TEST(ShipsPosition, ship_already_selected_should_change_if_new_valid_selection_is_performed)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
@@ -69,6 +76,24 @@ TEST(ShipsPosition, ship_already_selected_should_not_be_valid_if_new_invalid_sel
     std::shared_ptr<FShip> NewSelectedShip = Selection.GetSelectedShip();
     
     EXPECT_TRUE(NewSelectedShip == nullptr);
+}
+
+TEST(ShipsPosition, ship_selected_should_deselect_if_selection_changed)
+{
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1);
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 1);
+    
+    FSelection Selection;
+    Selection.SetBoard(Board);
+    
+    Selection.SelectShipAt(FPosition{ELetter::A, ENumber::Three});
+    std::shared_ptr<FShip> SelectedShip = Selection.GetSelectedShip();
+    
+    Selection.SelectShipAt(FPosition{ELetter::D, ENumber::Six}); 
+    std::shared_ptr<FShip> NewSelectedShip = Selection.GetSelectedShip();
+    
+    EXPECT_TRUE(!SelectedShip->GetIsSelected());
 }
 
 TEST(ShipsPosition, ship_will_be_selected_given_by_a_position)
@@ -201,5 +226,14 @@ TEST(ShipsPosition, existing_ship_should_be_able_to_move_to_a_new_position)
     
     Selection.MoveShipTo(FPosition{ELetter::C,ENumber::Four}); 
     
-    EXPECT_TRUE(StartPosition != Selection.GetSelectedShip()->GetFirstPosition()); 
+    EXPECT_TRUE(StartPosition != Selection.GetSelectedShip()->GetFirstPosition());
+}
+
+TEST(ShipsPosition, system_will_not_crash_inside_of_method_selection_ship_if_selected_ship_is_not_valid)
+{
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    FSelection Selection;
+    Selection.SetBoard(Board);
+    
+    EXPECT_NO_THROW(Selection.SelectShipAt(FPosition{ELetter::B, ENumber::Two})); 
 }

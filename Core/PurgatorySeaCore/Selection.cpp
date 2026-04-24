@@ -20,6 +20,11 @@ void FSelection::MoveShipTo(FPosition InPosition)
 
 std::shared_ptr<FShip> FSelection::SelectShipAt(FPosition InPosition)
 {
+    if (SelectedShip)
+    {
+        SelectedShip->SetIsSelected(false);
+    }
+    
     if (Board)
     {
         for (const auto& Ship : Board->GetShips())
