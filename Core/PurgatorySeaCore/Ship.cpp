@@ -1,8 +1,8 @@
 #include "Ship.h"
 
-FShip::FShip(FPosition InPosition)
+FShip::FShip(FPosition InPosition, int InDimension)
     : bIsSelected(false)
-    , Dimension(0)
+    , Dimension(InDimension)
 {
     SetPosition(InPosition); 
 }
