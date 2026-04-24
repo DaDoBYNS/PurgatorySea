@@ -121,3 +121,18 @@ TEST(ShipsPosition, ship_can_be_created_even_if_partially_outside_board)
  
     EXPECT_TRUE(Ship != nullptr);
 }
+
+TEST(ShipsPosition, ship_should_be_selectable_even_if_partially_outside_board)
+{
+    FPosition StartPosition = FPosition{ELetter::B, ENumber::Two}; 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    
+    Board->CreateShip(StartPosition, 3);
+    
+    FSelection Selection;
+    Selection.SetBoard(Board);
+    
+    std::shared_ptr<FShip> Ship = Selection.GetShipAt(FPosition{ELetter::B, static_cast<ENumber>(-1)});
+ 
+    EXPECT_TRUE(Ship->GetIsSelected());
+}
