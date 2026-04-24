@@ -187,18 +187,19 @@ TEST(ShipsPosition, ship_should_be_selectable_even_if_partially_outside_board)
     EXPECT_TRUE(Ship->GetIsSelected());
 }
 
-/*TEST(ShipsPosition, existing_ship_should_be_able_to_move_to_a_new_position)
+TEST(ShipsPosition, existing_ship_should_be_able_to_move_to_a_new_position)
 {
-    FPosition StartPosition = FPosition{ELetter::B, ENumber::Two}; 
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    
-    Board->CreateShip(StartPosition, 3);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3);
     
     FSelection Selection;
     Selection.SetBoard(Board);
     
-    std::shared_ptr<FShip> Ship = Selection.SelectShipAt(FPosition{ELetter::B, static_cast<ENumber>(-1)});
-    Selection.MoveShipTo(FPosition{2,3}); 
+    Selection.SelectShipAt(FPosition{ELetter::B, ENumber::Two});
     
-    EXPECT_TRUE(Ship->GetIsSelected()); 
-}*/
+    FPosition StartPosition = Selection.GetSelectedShip()->GetFirstPosition();
+    
+    Selection.MoveShipTo(FPosition{ELetter::C,ENumber::Four}); 
+    
+    EXPECT_TRUE(StartPosition != Selection.GetSelectedShip()->GetFirstPosition()); 
+}

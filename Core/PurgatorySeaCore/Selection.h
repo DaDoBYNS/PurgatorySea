@@ -12,6 +12,8 @@ class FSelection
 public:
     FSelection();
     
+    void MoveShipTo(FPosition InPosition);
+    
     // Getter
     std::shared_ptr<FShip> SelectShipAt(FPosition InPosition);
     std::shared_ptr<FShip> GetSelectedShip() const; 

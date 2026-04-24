@@ -45,3 +45,8 @@ void FShip::SetIsSelected(bool bInIsSelected)
 {
     bIsSelected = bInIsSelected;
 }
+
+void FShip::SetPositions(std::vector<FPosition> InPositions)
+{
+    Positions = InPositions;
+}

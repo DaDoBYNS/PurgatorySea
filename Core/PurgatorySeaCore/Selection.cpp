@@ -7,6 +7,17 @@ FSelection::FSelection()
     , SelectedShip(nullptr) 
 {}
 
+void FSelection::MoveShipTo(FPosition InPosition)
+{
+    auto ShipPositions = SelectedShip->GetPositions();
+    for (int Index = 0; Index < SelectedShip->GetDimension(); Index++)
+    {
+        ShipPositions[Index] = FPosition{InPosition.Letter, InPosition.Number-Index}; 
+    }
+    
+    SelectedShip->SetPositions(ShipPositions);
+}
+
 std::shared_ptr<FShip> FSelection::SelectShipAt(FPosition InPosition)
 {
     if (Board)
