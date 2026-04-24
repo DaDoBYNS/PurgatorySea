@@ -4,7 +4,11 @@ FShip::FShip(FPosition InPosition, int InDimension)
     : bIsSelected(false)
     , Dimension(InDimension)
 {
-    SetPosition(InPosition); 
+    for (int Y = 0; Y < Dimension; Y++)
+    {
+        int Number = static_cast<int>(InPosition.Number); 
+        SetPosition(FPosition{InPosition.Letter, static_cast<ENumber>(Number+Y)}); 
+    }
 }
 
 FShip::FShip(int InDimension)

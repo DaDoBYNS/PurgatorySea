@@ -66,3 +66,25 @@ TEST(ShipsPosition, created_ship_should_have_correct_dimension)
 
     EXPECT_EQ(Ship->GetDimension(), 3);
 }
+
+TEST(ShipsPosition, ship_must_be_selectable_at_different_positions)
+{
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3);
+    
+    FSelection Selection;
+    Selection.SetBoard(Board);
+    std::shared_ptr<FShip> Ship = Selection.GetShipAt(FPosition{ELetter::B, ENumber::Four}); 
+    
+    EXPECT_EQ(Ship->GetIsSelected(), true); 
+    
+    Ship->SetIsSelected(false);
+    Ship = Selection.GetShipAt(FPosition{ELetter::B, ENumber::Five}); 
+    
+    EXPECT_EQ(Ship->GetIsSelected(), true); 
+    
+    Ship->SetIsSelected(false);
+    Ship = Selection.GetShipAt(FPosition{ELetter::B, ENumber::Six}); 
+    
+    EXPECT_EQ(Ship->GetIsSelected(), true); 
+}
