@@ -54,6 +54,23 @@ TEST(ShipsPosition, ship_already_selected_should_change_if_new_valid_selection_i
     EXPECT_TRUE(NewSelectedShip != SelectedShip);
 }
 
+TEST(ShipsPosition, ship_already_selected_should_not_be_valid_if_new_invalid_selection_is_performed)
+{
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1);
+    
+    FSelection Selection;
+    Selection.SetBoard(Board);
+    
+    Selection.SelectShipAt(FPosition{ELetter::A, ENumber::Three});
+    std::shared_ptr<FShip> SelectedShip = Selection.GetSelectedShip();
+    
+    Selection.SelectShipAt(FPosition{ELetter::D, ENumber::Six}); 
+    std::shared_ptr<FShip> NewSelectedShip = Selection.GetSelectedShip();
+    
+    EXPECT_TRUE(NewSelectedShip == nullptr);
+}
+
 TEST(ShipsPosition, ship_will_be_selected_given_by_a_position)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();

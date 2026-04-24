@@ -24,6 +24,8 @@ std::shared_ptr<FShip> FSelection::SelectShipAt(FPosition InPosition)
             }
         }
     }
+    
+    SelectedShip = nullptr;
     return nullptr;
 }
 
