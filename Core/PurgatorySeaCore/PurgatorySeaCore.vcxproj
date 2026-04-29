@@ -27,12 +27,14 @@
     <ClInclude Include="TileType.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Validation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="EnemyBoard.cpp" />
     <ClCompile Include="Selection.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Validation.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

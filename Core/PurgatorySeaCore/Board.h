@@ -22,4 +22,6 @@ class FBoard
     void SetHeightAndWidth(int NewHeight, int NewWidth);
     
     std::vector<std::shared_ptr<FShip>> GetShips();
+    int GetHeight() const;
+    int GetWidth() const;
 };

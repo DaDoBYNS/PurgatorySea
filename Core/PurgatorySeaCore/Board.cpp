@@ -30,3 +30,13 @@ std::vector<std::shared_ptr<FShip>> FBoard::GetShips()
 {
     return Ships;
 }
+
+int FBoard::GetHeight() const
+{
+    return Height;
+}
+
+int FBoard::GetWidth() const
+{
+    return Width;
+}
