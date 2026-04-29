@@ -13,3 +13,4 @@
 
 /Core/packages/
 /Core/RunAllTests/packages.config
+/Core/RunAllTests/RunAllTests.vcxproj
