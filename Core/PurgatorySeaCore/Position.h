@@ -4,12 +4,42 @@
 
 struct FPosition
 {
-    ELetter Letter;
-    ENumber Number;
+    int Letter;
+    int Number;
     
-    bool operator==(const FPosition& Other) const
+    friend bool operator==(const FPosition& lhs, const FPosition& rhs)
     {
-        return Letter == Other.Letter && Number == Other.Number;
+        return lhs.Letter == rhs.Letter
+            && lhs.Number == rhs.Number;
     }
+
+    friend bool operator!=(const FPosition& lhs, const FPosition& rhs)
+    {
+        return !(lhs == rhs);
+    }
+    
+    FPosition(ELetter InLetter, ENumber InNumber)
+        : Letter(static_cast<int>(InLetter)),
+          Number(static_cast<int>(InNumber))
+    {
+    }
+
+    FPosition(int InLetter, int InNumber)
+        : Letter(InLetter),
+          Number(InNumber)
+    {
+    }
+    
+    FPosition(ELetter InLetter, int InNumber)
+        : Letter(static_cast<int>(InLetter)),
+          Number(InNumber)
+    {
+    }
+    
+    FPosition(int InLetter, ENumber InNumber)
+        : Letter(InLetter),
+          Number(static_cast<int>(InNumber))
+    {
+    }
+    
 };
- 

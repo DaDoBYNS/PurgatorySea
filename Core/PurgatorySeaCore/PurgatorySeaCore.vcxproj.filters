@@ -21,6 +21,9 @@
     <ClCompile Include="EnemyBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Selection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -30,9 +33,20 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Letter.h">
+    </ClInclude>
+    <ClInclude Include="EnemyBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Number.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Number.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Selection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

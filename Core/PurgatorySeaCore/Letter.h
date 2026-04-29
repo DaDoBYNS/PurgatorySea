@@ -6,7 +6,6 @@ enum class ELetter : int
     B,
     C,
     D,
-    E,
     F,
     G,
     H,
