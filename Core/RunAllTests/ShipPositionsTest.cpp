@@ -237,3 +237,27 @@ TEST(ShipsPosition, system_will_not_crash_inside_of_method_selection_ship_if_sel
     
     EXPECT_NO_THROW(Selection.SelectShipAt(FPosition{ELetter::B, ENumber::Two})); 
 }
+
+TEST(ShipsPosition, ship_moved_to_a_new_position_should_be_selectable_again_to_any_of_its_valid_point)
+{
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3);
+    
+    FSelection Selection;
+    Selection.SetBoard(Board);
+    
+    Selection.SelectShipAt(FPosition{ELetter::B, ENumber::Two});
+    Selection.MoveShipTo(FPosition{ELetter::C, ENumber::Four});  
+
+    std::shared_ptr<FShip> Ship = Selection.SelectShipAt(FPosition{ELetter::C, ENumber::Four}); 
+    
+    EXPECT_TRUE(Ship->GetIsSelected());
+    
+    Ship = Selection.SelectShipAt(FPosition{ELetter::C, ENumber::Three}); 
+    
+    EXPECT_TRUE(Ship->GetIsSelected());
+    
+    Ship = Selection.SelectShipAt(FPosition{ELetter::C, ENumber::Two}); 
+    
+    EXPECT_TRUE(Ship->GetIsSelected());
+}

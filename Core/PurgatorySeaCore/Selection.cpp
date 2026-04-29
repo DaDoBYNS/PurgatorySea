@@ -16,6 +16,7 @@ void FSelection::MoveShipTo(FPosition InPosition)
     }
     
     SelectedShip->SetPositions(ShipPositions);
+    SelectedShip->SetIsSelected(false);
 }
 
 std::shared_ptr<FShip> FSelection::SelectShipAt(FPosition InPosition)
