@@ -261,3 +261,19 @@ TEST(ShipsPosition, ship_moved_to_a_new_position_should_be_selectable_again_to_a
     
     EXPECT_TRUE(Ship->GetIsSelected());
 }
+
+TEST(ShipsPosition, ship_can_be_created_even_if_overlapping_another_ship)
+{
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    
+    FSelection Selection;
+    Selection.SetBoard(Board);
+
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3);
+    std::shared_ptr<FShip> Ship = Selection.SelectShipAt(FPosition{ELetter::B, ENumber::Two}); 
+    
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 4);
+    std::shared_ptr<FShip> OverlappingShip = Selection.SelectShipAt(FPosition{ELetter::B, -2}); 
+    
+    EXPECT_TRUE(Ship != nullptr && OverlappingShip != nullptr);
+}
