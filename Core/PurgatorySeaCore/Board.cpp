@@ -9,14 +9,7 @@ FBoard::FBoard()
 
 void FBoard::InitPlayerBoard()
 {
-    PlayerShips.clear();
-}
-
-void FBoard::SetHeightAndWidth(int NewHeight, int NewWidth)
-{
-    Width = NewWidth;
-FBoard::FBoard()
-{
+    Ships.clear();
 }
 
 std::shared_ptr<FShip> FBoard::CreateShip(FPosition InPosition, int InDimension)
@@ -25,39 +18,15 @@ std::shared_ptr<FShip> FBoard::CreateShip(FPosition InPosition, int InDimension)
     return Ships.at(Ships.size() - 1); 
 }
 
+void FBoard::SetHeightAndWidth(int NewHeight, int NewWidth)
+{
+    Width = NewWidth;
+    Height = NewHeight;
+
+    Ships.clear();
+}
+
 std::vector<std::shared_ptr<FShip>> FBoard::GetShips()
 {
     return Ships;
-}
-
-    Height = NewHeight;
-
-    PlayerShips.clear();
-}
-
-bool FBoard::PlaceShip(FPosition Position)
-{
-    int X = static_cast<int>(Position.Letter);
-    int Y = static_cast<int>(Position.Number);
-
-    if (X < 0 || X >= Width || Y < 0 || Y >= Height)
-    {
-        return false;
-    }
-
-    for (const auto& Ship : PlayerShips)
-    {
-        if (Ship == Position)
-        {
-            return false;
-        }
-    }
-
-    PlayerShips.push_back(Position);
-    return true;
-}
-
-std::vector<FPosition> FBoard::GetPlayerBoard()
-{
-    return PlayerShips;
 }
