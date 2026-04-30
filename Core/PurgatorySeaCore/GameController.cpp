@@ -15,6 +15,11 @@ void FGameController::InitGame()
     bIsGameReady = true;
 }
 
+std::shared_ptr<FShip> FGameController::SelectShipAt(FPosition InPosition) const
+{
+    return Selection->SelectShipAt(InPosition);
+}
+
 void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
 {
     Board = InBoard;

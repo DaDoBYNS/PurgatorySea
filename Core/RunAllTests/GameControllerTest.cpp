@@ -53,3 +53,19 @@ TEST(GameController, gamecontroller_should_be_ready_to_start_the_game)
     
     EXPECT_EQ(GameController->GetIsGameReady(), true); 
 }
+
+TEST(GameController, gamecontroller_should_select_ship_through_selection)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>();
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    GameController->SetBoard(Board);
+    GameController->SetSelection(Selection);
+    GameController->GetSelection()->SetBoard(Board);
+    
+    GameController->InitGame(); 
+    std::shared_ptr<FShip> Ship = GameController->SelectShipAt(FPosition{ELetter::A, ENumber::Eight}); 
+    
+    EXPECT_EQ(Ship->GetIsSelected(), true); 
+}
