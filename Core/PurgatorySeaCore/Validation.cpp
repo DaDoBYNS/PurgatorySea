@@ -1,15 +1,14 @@
 #include "Validation.h"
 
+#include "TileType.h"
+
 FValidation::FValidation()
     : bIsValid(false)
 {}
 
 void FValidation::ResetShipsHighlight() const
 {
-    for (const auto& Ship : Board->GetShips())
-    {
-        Ship->SetIsErrorHighlighted(false); 
-    }
+    Board->GetShips().front()->SetIsErrorHighlighted(false);
 }
 
 void FValidation::ValidateShips()
