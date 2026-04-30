@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="EnemyBoard.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="Letter.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Position.h" />
@@ -32,6 +33,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="EnemyBoard.cpp" />
+    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Selection.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Validation.cpp" />
