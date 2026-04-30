@@ -112,3 +112,36 @@ TEST(ShipsValidation, validation_should_remove_error_highlight_to_a_valid_ship)
     
     EXPECT_TRUE(bWasInErrorHighlight && !Ship->GetIsErrorHighlighted()); 
 } 
+
+TEST(ShipsValidation, validation_should_remove_error_highlight_to_multiple_valid_ships)
+{
+    std::shared_ptr<FValidation> Validation = std::make_shared<FValidation>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    Validation->SetBoard(Board); 
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    std::shared_ptr<FShip> FourthShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    
+    Validation->ValidateShips();
+    bool bFirstWasInErrorHighlight = Ship->GetIsErrorHighlighted();
+    bool bSecondWasInErrorHighlight = SecondShip->GetIsErrorHighlighted(); 
+    
+    FSelection Selection; 
+    Selection.SetBoard(Board);
+    
+    Selection.SelectShipAt(FPosition{ELetter::D, ENumber::Five}); 
+    Selection.MoveShipTo(FPosition{ELetter::G, ENumber::Eight}); 
+    
+    Selection.SelectShipAt(FPosition{ELetter::D, ENumber::Five});
+    Selection.MoveShipTo(FPosition{ELetter::A, ENumber::Six});
+    
+    Validation->ValidateShips();
+    
+    bool bTestCondition = bFirstWasInErrorHighlight && bSecondWasInErrorHighlight && 
+                            !Ship->GetIsErrorHighlighted() && !SecondShip->GetIsErrorHighlighted();
+    
+    EXPECT_TRUE(bTestCondition); 
+} 

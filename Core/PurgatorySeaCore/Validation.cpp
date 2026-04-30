@@ -8,7 +8,10 @@ FValidation::FValidation()
 
 void FValidation::ResetShipsHighlight() const
 {
-    Board->GetShips().front()->SetIsErrorHighlighted(false);
+    for (const auto& Ship : Board->GetShips())
+    {
+        Ship->SetIsErrorHighlighted(false);
+    }
 }
 
 void FValidation::ValidateShips()
