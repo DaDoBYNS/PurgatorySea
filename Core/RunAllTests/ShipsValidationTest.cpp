@@ -145,3 +145,20 @@ TEST(ShipsValidation, validation_should_remove_error_highlight_to_multiple_valid
     
     EXPECT_TRUE(bTestCondition); 
 } 
+
+TEST(ShipsValidation, validation_should_pass_when_all_ships_are_in_valid_positions)
+{
+    std::shared_ptr<FValidation> Validation = std::make_shared<FValidation>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    Validation->SetBoard(Board); 
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::B, ENumber::Five}, 3);
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::E, ENumber::Six}, 3);
+    std::shared_ptr<FShip> FourthShip = Board->CreateShip(FPosition{ELetter::H, ENumber::Six}, 3);
+    
+    Validation->ValidateShips();
+    
+    EXPECT_TRUE(Validation->GetIsValid()); 
+} 
