@@ -2,6 +2,7 @@
 
 #include "../PurgatorySeaCore/Board.h"
 #include "../PurgatorySeaCore/GameController.h"
+#include "../PurgatorySeaCore/Selection.h"
 
 TEST(GameController, gamecontroller_should_be_created)
 {
@@ -18,4 +19,14 @@ TEST(GameController, gamecontroller_should_receive_board_reference)
     GameController->SetBoard(Board); 
     
     EXPECT_TRUE(GameController->GetBoard() != nullptr); 
+}
+
+TEST(GameController, gamecontroller_should_receive_selection_reference)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>(); 
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>(); 
+
+    GameController->SetSelection(Selection); 
+    
+    EXPECT_TRUE(GameController->GetSelection() != nullptr); 
 }
