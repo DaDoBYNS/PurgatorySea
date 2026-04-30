@@ -13,6 +13,7 @@ public:
     FGameController();
     void InitGame();
     std::shared_ptr<FShip> SelectShipAt(FPosition InPosition) const;
+    void MoveShipTo(FPosition InPosition) const;
     void SetBoard(std::shared_ptr<FBoard>& InBoard);
     void SetSelection(std::shared_ptr<FSelection>& InSelection);
     std::shared_ptr<FBoard> GetBoard() const;

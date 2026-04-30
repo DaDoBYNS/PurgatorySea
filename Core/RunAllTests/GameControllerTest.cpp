@@ -69,3 +69,23 @@ TEST(GameController, gamecontroller_should_select_ship_through_selection)
     
     EXPECT_EQ(Ship->GetIsSelected(), true); 
 }
+
+TEST(GameController, gamecontroller_should_move_selected_ship_through_selection)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>();
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    FPosition StartPosition = FPosition{ELetter::A, ENumber::Eight}; 
+    
+    GameController->SetBoard(Board);
+    GameController->SetSelection(Selection);
+    GameController->GetSelection()->SetBoard(Board);
+    
+    GameController->InitGame(); 
+    std::shared_ptr<FShip> Ship = GameController->SelectShipAt(StartPosition); 
+    
+    GameController->MoveShipTo(FPosition{ELetter::I, ENumber::Eight}); 
+    
+    EXPECT_TRUE(Ship->GetFirstPosition() != StartPosition); 
+} 

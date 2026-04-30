@@ -20,6 +20,11 @@ std::shared_ptr<FShip> FGameController::SelectShipAt(FPosition InPosition) const
     return Selection->SelectShipAt(InPosition);
 }
 
+void FGameController::MoveShipTo(FPosition InPosition) const
+{
+    Selection->MoveShipTo(InPosition);
+}
+
 void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
 {
     Board = InBoard;
