@@ -44,4 +44,46 @@ TEST(ShipsValidation, validation_should_fail_when_two_ships_overlap)
     
     Validation->ValidateShips(); 
     EXPECT_FALSE(Validation->GetIsValid()); 
-}
+} 
+
+TEST(ShipsValidation, validation_should_report_outside_board_with_error_highlight)
+{
+    std::shared_ptr<FValidation> Validation = std::make_shared<FValidation>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    Validation->SetBoard(Board); 
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Two}, 3);
+    
+    Validation->ValidateShips(); 
+    EXPECT_TRUE(Ship->GetIsErrorHighlighted()); 
+} 
+
+TEST(ShipsValidation, validation_should_report_overlap_with_error_highlight)
+{
+    std::shared_ptr<FValidation> Validation = std::make_shared<FValidation>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    Validation->SetBoard(Board); 
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    
+    Validation->ValidateShips(); 
+    EXPECT_TRUE(Ship->GetIsErrorHighlighted()); 
+} 
+
+TEST(ShipsValidation, validation_should_report_an_error_to_multiple_ships_with_error_highlight)
+{
+    std::shared_ptr<FValidation> Validation = std::make_shared<FValidation>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    Validation->SetBoard(Board); 
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    
+    Validation->ValidateShips();
+    EXPECT_TRUE(Ship->GetIsErrorHighlighted() && SecondShip->GetIsErrorHighlighted() && ThirdShip->GetIsErrorHighlighted()); 
+} 

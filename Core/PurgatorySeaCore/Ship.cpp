@@ -2,6 +2,7 @@
 
 FShip::FShip(FPosition InPosition, int InDimension)
     : bIsSelected(false)
+    , bIsErrorHighlighted(false)
     , Dimension(InDimension)
 {
     for (int Y = 0; Y < Dimension; Y++)
@@ -31,6 +32,11 @@ FPosition FShip::GetFirstPosition() const
     return Positions.front();
 }
 
+bool FShip::GetIsErrorHighlighted() const
+{
+    return bIsErrorHighlighted; 
+}
+
 void FShip::SetDimension(int InDimension)
 {
     Dimension = InDimension;
@@ -39,6 +45,11 @@ void FShip::SetDimension(int InDimension)
 void FShip::SetPosition(FPosition InPosition)
 {
     Positions.emplace_back(InPosition);
+}
+
+void FShip::SetIsErrorHighlighted(bool bInIsErrorHighlighted)
+{
+    bIsErrorHighlighted = bInIsErrorHighlighted;
 }
 
 void FShip::SetIsSelected(bool bInIsSelected)

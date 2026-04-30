@@ -6,6 +6,7 @@
 class FShip
 {
     bool bIsSelected;
+    bool bIsErrorHighlighted;
     std::vector<FPosition> Positions; 
     int Dimension; 
 public:
@@ -16,10 +17,12 @@ public:
     std::vector<FPosition> GetPositions() const;
     int GetDimension() const;
     FPosition GetFirstPosition() const;
+    bool GetIsErrorHighlighted() const;
 
     // Setter
     void SetIsSelected(bool bInIsSelected);
     void SetPositions(std::vector<FPosition> InPositions);
     void SetDimension(int InDimension);
     void SetPosition(FPosition InPosition);
+    void SetIsErrorHighlighted(bool bInIsErrorHighlighted);
 };

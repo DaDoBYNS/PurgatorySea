@@ -16,6 +16,7 @@ void FValidation::ValidateShips()
                 || Position.Number > Board->GetHeight()-1 || Position.Number < 0)
             {
                 bTempIsValid = false;
+                Ship->SetIsErrorHighlighted(true); 
             }
             
             for (const auto& CheckShip : Board->GetShips())
@@ -30,11 +31,10 @@ void FValidation::ValidateShips()
                     if (CheckPosition.Letter == Position.Letter && CheckPosition.Number == Position.Number)
                     {
                         bTempIsValid = false; 
+                        Ship->SetIsErrorHighlighted(true); 
                     }
                 }
-                
             }
-            
         }
     }
     
