@@ -3,6 +3,15 @@
 FGameController::FGameController()
 {}
 
+void FGameController::InitGame()
+{
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Eight}, 2);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Eight}, 3);
+    Board->CreateShip(FPosition{ELetter::C, ENumber::Eight}, 3);
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Eight}, 4);
+    Board->CreateShip(FPosition{ELetter::E, ENumber::Eight}, 5);
+}
+
 void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
 {
     Board = InBoard;

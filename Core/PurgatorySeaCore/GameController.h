@@ -9,6 +9,7 @@ class FGameController
     
 public:
     FGameController();
+    void InitGame();
     void SetBoard(std::shared_ptr<FBoard>& InBoard);
     void SetSelection(std::shared_ptr<FSelection>& InSelection);
     std::shared_ptr<FBoard> GetBoard();

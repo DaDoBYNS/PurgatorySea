@@ -30,3 +30,15 @@ TEST(GameController, gamecontroller_should_receive_selection_reference)
     
     EXPECT_TRUE(GameController->GetSelection() != nullptr); 
 }
+
+TEST(GameController, gamecontroller_should_be_initialized_with_starting_ships)
+{
+    int StartingShipNumber = 5; 
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    GameController->SetBoard(Board);
+    GameController->InitGame(); 
+    
+    EXPECT_EQ(GameController->GetBoard()->GetShips().size(), StartingShipNumber); 
+}
