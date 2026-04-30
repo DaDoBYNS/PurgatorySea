@@ -4,9 +4,18 @@ FValidation::FValidation()
     : bIsValid(false)
 {}
 
+void FValidation::ResetShipsHighlight() const
+{
+    for (const auto& Ship : Board->GetShips())
+    {
+        Ship->SetIsErrorHighlighted(false); 
+    }
+}
+
 void FValidation::ValidateShips()
 {
     bool bTempIsValid = true; 
+    ResetShipsHighlight(); 
     
     for (const auto& Ship : Board->GetShips())
     {

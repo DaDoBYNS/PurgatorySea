@@ -7,6 +7,7 @@ class FValidation
     bool bIsValid; 
 public:
     FValidation();
+    void ResetShipsHighlight() const;
     void ValidateShips();
     void SetBoard(std::shared_ptr<FBoard> InBoard);
     bool GetIsValid();

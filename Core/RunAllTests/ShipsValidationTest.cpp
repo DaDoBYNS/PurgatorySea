@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "../PurgatorySeaCore/Board.h"
+#include "../PurgatorySeaCore/Selection.h"
 #include "../PurgatorySeaCore/Validation.h"
 
 
@@ -86,4 +87,28 @@ TEST(ShipsValidation, validation_should_report_an_error_to_multiple_ships_with_e
     
     Validation->ValidateShips();
     EXPECT_TRUE(Ship->GetIsErrorHighlighted() && SecondShip->GetIsErrorHighlighted() && ThirdShip->GetIsErrorHighlighted()); 
+} 
+
+TEST(ShipsValidation, validation_should_remove_error_highlight_to_a_valid_ship)
+{
+    std::shared_ptr<FValidation> Validation = std::make_shared<FValidation>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    Validation->SetBoard(Board); 
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    
+    Validation->ValidateShips();
+    bool bWasInErrorHighlight = Ship->GetIsErrorHighlighted(); 
+    
+    FSelection Selection; 
+    Selection.SetBoard(Board);
+    
+    Selection.SelectShipAt(FPosition{ELetter::D, ENumber::Five}); 
+    Selection.MoveShipTo(FPosition{ELetter::G, ENumber::Eight}); 
+    Validation->ValidateShips();
+    
+    EXPECT_TRUE(bWasInErrorHighlight && !Ship->GetIsErrorHighlighted()); 
 } 
