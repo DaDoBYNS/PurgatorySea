@@ -162,3 +162,15 @@ TEST(ShipsValidation, validation_should_pass_when_all_ships_are_in_valid_positio
     
     EXPECT_TRUE(Validation->GetIsValid()); 
 } 
+
+TEST(ShipsValidation, validation_should_fail_when_board_has_no_ships)
+{
+    std::shared_ptr<FValidation> Validation = std::make_shared<FValidation>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    Validation->SetBoard(Board); 
+    
+    Validation->ValidateShips();
+    
+    EXPECT_TRUE(!Validation->GetIsValid()); 
+} 

@@ -19,6 +19,11 @@ void FValidation::ValidateShips()
     bool bTempIsValid = true; 
     ResetShipsHighlight(); 
     
+    if (Board->GetShips().empty())
+    {
+        bTempIsValid = false; 
+    }
+    
     for (const auto& Ship : Board->GetShips())
     {
         for (const auto& Position : Ship->GetPositions())
