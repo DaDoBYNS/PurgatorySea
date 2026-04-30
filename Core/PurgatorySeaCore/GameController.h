@@ -7,11 +7,14 @@ class FGameController
     std::shared_ptr<FBoard> Board;
     std::shared_ptr<FSelection> Selection;
     
+    bool bIsGameReady;
+    
 public:
     FGameController();
     void InitGame();
     void SetBoard(std::shared_ptr<FBoard>& InBoard);
     void SetSelection(std::shared_ptr<FSelection>& InSelection);
-    std::shared_ptr<FBoard> GetBoard();
-    std::shared_ptr<FSelection> GetSelection();
+    std::shared_ptr<FBoard> GetBoard() const;
+    std::shared_ptr<FSelection> GetSelection() const;
+    bool GetIsGameReady() const;
 };

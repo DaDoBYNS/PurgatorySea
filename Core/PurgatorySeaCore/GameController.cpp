@@ -1,6 +1,7 @@
 #include "GameController.h"
 
 FGameController::FGameController()
+    : bIsGameReady(false)
 {}
 
 void FGameController::InitGame()
@@ -10,6 +11,8 @@ void FGameController::InitGame()
     Board->CreateShip(FPosition{ELetter::C, ENumber::Eight}, 3);
     Board->CreateShip(FPosition{ELetter::D, ENumber::Eight}, 4);
     Board->CreateShip(FPosition{ELetter::E, ENumber::Eight}, 5);
+    
+    bIsGameReady = true;
 }
 
 void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
@@ -22,12 +25,17 @@ void FGameController::SetSelection(std::shared_ptr<FSelection>& InSelection)
     Selection = InSelection;    
 }
 
-std::shared_ptr<FSelection> FGameController::GetSelection()
+std::shared_ptr<FBoard> FGameController::GetBoard() const
+{
+    return Board;
+}
+
+std::shared_ptr<FSelection> FGameController::GetSelection() const
 {
     return Selection; 
 }
 
-std::shared_ptr<FBoard> FGameController::GetBoard()
+bool FGameController::GetIsGameReady() const
 {
-    return Board;
+    return bIsGameReady; 
 }

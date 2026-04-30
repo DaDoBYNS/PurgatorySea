@@ -42,3 +42,14 @@ TEST(GameController, gamecontroller_should_be_initialized_with_starting_ships)
     
     EXPECT_EQ(GameController->GetBoard()->GetShips().size(), StartingShipNumber); 
 }
+
+TEST(GameController, gamecontroller_should_be_ready_to_start_the_game)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    
+    GameController->SetBoard(Board);
+    GameController->InitGame(); 
+    
+    EXPECT_EQ(GameController->GetIsGameReady(), true); 
+}
