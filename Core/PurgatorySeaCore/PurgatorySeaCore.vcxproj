@@ -25,6 +25,7 @@
     <ClInclude Include="Letter.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Rotation.h" />
     <ClInclude Include="TileType.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="Ship.h" />

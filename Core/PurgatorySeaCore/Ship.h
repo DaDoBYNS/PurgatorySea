@@ -3,13 +3,15 @@
 #include <vector>
 
 #include "Position.h"
+#include "Rotation.h"
 
 class FShip
 {
     bool bIsSelected;
     bool bIsErrorHighlighted;
     std::vector<FPosition> Positions; 
-    std::string Name; 
+    std::string Name;
+    ERotation Rotation;
     int Dimension; 
 public:
     FShip(FPosition InPosition, int InDimension);
@@ -21,6 +23,7 @@ public:
     FPosition GetFirstPosition() const;
     bool GetIsErrorHighlighted() const;
     std::string GetName() const; 
+    ERotation GetRotation() const;
 
     // Setter
     void SetIsSelected(bool bInIsSelected);
