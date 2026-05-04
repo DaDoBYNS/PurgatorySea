@@ -28,6 +28,6 @@ public:
     
     bool CheckShot(FPosition HitPosition);
     
-    std::vector<FPosition> GetEnemyShipPositions();
-    std::vector<SEnemyBoard> GetHitPositions();
+    std::vector<FPosition> GetEnemyShipPositions() const;
+    std::vector<SEnemyBoard> GetHitPositions() const;
 };

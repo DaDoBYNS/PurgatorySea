@@ -43,12 +43,12 @@ bool FEnemyBoard::CheckShot(FPosition HitPosition)
     return false;
 }
 
-std::vector<FPosition> FEnemyBoard::GetEnemyShipPositions()
+std::vector<FPosition> FEnemyBoard::GetEnemyShipPositions() const
 {
     return EnemyShipPosition;
 }
 
-std::vector<SEnemyBoard> FEnemyBoard::GetHitPositions()
+std::vector<SEnemyBoard> FEnemyBoard::GetHitPositions() const
 {
     return HitPositions;
 }
