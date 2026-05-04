@@ -29,6 +29,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Ships")
 	TSubclassOf<AShipActor> AircraftCarrierClass;
+	
+	UPROPERTY(EditAnywhere, Category = "Ships")
+	TSubclassOf<AShipActor> SubmarineClass;
 
 	UPROPERTY(EditAnywhere, Category = "Ships")
 	UMaterialInterface* SelectedShipMaterial;

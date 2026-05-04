@@ -52,6 +52,11 @@ TSubclassOf<AShipActor> APurgatorySeaBoardPositions::GetShipClassByName(const st
 	{
 		return AircraftCarrierClass;
 	}
+	
+	if (ShipName == "submarine")
+	{
+		return SubmarineClass;
+	}
 
 	return nullptr;
 }
@@ -85,6 +90,7 @@ void APurgatorySeaBoardPositions::SpawnShip(
 		Loc,
 		Rot,
 		Params
+		
 	);
 
 	if (!ShipObj)
