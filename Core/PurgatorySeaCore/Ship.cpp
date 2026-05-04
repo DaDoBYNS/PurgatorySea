@@ -4,6 +4,7 @@ FShip::FShip(FPosition InPosition, int InDimension)
     : bIsSelected(false)
     , bIsErrorHighlighted(false)
     , Dimension(InDimension)
+    , Name("null") 
 {
     for (int Y = 0; Y < Dimension; Y++)
     {
@@ -37,6 +38,21 @@ bool FShip::GetIsErrorHighlighted() const
     return bIsErrorHighlighted; 
 }
 
+std::string FShip::GetName() const
+{
+    return Name; 
+}
+
+void FShip::SetIsSelected(bool bInIsSelected)
+{
+    bIsSelected = bInIsSelected;
+}
+
+void FShip::SetPositions(std::vector<FPosition> InPositions)
+{
+    Positions = InPositions;
+}
+
 void FShip::SetDimension(int InDimension)
 {
     Dimension = InDimension;
@@ -52,12 +68,7 @@ void FShip::SetIsErrorHighlighted(bool bInIsErrorHighlighted)
     bIsErrorHighlighted = bInIsErrorHighlighted;
 }
 
-void FShip::SetIsSelected(bool bInIsSelected)
+void FShip::SetName(std::string InName)
 {
-    bIsSelected = bInIsSelected;
-}
-
-void FShip::SetPositions(std::vector<FPosition> InPositions)
-{
-    Positions = InPositions;
+    Name = InName;
 }

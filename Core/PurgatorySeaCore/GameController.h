@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 #include "Board.h"
 #include "Selection.h"
 
@@ -13,6 +15,7 @@ public:
     FGameController();
     void InitGame();
     std::shared_ptr<FShip> SelectShipAt(FPosition InPosition) const;
+    std::shared_ptr<FShip> SelectShipByName(std::string InName) const;
     void MoveShipTo(FPosition InPosition) const;
     void SetBoard(std::shared_ptr<FBoard>& InBoard);
     void SetSelection(std::shared_ptr<FSelection>& InSelection);

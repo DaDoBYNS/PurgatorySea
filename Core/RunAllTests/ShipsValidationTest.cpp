@@ -12,9 +12,9 @@ TEST(ShipsValidation, validation_should_pass_when_all_ships_are_inside_board)
     
     Validation->SetBoard(Board); 
     
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3);
-    Board->CreateShip(FPosition{ELetter::C, ENumber::Four}, 3);
-    Board->CreateShip(FPosition{ELetter::D, ENumber::Four}, 3);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3, "null");
+    Board->CreateShip(FPosition{ELetter::C, ENumber::Four}, 3, "null");
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Four}, 3, "null");
     
     Validation->ValidateShips(); 
     EXPECT_TRUE(Validation->GetIsValid());
@@ -27,7 +27,7 @@ TEST(ShipsValidation, validation_should_fail_when_a_ship_is_partially_outside_bo
     
     Validation->SetBoard(Board); 
     
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3, "null");
     
     Validation->ValidateShips(); 
     EXPECT_FALSE(Validation->GetIsValid());
@@ -40,8 +40,8 @@ TEST(ShipsValidation, validation_should_fail_when_two_ships_overlap)
     
     Validation->SetBoard(Board); 
     
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3);
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Six}, 5);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3, "null");
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Six}, 5, "null");
     
     Validation->ValidateShips(); 
     EXPECT_FALSE(Validation->GetIsValid()); 
@@ -54,7 +54,7 @@ TEST(ShipsValidation, validation_should_report_outside_board_with_error_highligh
     
     Validation->SetBoard(Board); 
     
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Two}, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Two}, 3, "null");
     
     Validation->ValidateShips(); 
     EXPECT_TRUE(Ship->GetIsErrorHighlighted()); 
@@ -67,8 +67,8 @@ TEST(ShipsValidation, validation_should_report_overlap_with_error_highlight)
     
     Validation->SetBoard(Board); 
     
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
-    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3, "null");
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3, "null");
     
     Validation->ValidateShips(); 
     EXPECT_TRUE(Ship->GetIsErrorHighlighted()); 
@@ -81,9 +81,9 @@ TEST(ShipsValidation, validation_should_report_an_error_to_multiple_ships_with_e
     
     Validation->SetBoard(Board); 
     
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
-    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
-    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3, "null");
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3, "null");
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3, "null");
     
     Validation->ValidateShips();
     EXPECT_TRUE(Ship->GetIsErrorHighlighted() && SecondShip->GetIsErrorHighlighted() && ThirdShip->GetIsErrorHighlighted()); 
@@ -96,9 +96,9 @@ TEST(ShipsValidation, validation_should_remove_error_highlight_to_a_valid_ship)
     
     Validation->SetBoard(Board); 
     
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
-    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
-    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3, "null");
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3, "null");
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3, "null");
     
     Validation->ValidateShips();
     bool bWasInErrorHighlight = Ship->GetIsErrorHighlighted(); 
@@ -120,10 +120,10 @@ TEST(ShipsValidation, validation_should_remove_error_highlight_to_multiple_valid
     
     Validation->SetBoard(Board); 
     
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
-    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
-    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
-    std::shared_ptr<FShip> FourthShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3, "null");
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3, "null");
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3, "null");
+    std::shared_ptr<FShip> FourthShip = Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 3, "null");
     
     Validation->ValidateShips();
     bool bFirstWasInErrorHighlight = Ship->GetIsErrorHighlighted();
@@ -153,10 +153,10 @@ TEST(ShipsValidation, validation_should_pass_when_all_ships_are_in_valid_positio
     
     Validation->SetBoard(Board); 
     
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3);
-    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::B, ENumber::Five}, 3);
-    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::E, ENumber::Six}, 3);
-    std::shared_ptr<FShip> FourthShip = Board->CreateShip(FPosition{ELetter::H, ENumber::Six}, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::D, ENumber::Five}, 3, "null");
+    std::shared_ptr<FShip> SecondShip = Board->CreateShip(FPosition{ELetter::B, ENumber::Five}, 3, "null");
+    std::shared_ptr<FShip> ThirdShip = Board->CreateShip(FPosition{ELetter::E, ENumber::Six}, 3, "null");
+    std::shared_ptr<FShip> FourthShip = Board->CreateShip(FPosition{ELetter::H, ENumber::Six}, 3, "null");
     
     Validation->ValidateShips();
     

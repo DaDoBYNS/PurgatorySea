@@ -54,3 +54,8 @@ void FSelection::SetBoard(std::shared_ptr<FBoard> InBoard)
 {
     Board = InBoard; 
 }
+
+void FSelection::SetSelectedShip(std::shared_ptr<FShip> InSelectedShip)
+{
+    SelectedShip = InSelectedShip;
+}

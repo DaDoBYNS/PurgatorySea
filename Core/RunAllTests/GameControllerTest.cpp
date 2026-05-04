@@ -43,6 +43,36 @@ TEST(GameController, gamecontroller_should_be_initialized_with_starting_ships)
     EXPECT_EQ(GameController->GetBoard()->GetShips().size(), StartingShipNumber); 
 }
 
+TEST(GameController, gamecontroller_should_give_battleship_the_right_name)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
+    
+    GameController->SetBoard(Board);
+    GameController->SetSelection(Selection);
+    GameController->GetSelection()->SetBoard(Board);
+    
+    GameController->InitGame(); 
+    
+    EXPECT_TRUE(GameController->SelectShipByName("battleship") != nullptr); 
+}
+
+TEST(GameController, gamecontroller_should_give_aircraftcarrier_the_right_name)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>(); 
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>(); 
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
+    
+    GameController->SetBoard(Board);
+    GameController->SetSelection(Selection);
+    GameController->GetSelection()->SetBoard(Board);
+    
+    GameController->InitGame(); 
+    
+    EXPECT_TRUE(GameController->SelectShipByName("aircraft carrier") != nullptr); 
+}
+
 TEST(GameController, gamecontroller_should_be_ready_to_start_the_game)
 {
     std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>(); 

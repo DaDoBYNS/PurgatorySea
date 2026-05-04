@@ -12,9 +12,10 @@ void FBoard::InitPlayerBoard()
     Ships.clear();
 }
 
-std::shared_ptr<FShip> FBoard::CreateShip(FPosition InPosition, int InDimension)
+std::shared_ptr<FShip> FBoard::CreateShip(FPosition InPosition, int InDimension, const char* InName)
 {
-    Ships.emplace_back(std::make_shared<FShip>(InPosition, InDimension)); 
+    Ships.emplace_back(std::make_shared<FShip>(InPosition, InDimension));
+    Ships.back()->SetName(InName); 
     return Ships.at(Ships.size() - 1); 
 }
 

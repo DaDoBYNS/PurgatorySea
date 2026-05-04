@@ -17,7 +17,7 @@ class FBoard
 
     void InitPlayerBoard();
 
-    std::shared_ptr<FShip> CreateShip(FPosition InPosition, int InDimension); 
+    std::shared_ptr<FShip> CreateShip(FPosition InPosition, int InDimension, const char* InName); 
     
     void SetHeightAndWidth(int NewHeight, int NewWidth);
     

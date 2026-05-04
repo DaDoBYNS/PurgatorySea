@@ -20,4 +20,5 @@ public:
 
     // Setter
     void SetBoard(std::shared_ptr<FBoard> InBoard);
+    void SetSelectedShip(std::shared_ptr<FShip> InSelectedShip);
 };

@@ -29,7 +29,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PreferredToolArchitecture />
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <VCToolsVersion>14.44.35207</VCToolsVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
@@ -60,17 +61,21 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>X64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <OmitFramePointers>false</OmitFramePointers>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <OmitFramePointers>
+      </OmitFramePointers>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <SDLCheck>true</SDLCheck>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <ConformanceMode>true</ConformanceMode>
+      <SDLCheck>
+      </SDLCheck>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <ConformanceMode>Default</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)PurgatorySeaCore</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

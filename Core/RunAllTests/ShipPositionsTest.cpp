@@ -24,7 +24,7 @@ TEST(ShipsPosition, ship_will_be_deselected)
 TEST(ShipsPosition, ship_should_be_selected_from_selection_class)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1);
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -46,8 +46,8 @@ TEST(ShipsPosition, system_will_not_crash_if_board_is_not_valid_inside_of_select
 TEST(ShipsPosition, ship_already_selected_should_change_if_new_valid_selection_is_performed)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1);
-    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 1);
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1, "null");
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 1, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -64,7 +64,7 @@ TEST(ShipsPosition, ship_already_selected_should_change_if_new_valid_selection_i
 TEST(ShipsPosition, ship_already_selected_should_not_be_valid_if_new_invalid_selection_is_performed)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1);
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -81,8 +81,8 @@ TEST(ShipsPosition, ship_already_selected_should_not_be_valid_if_new_invalid_sel
 TEST(ShipsPosition, ship_selected_should_deselect_if_selection_changed)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1);
-    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 1);
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1, "null");
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Six}, 1, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -99,7 +99,7 @@ TEST(ShipsPosition, ship_selected_should_deselect_if_selection_changed)
 TEST(ShipsPosition, ship_will_be_selected_given_by_a_position)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1); 
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1, "null"); 
     FSelection Selection;
     Selection.SetBoard(Board);
     
@@ -111,7 +111,7 @@ TEST(ShipsPosition, ship_will_be_selected_given_by_a_position)
 TEST(ShipsPosition, ship_will_not_be_selected_given_by_an_empty_position)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1); 
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 1, "null"); 
     FSelection Selection;
     Selection.SetBoard(Board);
     
@@ -123,10 +123,10 @@ TEST(ShipsPosition, ship_will_be_selected_given_by_a_position_among_other_ships)
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
     FSelection Selection; 
     Selection.SetBoard(Board);
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Four}, 1); 
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 1); 
-    Board->CreateShip(FPosition{ELetter::C, ENumber::Four}, 1); 
-    Board->CreateShip(FPosition{ELetter::D, ENumber::Four}, 1); 
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Four}, 1, "null"); 
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 1, "null"); 
+    Board->CreateShip(FPosition{ELetter::C, ENumber::Four}, 1, "null"); 
+    Board->CreateShip(FPosition{ELetter::D, ENumber::Four}, 1, "null"); 
     
     std::shared_ptr<FShip> Ship = Selection.SelectShipAt(FPosition{ELetter::B, ENumber::Four}); 
     
@@ -137,7 +137,7 @@ TEST(ShipsPosition, created_ship_should_have_correct_dimension)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
 
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::A, ENumber::Three}, 3, "null");
 
     EXPECT_EQ(Ship->GetDimension(), 3);
 }
@@ -145,7 +145,7 @@ TEST(ShipsPosition, created_ship_should_have_correct_dimension)
 TEST(ShipsPosition, ship_should_be_selectable_at_different_positions)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -168,7 +168,7 @@ TEST(ShipsPosition, ship_selection_should_always_be_in_the_first_position)
 {
     FPosition StartPosition = FPosition{ELetter::B, ENumber::Four}; 
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Four}, 3, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -192,7 +192,7 @@ TEST(ShipsPosition, ship_can_be_created_even_if_partially_outside_board)
     FPosition StartPosition = FPosition{ELetter::B, ENumber::Two}; 
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
     
-    std::shared_ptr<FShip> Ship = Board->CreateShip(StartPosition, 3);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(StartPosition, 3, "null");
  
     EXPECT_TRUE(Ship != nullptr);
 }
@@ -202,7 +202,7 @@ TEST(ShipsPosition, ship_should_be_selectable_even_if_partially_outside_board)
     FPosition StartPosition = FPosition{ELetter::B, ENumber::Two}; 
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
     
-    Board->CreateShip(StartPosition, 3);
+    Board->CreateShip(StartPosition, 3, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -215,7 +215,7 @@ TEST(ShipsPosition, ship_should_be_selectable_even_if_partially_outside_board)
 TEST(ShipsPosition, existing_ship_should_be_able_to_move_to_a_new_position)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -241,7 +241,7 @@ TEST(ShipsPosition, system_will_not_crash_inside_of_method_selection_ship_if_sel
 TEST(ShipsPosition, ship_moved_to_a_new_position_should_be_selectable_again_to_any_of_its_valid_point)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
-    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3);
+    Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3, "null");
     
     FSelection Selection;
     Selection.SetBoard(Board);
@@ -266,8 +266,8 @@ TEST(ShipsPosition, ship_can_be_created_even_if_overlapping_another_ship)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
 
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3);
-    std::shared_ptr<FShip> OverlappingShip = Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 4);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 3, "null");
+    std::shared_ptr<FShip> OverlappingShip = Board->CreateShip(FPosition{ELetter::B, ENumber::Two}, 4, "null");
     
     
     EXPECT_TRUE(Ship != nullptr && OverlappingShip != nullptr);

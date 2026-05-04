@@ -34,7 +34,7 @@ TEST(ImplementationBoard, check_if_board_is_cleared_after_size_change)
 {
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
 
-    Board->CreateShip(FPosition{ELetter::A, ENumber::One}, 1);
+    Board->CreateShip(FPosition{ELetter::A, ENumber::One}, 1, "null");
     Board->SetHeightAndWidth(31, 31);
 
     auto Ships = Board->GetShips();
@@ -48,7 +48,7 @@ TEST(ImplementationBoard, check_if_place_ship_base_case_works)
     Board->SetHeightAndWidth(10, 10);
     Board->InitPlayerBoard();
 
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::A, ENumber::One}, 1);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::A, ENumber::One}, 1, "null");
 
     std::vector<std::shared_ptr<FShip>> Ships = Board->GetShips();
 
@@ -63,7 +63,7 @@ TEST(ImplementationBoard, check_if_place_ship_general_case_works)
     Board->SetHeightAndWidth(10, 10);
     Board->InitPlayerBoard();
 
-    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::C, ENumber::Eight}, 1);
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::C, ENumber::Eight}, 1, "null");
 
     auto Ships = Board->GetShips();
 

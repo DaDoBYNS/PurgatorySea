@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <vector>
 
 #include "Position.h"
@@ -8,6 +9,7 @@ class FShip
     bool bIsSelected;
     bool bIsErrorHighlighted;
     std::vector<FPosition> Positions; 
+    std::string Name; 
     int Dimension; 
 public:
     FShip(FPosition InPosition, int InDimension);
@@ -18,6 +20,7 @@ public:
     int GetDimension() const;
     FPosition GetFirstPosition() const;
     bool GetIsErrorHighlighted() const;
+    std::string GetName() const; 
 
     // Setter
     void SetIsSelected(bool bInIsSelected);
@@ -25,4 +28,5 @@ public:
     void SetDimension(int InDimension);
     void SetPosition(FPosition InPosition);
     void SetIsErrorHighlighted(bool bInIsErrorHighlighted);
+    void SetName(std::string InName);
 };
