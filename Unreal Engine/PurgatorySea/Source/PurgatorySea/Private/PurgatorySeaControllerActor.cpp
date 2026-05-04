@@ -90,14 +90,16 @@ void APurgatorySeaControllerActor::OnShipClicked(AActor* HitActor)
 		return;
 
 	FPosition Position{
-		static_cast<int>(HitActor->GetActorLocation().X / 100.f),
-		static_cast<int>(HitActor->GetActorLocation().Y / 100.f)
+		static_cast<ELetter>(FMath::RoundToInt(HitActor->GetActorLocation().X / 100.f)),
+		static_cast<ENumber>(FMath::RoundToInt(HitActor->GetActorLocation().Y / 100.f))
 	};
 
 	std::shared_ptr<FShip> Ship = GameController->SelectShipAt(Position);
 
 	if (!Ship)
 		return;
+
+	UE_LOG(LogTemp, Warning, TEXT("Selected ship name: %s"), *FString(Ship->GetName().c_str()));
 
 	if (BoardPositions)
 	{

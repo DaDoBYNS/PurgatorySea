@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -26,11 +28,21 @@ public:
 	TSubclassOf<AShipActor> BattleshipClass;
 
 	UPROPERTY(EditAnywhere, Category = "Ships")
+	TSubclassOf<AShipActor> AircraftCarrierClass;
+
+	UPROPERTY(EditAnywhere, Category = "Ships")
 	UMaterialInterface* SelectedShipMaterial;
-	
+
 	void PlaceShips(const std::vector<std::shared_ptr<FShip>>& CoreShips);
 	void ClearShips();
 
 private:
-	void SpawnBattleship(const std::shared_ptr<FShip>& Ship, FVector Loc, FRotator Rot, FActorSpawnParameters Params);
+	void SpawnShip(
+		const std::shared_ptr<FShip>& Ship,
+		FVector Loc,
+		FRotator Rot,
+		FActorSpawnParameters Params
+	);
+
+	TSubclassOf<AShipActor> GetShipClassByName(const std::string& ShipName) const;
 };

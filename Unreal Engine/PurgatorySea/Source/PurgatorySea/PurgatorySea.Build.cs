@@ -17,7 +17,7 @@ public class PurgatorySea : ModuleRules
 		
 		PublicIncludePaths.Add(ProjectRoot + "../../Core/PurgatorySeaCore/");
 		
-		PublicAdditionalLibraries.Add(ProjectRoot + "../../Core/x64/Debug/PurgatorySeaCore.lib");
+		PublicAdditionalLibraries.Add(ProjectRoot + "../../Core/x64/Release/PurgatorySeaCore.lib");
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		

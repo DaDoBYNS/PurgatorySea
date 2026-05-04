@@ -509,41 +509,41 @@
 "../../../Engine/Content/BasicShapes/Cone.ubulk" 508
 "../../../Engine/Content/BasicShapes/Cone.uasset" 509
 "../../../Engine/Content/BasicShapes/Cone.uexp" 510
-"../../../Engine/Content/EngineSky/VolumetricClouds/CloudWeatherTexture.uasset" 511
-"../../../Engine/Content/EngineSky/VolumetricClouds/CloudWeatherTexture.uexp" 512
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uasset" 513
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uexp" 514
-"../../../Engine/Content/EngineSky/VolumetricClouds/CloudGradientTexture.uasset" 515
-"../../../Engine/Content/EngineSky/VolumetricClouds/CloudGradientTexture.uexp" 516
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseShape64.ubulk" 517
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseShape64.uasset" 518
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseShape64.uexp" 519
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseShape64.uasset" 520
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseShape64.uexp" 521
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseErosion.ubulk" 522
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseErosion.uasset" 523
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseErosion.uexp" 524
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseErosion32.uasset" 525
-"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseErosion32.uexp" 526
-"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud.uasset" 527
-"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud.uexp" 528
-"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud_Inst.uasset" 529
-"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud_Inst.uexp" 530
-"../../../Engine/Content/EngineResources/FilmGrains/Marcie_Grain_v3_128_M2_000.uasset" 531
-"../../../Engine/Content/EngineResources/FilmGrains/Marcie_Grain_v3_128_M2_000.uexp" 532
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_PlayerController.uasset" 533
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_PlayerController.uexp" 534
-"../../../Engine/Content/BasicShapes/Cube.ubulk" 535
-"../../../Engine/Content/BasicShapes/Cube.uasset" 536
-"../../../Engine/Content/BasicShapes/Cube.uexp" 537
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_PlayerTile.uasset" 538
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_PlayerTile.uexp" 539
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uasset" 540
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uexp" 541
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uasset" 542
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uexp" 543
-"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uasset" 544
-"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uexp" 545
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uasset" 511
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uexp" 512
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uasset" 513
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uexp" 514
+"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uasset" 515
+"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uexp" 516
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_PlayerController.uasset" 517
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_PlayerController.uexp" 518
+"../../../Engine/Content/BasicShapes/Cube.ubulk" 519
+"../../../Engine/Content/BasicShapes/Cube.uasset" 520
+"../../../Engine/Content/BasicShapes/Cube.uexp" 521
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_PlayerTile.uasset" 522
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_PlayerTile.uexp" 523
+"../../../Engine/Content/EngineSky/VolumetricClouds/CloudWeatherTexture.uasset" 524
+"../../../Engine/Content/EngineSky/VolumetricClouds/CloudWeatherTexture.uexp" 525
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uasset" 526
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uexp" 527
+"../../../Engine/Content/EngineSky/VolumetricClouds/CloudGradientTexture.uasset" 528
+"../../../Engine/Content/EngineSky/VolumetricClouds/CloudGradientTexture.uexp" 529
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseShape64.ubulk" 530
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseShape64.uasset" 531
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseShape64.uexp" 532
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseShape64.uasset" 533
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseShape64.uexp" 534
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseErosion.ubulk" 535
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseErosion.uasset" 536
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_NoiseErosion.uexp" 537
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseErosion32.uasset" 538
+"../../../Engine/Content/EngineSky/VolumetricClouds/T_VolumeNoiseErosion32.uexp" 539
+"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud.uasset" 540
+"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud.uexp" 541
+"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud_Inst.uasset" 542
+"../../../Engine/Content/EngineSky/VolumetricClouds/m_SimpleVolumetricCloud_Inst.uexp" 543
+"../../../Engine/Content/EngineResources/FilmGrains/Marcie_Grain_v3_128_M2_000.uasset" 544
+"../../../Engine/Content/EngineResources/FilmGrains/Marcie_Grain_v3_128_M2_000.uexp" 545
 "../../../Engine/Content/EditorResources/SequenceRecorder/RecordingIndicator.uasset" 546
 "../../../Engine/Content/EditorResources/SequenceRecorder/RecordingIndicator.uexp" 547
 "../../../Engine/Content/EditorResources/SequenceRecorder/Countdown.uasset" 548
@@ -552,103 +552,103 @@
 "../../../Engine/Content/Functions/Engine_MaterialFunctions01/Shading/PowerToRoughness.uexp" 551
 "../../../Engine/Content/Functions/Engine_MaterialFunctions01/Shading/ConvertFromDiffSpec.uasset" 552
 "../../../Engine/Content/Functions/Engine_MaterialFunctions01/Shading/ConvertFromDiffSpec.uexp" 553
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0.ubulk" 554
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0.uasset" 555
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0.uexp" 556
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0_Mat.uasset" 557
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0_Mat.uexp" 558
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm.ubulk" 559
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm.uasset" 560
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm.uexp" 561
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_Mat.uasset" 562
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_Mat.uexp" 563
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L2_2_tga_15853527909305393568.ubulk" 564
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L2_2_tga_15853527909305393568.uasset" 565
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L2_2_tga_15853527909305393568.uexp" 566
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L1_2_tga_11899704555594244116.ubulk" 567
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L1_2_tga_11899704555594244116.uasset" 568
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L1_2_tga_11899704555594244116.uexp" 569
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6AL_8153810648107067296.ubulk" 570
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6AL_8153810648107067296.uasset" 571
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6AL_8153810648107067296.uexp" 572
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/phalanx_base_d_jpg_jpg.ubulk" 573
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/phalanx_base_d_jpg_jpg.uasset" 574
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/phalanx_base_d_jpg_jpg.uexp" 575
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_45_mod_4_base_d_jpg_jpg.ubulk" 576
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_45_mod_4_base_d_jpg_jpg.uasset" 577
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_45_mod_4_base_d_jpg_jpg.uexp" 578
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_38_base_d_jpg_jpg.ubulk" 579
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_38_base_d_jpg_jpg.uasset" 580
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_38_base_d_jpg_jpg.uexp" 581
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_32_base_d_jpg_jpg.ubulk" 582
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_32_base_d_jpg_jpg.uasset" 583
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_32_base_d_jpg_jpg.uexp" 584
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/JackHLucas.ubulk" 585
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/JackHLucas.uasset" 586
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/JackHLucas.uexp" 587
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/arleigh_burke_detail_base_d_jpg_jpg.ubulk" 588
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/arleigh_burke_detail_base_d_jpg_jpg.uasset" 589
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/arleigh_burke_detail_base_d_jpg_jpg.uexp" 590
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_texture_d_jpg_jpg.ubulk" 591
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_texture_d_jpg_jpg.uasset" 592
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_texture_d_jpg_jpg.uexp" 593
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_blade_d_jpg_jpg.ubulk" 594
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_blade_d_jpg_jpg.uasset" 595
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_blade_d_jpg_jpg.uexp" 596
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_SPEC.uasset" 597
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_SPEC.uexp" 598
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_OCC.uasset" 599
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_OCC.uexp" 600
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_NRM.uasset" 601
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_NRM.uexp" 602
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Roughness.ubulk" 603
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Roughness.uasset" 604
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Roughness.uexp" 605
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Normal.ubulk" 606
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Normal.uasset" 607
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Normal.uexp" 608
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Metalness.ubulk" 609
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Metalness.uasset" 610
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Metalness.uexp" 611
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Color.ubulk" 612
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Color.uasset" 613
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Color.uexp" 614
-"../../../Engine/Content/EngineMaterials/BaseFlattenNormalMap.uasset" 615
-"../../../Engine/Content/EngineMaterials/BaseFlattenNormalMap.uexp" 616
-"../../../Engine/Content/EngineMaterials/BaseFlattenGrayscaleMap.uasset" 617
-"../../../Engine/Content/EngineMaterials/BaseFlattenGrayscaleMap.uexp" 618
-"../../../Engine/Content/EngineMaterials/BaseFlattenDiffuseMap.uasset" 619
-"../../../Engine/Content/EngineMaterials/BaseFlattenDiffuseMap.uexp" 620
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/PivotPainter2/Black_1x1_EXR_Texture.uasset" 621
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/PivotPainter2/Black_1x1_EXR_Texture.uexp" 622
-"../../../Engine/Content/EngineMaterials/BaseFlattenEmissiveMap.uasset" 623
-"../../../Engine/Content/EngineMaterials/BaseFlattenEmissiveMap.uexp" 624
-"../../../Engine/Content/EngineMaterials/BaseFlattenLinearColor.uasset" 625
-"../../../Engine/Content/EngineMaterials/BaseFlattenLinearColor.uexp" 626
-"../../../Engine/Content/EngineMaterials/FlattenMaterial.uasset" 627
-"../../../Engine/Content/EngineMaterials/FlattenMaterial.uexp" 628
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8_77AE58FC46D673FA29FB4F8DD3EE322F.uasset" 629
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8_77AE58FC46D673FA29FB4F8DD3EE322F.uexp" 630
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_BCAB66A5447DD5CDDB34FD8016F29695.uasset" 631
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_BCAB66A5447DD5CDDB34FD8016F29695.uexp" 632
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8.uasset" 633
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8.uexp" 634
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_4BEC75D24FF84CF74479AB9DAEBC9077.uasset" 635
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_4BEC75D24FF84CF74479AB9DAEBC9077.uexp" 636
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/YugoslavNavyFlag.uasset" 637
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/YugoslavNavyFlag.uexp" 638
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/Pallete128.ubulk" 639
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/Pallete128.uasset" 640
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/Pallete128.uexp" 641
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoRough.ubulk" 642
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoRough.uasset" 643
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoRough.uexp" 644
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoNormal.ubulk" 645
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoNormal.uasset" 646
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoNormal.uexp" 647
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoDiff.ubulk" 648
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoDiff.uasset" 649
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoDiff.uexp" 650
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L2_2_tga_15853527909305393568.ubulk" 554
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L2_2_tga_15853527909305393568.uasset" 555
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L2_2_tga_15853527909305393568.uexp" 556
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L1_2_tga_11899704555594244116.ubulk" 557
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L1_2_tga_11899704555594244116.uasset" 558
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6L1_2_tga_11899704555594244116.uexp" 559
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6AL_8153810648107067296.ubulk" 560
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6AL_8153810648107067296.uasset" 561
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/SH6AL_8153810648107067296.uexp" 562
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/phalanx_base_d_jpg_jpg.ubulk" 563
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/phalanx_base_d_jpg_jpg.uasset" 564
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/phalanx_base_d_jpg_jpg.uexp" 565
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_45_mod_4_base_d_jpg_jpg.ubulk" 566
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_45_mod_4_base_d_jpg_jpg.uasset" 567
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_45_mod_4_base_d_jpg_jpg.uexp" 568
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_38_base_d_jpg_jpg.ubulk" 569
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_38_base_d_jpg_jpg.uasset" 570
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_38_base_d_jpg_jpg.uexp" 571
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_32_base_d_jpg_jpg.ubulk" 572
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_32_base_d_jpg_jpg.uasset" 573
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/mk_32_base_d_jpg_jpg.uexp" 574
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/JackHLucas.ubulk" 575
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/JackHLucas.uasset" 576
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/JackHLucas.uexp" 577
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/arleigh_burke_detail_base_d_jpg_jpg.ubulk" 578
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/arleigh_burke_detail_base_d_jpg_jpg.uasset" 579
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/arleigh_burke_detail_base_d_jpg_jpg.uexp" 580
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_texture_d_jpg_jpg.ubulk" 581
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_texture_d_jpg_jpg.uasset" 582
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_texture_d_jpg_jpg.uexp" 583
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_blade_d_jpg_jpg.ubulk" 584
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_blade_d_jpg_jpg.uasset" 585
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/textures/4295932633228651_UH60_blade_d_jpg_jpg.uexp" 586
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_SPEC.uasset" 587
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_SPEC.uexp" 588
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_OCC.uasset" 589
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_OCC.uexp" 590
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_NRM.uasset" 591
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/MetalFasterners0067_2_download600_NRM.uexp" 592
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Roughness.ubulk" 593
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Roughness.uasset" 594
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Roughness.uexp" 595
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Normal.ubulk" 596
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Normal.uasset" 597
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Normal.uexp" 598
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Metalness.ubulk" 599
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Metalness.uasset" 600
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Metalness.uexp" 601
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Color.ubulk" 602
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Color.uasset" 603
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/textures/Metal003_2K_Color.uexp" 604
+"../../../Engine/Content/EngineMaterials/BaseFlattenNormalMap.uasset" 605
+"../../../Engine/Content/EngineMaterials/BaseFlattenNormalMap.uexp" 606
+"../../../Engine/Content/EngineMaterials/BaseFlattenGrayscaleMap.uasset" 607
+"../../../Engine/Content/EngineMaterials/BaseFlattenGrayscaleMap.uexp" 608
+"../../../Engine/Content/EngineMaterials/BaseFlattenDiffuseMap.uasset" 609
+"../../../Engine/Content/EngineMaterials/BaseFlattenDiffuseMap.uexp" 610
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/PivotPainter2/Black_1x1_EXR_Texture.uasset" 611
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/PivotPainter2/Black_1x1_EXR_Texture.uexp" 612
+"../../../Engine/Content/EngineMaterials/BaseFlattenEmissiveMap.uasset" 613
+"../../../Engine/Content/EngineMaterials/BaseFlattenEmissiveMap.uexp" 614
+"../../../Engine/Content/EngineMaterials/BaseFlattenLinearColor.uasset" 615
+"../../../Engine/Content/EngineMaterials/BaseFlattenLinearColor.uexp" 616
+"../../../Engine/Content/EngineMaterials/FlattenMaterial.uasset" 617
+"../../../Engine/Content/EngineMaterials/FlattenMaterial.uexp" 618
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8_77AE58FC46D673FA29FB4F8DD3EE322F.uasset" 619
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8_77AE58FC46D673FA29FB4F8DD3EE322F.uexp" 620
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_BCAB66A5447DD5CDDB34FD8016F29695.uasset" 621
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_BCAB66A5447DD5CDDB34FD8016F29695.uexp" 622
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8.uasset" 623
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_76EE1F6C40E07BD5E60630A5C0305BF8.uexp" 624
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_4BEC75D24FF84CF74479AB9DAEBC9077.uasset" 625
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/M_M_submarin__Material_4BEC75D24FF84CF74479AB9DAEBC9077.uexp" 626
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/YugoslavNavyFlag.uasset" 627
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/YugoslavNavyFlag.uexp" 628
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/Pallete128.ubulk" 629
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/Pallete128.uasset" 630
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/textures/Pallete128.uexp" 631
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoRough.ubulk" 632
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoRough.uasset" 633
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoRough.uexp" 634
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoNormal.ubulk" 635
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoNormal.uasset" 636
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoNormal.uexp" 637
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoDiff.ubulk" 638
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoDiff.uasset" 639
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/textures/DogoDiff.uexp" 640
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0.ubulk" 641
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0.uasset" 642
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0.uexp" 643
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0_Mat.uasset" 644
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/textures/Material_Palette_norm_0_Mat.uexp" 645
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm.ubulk" 646
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm.uasset" 647
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm.uexp" 648
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_Mat.uasset" 649
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_Mat.uexp" 650
 "D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoRough.ubulk" 651
 "D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoRough.uasset" 652
 "D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoRough.uexp" 653
@@ -718,150 +718,150 @@
 "D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/4295932633228651_UH60_blade_d_jpg_jpg.ubulk" 717
 "D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/4295932633228651_UH60_blade_d_jpg_jpg.uasset" 718
 "D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/4295932633228651_UH60_blade_d_jpg_jpg.uexp" 719
-"../../../Engine/Content/BasicShapes/Plane.ubulk" 720
-"../../../Engine/Content/BasicShapes/Plane.uasset" 721
-"../../../Engine/Content/BasicShapes/Plane.uexp" 722
-"../../../Engine/Content/EngineSky/T_Sky_Stars.ubulk" 723
-"../../../Engine/Content/EngineSky/T_Sky_Stars.uasset" 724
-"../../../Engine/Content/EngineSky/T_Sky_Stars.uexp" 725
-"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.ubulk" 726
-"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.uasset" 727
-"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.uexp" 728
-"../../../Engine/Content/EngineSky/T_Sky_Blue.ubulk" 729
-"../../../Engine/Content/EngineSky/T_Sky_Blue.uasset" 730
-"../../../Engine/Content/EngineSky/T_Sky_Blue.uexp" 731
-"../../../Engine/Content/EngineSky/M_Sky_Panning_Clouds2.uasset" 732
-"../../../Engine/Content/EngineSky/M_Sky_Panning_Clouds2.uexp" 733
-"../../../Engine/Content/EngineSky/SM_SkySphere.ubulk" 734
-"../../../Engine/Content/EngineSky/SM_SkySphere.uasset" 735
-"../../../Engine/Content/EngineSky/SM_SkySphere.uexp" 736
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Images/QuestionMarkImage_Horizontal.uasset" 737
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Images/QuestionMarkImage_Horizontal.uexp" 738
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_EnemyTile_Horizontal.uasset" 739
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_EnemyTile_Horizontal.uexp" 740
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_SelectedShipTransparent.uasset" 741
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_SelectedShipTransparent.uexp" 742
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_Controller.uasset" 743
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_Controller.uexp" 744
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoDiff.ubulk" 745
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoDiff.uasset" 746
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoDiff.uexp" 747
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Material__40.uasset" 748
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Material__40.uexp" 749
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Dogo.ubulk" 750
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Dogo.uasset" 751
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Dogo.uexp" 752
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/YugoslavNavyFlag.uasset" 753
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/YugoslavNavyFlag.uexp" 754
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_002.uasset" 755
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_002.uexp" 756
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Pallete128.ubulk" 757
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Pallete128.uasset" 758
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Pallete128.uexp" 759
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_001.uasset" 760
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_001.uexp" 761
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Shershen-ClassTorpedoBoat.ubulk" 762
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Shershen-ClassTorpedoBoat.uasset" 763
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Shershen-ClassTorpedoBoat.uexp" 764
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_SmallShip.uasset" 765
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_SmallShip.uexp" 766
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm1.uasset" 767
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm1.uexp" 768
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Down.ubulk" 769
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Down.uasset" 770
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Down.uexp" 771
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Top.ubulk" 772
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Top.uasset" 773
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Top.uexp" 774
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Middle.ubulk" 775
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Middle.uasset" 776
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Middle.uexp" 777
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_AircraftCarrier.uasset" 778
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_AircraftCarrier.uexp" 779
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_OwnTile.uasset" 780
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_OwnTile.uexp" 781
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/Material.uasset" 782
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/Material.uexp" 783
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/submarin_.ubulk" 784
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/submarin_.uasset" 785
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/submarin_.uexp" 786
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Submarine.uasset" 787
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Submarine.uexp" 788
-"../../../Engine/Content/BasicShapes/BasicShapeMaterial.uasset" 789
-"../../../Engine/Content/BasicShapes/BasicShapeMaterial.uexp" 790
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/BP_BoardPositions.uasset" 791
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/BP_BoardPositions.uexp" 792
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/JackHLucas.ubulk" 793
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/JackHLucas.uasset" 794
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/JackHLucas.uexp" 795
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Mat_10.uasset" 796
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Mat_10.uexp" 797
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Jack_H__Lucas_.ubulk" 798
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Jack_H__Lucas_.uasset" 799
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Jack_H__Lucas_.uexp" 800
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Battleship.uasset" 801
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Battleship.uexp" 802
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_002_M.uasset" 803
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_002_M.uexp" 804
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Glasses_01_m.uasset" 805
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Glasses_01_m.uexp" 806
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Gun_001_M.uasset" 807
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Gun_001_M.uexp" 808
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_MetalPipes_01_M.uasset" 809
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_MetalPipes_01_M.uexp" 810
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_002_M.uasset" 811
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_002_M.uexp" 812
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_001_M.uasset" 813
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_001_M.uexp" 814
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_001_M.uasset" 815
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_001_M.uexp" 816
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_004_M.uasset" 817
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_004_M.uexp" 818
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_005_M.uasset" 819
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_005_M.uexp" 820
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_003_M.uasset" 821
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_003_M.uexp" 822
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_004_M.uasset" 823
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_004_M.uexp" 824
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_003_M.uasset" 825
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_003_M.uexp" 826
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Antena_001_M.uasset" 827
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Antena_001_M.uexp" 828
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/swift_boat_001.ubulk" 829
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/swift_boat_001.uasset" 830
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/swift_boat_001.uexp" 831
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_SwiftBoat.uasset" 832
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_SwiftBoat.uexp" 833
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/PurgatorySeaMap.uexp" 834
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/PurgatorySeaMap.umap" 835
-"../../../Engine/Content/EngineMaterials/BlendFunc_DefBlend.uasset" 836
-"../../../Engine/Content/EngineMaterials/BlendFunc_DefBlend.uexp" 837
-"../../../Engine/Content/EngineMaterials/BlendFunc_DefBase.uasset" 838
-"../../../Engine/Content/EngineMaterials/BlendFunc_DefBase.uexp" 839
-"../../../Engine/Content/Functions/Engine_MaterialFunctions03/Blends/Blend_Overlay.uasset" 840
-"../../../Engine/Content/Functions/Engine_MaterialFunctions03/Blends/Blend_Overlay.uexp" 841
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/T_GridChecker_A.ubulk" 842
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/T_GridChecker_A.uasset" 843
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/T_GridChecker_A.uexp" 844
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uasset" 845
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uexp" 846
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Gradient/LinearGradient.uasset" 847
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Gradient/LinearGradient.uexp" 848
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/ImageAdjustment/CheapContrast.uasset" 849
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/ImageAdjustment/CheapContrast.uexp" 850
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MF_ProcGrid.uasset" 851
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MF_ProcGrid.uexp" 852
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/M_ProcGrid.uasset" 853
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/M_ProcGrid.uexp" 854
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MI_ProcGrid.uasset" 855
-"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MI_ProcGrid.uexp" 856
-"../../../Engine/Content/MapTemplates/SM_Template_Map_Floor.ubulk" 857
-"../../../Engine/Content/MapTemplates/SM_Template_Map_Floor.uasset" 858
-"../../../Engine/Content/MapTemplates/SM_Template_Map_Floor.uexp" 859
-"../../../Engine/Content/EngineSky/M_SimpleSkyDome.uasset" 860
-"../../../Engine/Content/EngineSky/M_SimpleSkyDome.uexp" 861
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/EnemyBoard.uexp" 862
-"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/EnemyBoard.umap" 863
+"../../../Engine/Content/EngineMaterials/BlendFunc_DefBlend.uasset" 720
+"../../../Engine/Content/EngineMaterials/BlendFunc_DefBlend.uexp" 721
+"../../../Engine/Content/EngineMaterials/BlendFunc_DefBase.uasset" 722
+"../../../Engine/Content/EngineMaterials/BlendFunc_DefBase.uexp" 723
+"../../../Engine/Content/Functions/Engine_MaterialFunctions03/Blends/Blend_Overlay.uasset" 724
+"../../../Engine/Content/Functions/Engine_MaterialFunctions03/Blends/Blend_Overlay.uexp" 725
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/T_GridChecker_A.ubulk" 726
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/T_GridChecker_A.uasset" 727
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/T_GridChecker_A.uexp" 728
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uasset" 729
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uexp" 730
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Gradient/LinearGradient.uasset" 731
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Gradient/LinearGradient.uexp" 732
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/ImageAdjustment/CheapContrast.uasset" 733
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/ImageAdjustment/CheapContrast.uexp" 734
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MF_ProcGrid.uasset" 735
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MF_ProcGrid.uexp" 736
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/M_ProcGrid.uasset" 737
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/M_ProcGrid.uexp" 738
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MI_ProcGrid.uasset" 739
+"../../../Engine/Content/OpenWorldTemplate/LandscapeMaterial/MI_ProcGrid.uexp" 740
+"../../../Engine/Content/EngineSky/T_Sky_Stars.ubulk" 741
+"../../../Engine/Content/EngineSky/T_Sky_Stars.uasset" 742
+"../../../Engine/Content/EngineSky/T_Sky_Stars.uexp" 743
+"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.ubulk" 744
+"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.uasset" 745
+"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.uexp" 746
+"../../../Engine/Content/EngineSky/T_Sky_Blue.ubulk" 747
+"../../../Engine/Content/EngineSky/T_Sky_Blue.uasset" 748
+"../../../Engine/Content/EngineSky/T_Sky_Blue.uexp" 749
+"../../../Engine/Content/EngineSky/M_Sky_Panning_Clouds2.uasset" 750
+"../../../Engine/Content/EngineSky/M_Sky_Panning_Clouds2.uexp" 751
+"../../../Engine/Content/EngineSky/SM_SkySphere.ubulk" 752
+"../../../Engine/Content/EngineSky/SM_SkySphere.uasset" 753
+"../../../Engine/Content/EngineSky/SM_SkySphere.uexp" 754
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Images/QuestionMarkImage_Horizontal.uasset" 755
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Images/QuestionMarkImage_Horizontal.uexp" 756
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_EnemyTile_Horizontal.uasset" 757
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_EnemyTile_Horizontal.uexp" 758
+"../../../Engine/Content/MapTemplates/SM_Template_Map_Floor.ubulk" 759
+"../../../Engine/Content/MapTemplates/SM_Template_Map_Floor.uasset" 760
+"../../../Engine/Content/MapTemplates/SM_Template_Map_Floor.uexp" 761
+"../../../Engine/Content/EngineSky/M_SimpleSkyDome.uasset" 762
+"../../../Engine/Content/EngineSky/M_SimpleSkyDome.uexp" 763
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/EnemyBoard.uexp" 764
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/EnemyBoard.umap" 765
+"../../../Engine/Content/BasicShapes/Plane.ubulk" 766
+"../../../Engine/Content/BasicShapes/Plane.uasset" 767
+"../../../Engine/Content/BasicShapes/Plane.uexp" 768
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/YugoslavNavyFlag.uasset" 769
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/YugoslavNavyFlag.uexp" 770
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_002.uasset" 771
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_002.uexp" 772
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Pallete128.ubulk" 773
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Pallete128.uasset" 774
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Pallete128.uexp" 775
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_001.uasset" 776
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Material_001.uexp" 777
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Shershen-ClassTorpedoBoat.ubulk" 778
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Shershen-ClassTorpedoBoat.uasset" 779
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/Shershen-ClassTorpedoBoat/source/Shershen-ClassTorpedoBoat/Shershen-ClassTorpedoBoat.uexp" 780
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Torpedo.uasset" 781
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Torpedo.uexp" 782
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_SelectedShipTransparent.uasset" 783
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_SelectedShipTransparent.uexp" 784
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_Controller.uasset" 785
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Core/BP_Controller.uexp" 786
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoDiff.ubulk" 787
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoDiff.uasset" 788
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/DogoDiff.uexp" 789
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Material__40.uasset" 790
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Material__40.uexp" 791
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Dogo.ubulk" 792
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Dogo.uasset" 793
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/japanese_underwater_aircraft_carrier/source/Dogo4sketch/Dogo.uexp" 794
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm1.uasset" 795
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Material_Palette_norm1.uexp" 796
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Down.ubulk" 797
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Down.uasset" 798
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Down.uexp" 799
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Top.ubulk" 800
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Top.uasset" 801
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Top.uexp" 802
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Middle.ubulk" 803
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Middle.uasset" 804
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/chinese_aircraft_carrier/source/Middle.uexp" 805
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_AircraftCarrier.uasset" 806
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_AircraftCarrier.uexp" 807
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_OwnTile.uasset" 808
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Materials/MAT_OwnTile.uexp" 809
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/Material.uasset" 810
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/Material.uexp" 811
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/submarin_.ubulk" 812
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/submarin_.uasset" 813
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/submarine/source/submarin_.uexp" 814
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Submarine.uasset" 815
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Submarine.uexp" 816
+"../../../Engine/Content/BasicShapes/BasicShapeMaterial.uasset" 817
+"../../../Engine/Content/BasicShapes/BasicShapeMaterial.uexp" 818
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/BP_BoardPositions.uasset" 819
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/BP_BoardPositions.uexp" 820
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/JackHLucas.ubulk" 821
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/JackHLucas.uasset" 822
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/JackHLucas.uexp" 823
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Mat_10.uasset" 824
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Mat_10.uexp" 825
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Jack_H__Lucas_.ubulk" 826
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Jack_H__Lucas_.uasset" 827
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/uss-jack-h-lucas-ddg-125/source/Jack_H__Lucas/Jack_H/Jack_H__Lucas_.uexp" 828
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Battleship.uasset" 829
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_Battleship.uexp" 830
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_002_M.uasset" 831
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_002_M.uexp" 832
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Glasses_01_m.uasset" 833
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Glasses_01_m.uexp" 834
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Gun_001_M.uasset" 835
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Gun_001_M.uexp" 836
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_MetalPipes_01_M.uasset" 837
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_MetalPipes_01_M.uexp" 838
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_002_M.uasset" 839
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_002_M.uexp" 840
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_001_M.uasset" 841
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_001_M.uexp" 842
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_001_M.uasset" 843
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_001_M.uexp" 844
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_004_M.uasset" 845
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_004_M.uexp" 846
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_005_M.uasset" 847
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_005_M.uexp" 848
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_003_M.uasset" 849
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_003_M.uexp" 850
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_004_M.uasset" 851
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Body_004_M.uexp" 852
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_003_M.uasset" 853
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Assets_003_M.uexp" 854
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Antena_001_M.uasset" 855
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/SW_Boat_Antena_001_M.uexp" 856
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/swift_boat_001.ubulk" 857
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/swift_boat_001.uasset" 858
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Models/Ships/a/swift_boat_001.uexp" 859
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_SwiftBoat.uasset" 860
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Blueprints/Actors/BP_SwiftBoat.uexp" 861
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/PurgatorySeaMap.uexp" 862
+"D:/Progetti/PurgatorySeaServer/Unreal Engine/PurgatorySea/Content/Levels/PurgatorySeaMap.umap" 863
 "../../../Engine/Content/Maps/Entry_BuiltData.uasset" 864
 "../../../Engine/Content/Maps/Entry_BuiltData.uexp" 865
 "../../../Engine/Content/Maps/Entry.uexp" 866
