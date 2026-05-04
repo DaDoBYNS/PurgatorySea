@@ -78,3 +78,8 @@ void FShip::SetName(std::string InName)
 {
     Name = InName;
 }
+
+void FShip::SetRotation(ERotation InRotation)
+{
+     Rotation = InRotation;
+}

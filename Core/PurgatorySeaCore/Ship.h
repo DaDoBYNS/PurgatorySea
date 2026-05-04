@@ -32,4 +32,5 @@ public:
     void SetPosition(FPosition InPosition);
     void SetIsErrorHighlighted(bool bInIsErrorHighlighted);
     void SetName(std::string InName);
+    void SetRotation(ERotation InRotation);
 };
