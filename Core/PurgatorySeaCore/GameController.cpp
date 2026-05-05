@@ -40,6 +40,16 @@ void FGameController::MoveShipTo(FPosition InPosition) const
     Selection->MoveShipTo(InPosition);
 }
 
+void FGameController::RotateSelectedShip()
+{
+    if (Selection == nullptr)
+    {
+        return;
+    }
+
+    Selection->RotateSelectedShip();
+}
+
 void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
 {
     Board = InBoard;

@@ -14,11 +14,11 @@ public:
     
     void MoveShipTo(FPosition InPosition);
     
-    // Getter
+    void RotateSelectedShip() const;
     std::shared_ptr<FShip> SelectShipAt(FPosition InPosition);
+    
     std::shared_ptr<FShip> GetSelectedShip() const; 
 
-    // Setter
     void SetBoard(std::shared_ptr<FBoard> InBoard);
     void SetSelectedShip(std::shared_ptr<FShip> InSelectedShip);
 };

@@ -18,6 +18,23 @@ void FSelection::MoveShipTo(FPosition InPosition)
     SelectedShip->SetPositions(ShipPositions);
 }
 
+void FSelection::RotateSelectedShip() const
+{
+    if (SelectedShip == nullptr)
+    {
+        return;
+    }
+
+    if (SelectedShip->GetRotation() == ERotation::Vertical)
+    {
+        SelectedShip->SetRotation(ERotation::Horizontal);
+    }
+    else
+    {
+        SelectedShip->SetRotation(ERotation::Vertical);
+    }
+}
+
 std::shared_ptr<FShip> FSelection::SelectShipAt(FPosition InPosition)
 {
     if (SelectedShip)
