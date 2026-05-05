@@ -30,6 +30,7 @@ public:
     void SetPlayer1ShipPositions(const std::vector<FPosition>& Positions);
     void SetPlayer2ShipPositions(const std::vector<FPosition>& Positions);
     
+    bool IsShotPositionValid(FPosition InPosition) const;
     EEnemyTileType Player1Shoot(FPosition ShotPosition);
     EEnemyTileType Player2Shoot(FPosition ShotPosition);
     

@@ -95,14 +95,30 @@ void FGameController::SetPlayer2ShipPositions(const std::vector<FPosition>& Posi
     }
 }
 
+bool FGameController::IsShotPositionValid(FPosition ShotPosition) const
+{
+    return ShotPosition.Letter >= static_cast<int>(ELetter::A) 
+        && ShotPosition.Letter <= static_cast<int>(ELetter::J)
+        && ShotPosition.Number >= static_cast<int>(ENumber::One) 
+        && ShotPosition.Number <= static_cast<int>(ENumber::Ten);
+}
+
 EEnemyTileType FGameController::Player1Shoot(FPosition ShotPosition)
 {
-    return Player2Board.SetHitPosition(ShotPosition);
+    if (IsShotPositionValid(ShotPosition))
+    {
+        return Player2Board.SetHitPosition(ShotPosition);
+    }
+    return EEnemyTileType::AlredyShot;
 }
 
 EEnemyTileType FGameController::Player2Shoot(FPosition ShotPosition)
 {
-    return Player1Board.SetHitPosition(ShotPosition);
+    if (IsShotPositionValid(ShotPosition))
+    {
+        return Player1Board.SetHitPosition(ShotPosition);
+    }
+    return EEnemyTileType::AlredyShot;
 }
 
 bool FGameController::HasWon(const FEnemyBoard& EnemyBoard)

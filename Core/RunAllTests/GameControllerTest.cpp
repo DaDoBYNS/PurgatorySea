@@ -265,3 +265,37 @@ TEST(GameControllerTest, check_multiple_shot_to_win_and_multiple_ships)
     
     EXPECT_EQ(Controller.CheckWinner(), 1);
 }
+
+TEST(GameControllerTest, check_shot_position_is_valid_in_bounds)
+{
+    FGameController Controller;
+
+    EXPECT_TRUE(Controller.IsShotPositionValid({ELetter::A, ENumber::One}));
+    EXPECT_TRUE(Controller.IsShotPositionValid({ELetter::J, ENumber::Ten}));
+    EXPECT_TRUE(Controller.IsShotPositionValid({ELetter::E, ENumber::Five}));
+}
+
+TEST(GameControllerTest, check_player1_shoot_returns_invalid_out_of_bounds)
+{
+    FGameController Controller;
+    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}});
+
+    EXPECT_EQ(Controller.Player1Shoot({static_cast<ELetter>(-1), ENumber::One}), EEnemyTileType::AlredyShot);
+}
+
+TEST(GameControllerTest, check_player2_shoot_returns_invalid_out_of_bounds)
+{
+    FGameController Controller;
+    Controller.SetPlayer1ShipPositions({{ELetter::A, ENumber::One}});
+
+    EXPECT_EQ(Controller.Player2Shoot({static_cast<ELetter>(-1), ENumber::One}), EEnemyTileType::AlredyShot);
+}
+
+TEST(GameControllerTest, check_player1_shoot_returns_already_shot_on_duplicate)
+{
+    FGameController Controller;
+    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}});
+
+    Controller.Player1Shoot({ELetter::A, ENumber::One});
+    EXPECT_EQ(Controller.Player1Shoot({ELetter::A, ENumber::One}), EEnemyTileType::AlredyShot);
+}
