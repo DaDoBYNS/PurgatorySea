@@ -395,7 +395,7 @@ TEST(GameController, gamecontroller_should_be_able_to_empty_selected_ship_when_r
 
     GameController->InitGame();
 
-    GameController->SelectShipAt(StartPosition);
+    auto Ship = GameController->SelectShipAt(StartPosition);
     GameController->EmptySelectedShip(); 
     
     EXPECT_TRUE(GameController->GetSelection()->GetSelectedShip() == nullptr);

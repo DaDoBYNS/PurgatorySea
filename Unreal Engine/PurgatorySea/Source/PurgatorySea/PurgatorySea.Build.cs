@@ -11,7 +11,19 @@ public class PurgatorySea : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core", 
+			"CoreUObject", 
+			"Engine", 
+			"InputCore", 
+			"HTTP",
+			"Sockets",
+			"Networking",
+			"HttpServer",
+			"Json",
+			"JsonUtilities"
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore"});
 		
