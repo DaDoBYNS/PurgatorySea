@@ -13,10 +13,10 @@ class FShip
     std::string Name;
     ERotation Rotation;
     int Dimension; 
-    void GeneratePositionsFromFirstPosition(FPosition InFirstPosition);
 public:
     FShip(FPosition InPosition, int InDimension);
     
+    void GeneratePositionsFromFirstPosition(FPosition InFirstPosition);
     // Getter
     bool GetIsSelected() const;
     std::vector<FPosition> GetPositions() const;

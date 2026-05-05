@@ -11,16 +11,10 @@ void FSelection::MoveShipTo(FPosition InPosition) const
 {
     if (SelectedShip == nullptr)
     {
-        return; 
+        return;
     }
-    
-    auto ShipPositions = SelectedShip->GetPositions();
-    for (int Index = 0; Index < SelectedShip->GetDimension(); Index++)
-    {
-        ShipPositions[Index] = FPosition{InPosition.Letter, InPosition.Number-Index}; 
-    }
-    
-    SelectedShip->SetPositions(ShipPositions);
+
+    SelectedShip->GeneratePositionsFromFirstPosition(InPosition);
 }
 
 void FSelection::RotateSelectedShip() const

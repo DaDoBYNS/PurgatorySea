@@ -47,5 +47,8 @@ public:
 	void OnTileClicked(AActor* HitActor);
 	
 	UFUNCTION(BlueprintCallable)
+	void EmptySelectedShip();
+	
+	UFUNCTION(BlueprintCallable)
 	void RotateSelectedShip();
 };

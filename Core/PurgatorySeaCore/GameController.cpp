@@ -56,6 +56,14 @@ void FGameController::RotateSelectedShip() const
     Selection->RotateSelectedShip();
 }
 
+void FGameController::EmptySelectedShip() const
+{
+    if (!Selection->GetSelectedShip()) return; 
+    
+    Selection->GetSelectedShip()->SetIsSelected(false);
+    Selection->SetSelectedShip(nullptr);
+}
+
 void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
 {
     Board = InBoard;

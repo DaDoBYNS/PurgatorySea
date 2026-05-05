@@ -27,10 +27,7 @@ void APurgatorySeaControllerActor::BeginPlay()
 
 	GameController->InitGame();
 	
-	if (BoardPositions)
-	{
-		BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-	}
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
 
 // Called every frame
@@ -50,11 +47,8 @@ void APurgatorySeaControllerActor::SelectShip(int Letter, int Number)
 	};
 
 	GameController->SelectShipAt(Position);
-
-	if (BoardPositions)
-	{
-		BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-	}
+	
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
 
 void APurgatorySeaControllerActor::MoveSelectedShip(int Letter, int Number)
@@ -68,11 +62,8 @@ void APurgatorySeaControllerActor::MoveSelectedShip(int Letter, int Number)
 	};
 
 	GameController->MoveShipTo(Position);
-
-	if (BoardPositions)
-	{
-		BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-	}
+	
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
 
 void APurgatorySeaControllerActor::InitGame()
@@ -99,11 +90,8 @@ void APurgatorySeaControllerActor::OnShipClicked(AActor* HitActor)
 		return;
 
 	UE_LOG(LogTemp, Warning, TEXT("Selected ship name: %s"), *FString(Ship->GetName().c_str()));
-
-	if (BoardPositions)
-	{
-		BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-	}
+	
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
 
 void APurgatorySeaControllerActor::OnTileClicked(AActor* HitActor)
@@ -117,11 +105,38 @@ void APurgatorySeaControllerActor::OnTileClicked(AActor* HitActor)
 	};
 
 	GameController->MoveShipTo(Position);
+	auto SelectedShip = GameController->GetSelection()->GetSelectedShip(); 
+	std::vector<FPosition> Positions = SelectedShip->GetPositions();
+	FString PositionsText;
 
-	if (BoardPositions)
+	for (const FPosition& ShipPosition : Positions)
 	{
-		BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+		PositionsText += FString::Printf(
+			TEXT("[Letter = %d, Number = %d] "),
+			static_cast<int>(ShipPosition.Letter),
+			static_cast<int>(ShipPosition.Number)
+		);
 	}
+
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("Positions of %s : %s"),
+		*FString(SelectedShip->GetName().c_str()),
+		*PositionsText
+	);
+	
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+}
+
+void APurgatorySeaControllerActor::EmptySelectedShip()
+{
+	if (!GameController) return; 
+	if (GameController->GetSelection()->GetSelectedShip() == nullptr) return; 
+	
+	GameController->EmptySelectedShip();
+	
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
 
 void APurgatorySeaControllerActor::RotateSelectedShip()
@@ -138,9 +153,6 @@ void APurgatorySeaControllerActor::RotateSelectedShip()
 	}
 
 	GameController->RotateSelectedShip();
-
-	if (BoardPositions)
-	{
-		BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-	}
+	
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
