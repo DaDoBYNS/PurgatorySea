@@ -24,12 +24,9 @@ public:
     void MoveShipTo(FPosition InPosition) const;
     void RotateSelectedShip() const;
     
-<<<<<<< HEAD
     bool IsShotPositionValid(FPosition InPosition) const;
-=======
     void EmptySelectedShip() const;
     
->>>>>>> 5de9b66 (gamecontroller_should_be_able_to_empty_selected_ship_when_requested)
     EEnemyTileType Player1Shoot(FPosition ShotPosition);
     EEnemyTileType Player2Shoot(FPosition ShotPosition);
     

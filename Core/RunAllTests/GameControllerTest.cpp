@@ -372,7 +372,6 @@ TEST(GameController, gamecontroller_should_rotate_selected_ship_through_selectio
     EXPECT_TRUE(Ship->GetRotation() != StartRotation);
 }
 
-<<<<<<< HEAD
 TEST(GameControllerTest, check_player1_shoot_returns_already_shot_on_duplicate)
 {
     FGameController Controller;
@@ -380,7 +379,8 @@ TEST(GameControllerTest, check_player1_shoot_returns_already_shot_on_duplicate)
 
     Controller.Player1Shoot({ELetter::A, ENumber::One});
     EXPECT_EQ(Controller.Player1Shoot({ELetter::A, ENumber::One}), EEnemyTileType::AlredyShot);
-=======
+}
+
 TEST(GameController, gamecontroller_should_be_able_to_empty_selected_ship_when_requested)
 {
     std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>();
@@ -412,5 +412,4 @@ TEST(GameController, gamecontroller_should_not_crash_when_empty_invalid_selected
     GameController->GetSelection()->SetBoard(Board);
     
     EXPECT_NO_THROW(GameController->EmptySelectedShip());
->>>>>>> 5de9b66 (gamecontroller_should_be_able_to_empty_selected_ship_when_requested)
 }
