@@ -12,7 +12,7 @@ class FSelection
 public:
     FSelection();
     
-    void MoveShipTo(FPosition InPosition);
+    void MoveShipTo(FPosition InPosition) const;
     
     void RotateSelectedShip() const;
     std::shared_ptr<FShip> SelectShipAt(FPosition InPosition);

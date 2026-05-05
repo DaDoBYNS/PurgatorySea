@@ -81,7 +81,6 @@ void APurgatorySeaControllerActor::InitGame()
 		return;
 
 	GameController->InitGame();
- 
 }
 
 void APurgatorySeaControllerActor::OnShipClicked(AActor* HitActor)
@@ -118,6 +117,27 @@ void APurgatorySeaControllerActor::OnTileClicked(AActor* HitActor)
 	};
 
 	GameController->MoveShipTo(Position);
+
+	if (BoardPositions)
+	{
+		BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+	}
+}
+
+void APurgatorySeaControllerActor::RotateSelectedShip()
+{
+	if (!GameController)
+	{
+		return;
+	}
+
+	if (GameController->GetSelection()->GetSelectedShip() == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No selected ship to rotate"));
+		return;
+	}
+
+	GameController->RotateSelectedShip();
 
 	if (BoardPositions)
 	{

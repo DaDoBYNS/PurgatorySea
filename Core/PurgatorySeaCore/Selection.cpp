@@ -7,8 +7,13 @@ FSelection::FSelection()
     , SelectedShip(nullptr) 
 {}
 
-void FSelection::MoveShipTo(FPosition InPosition)
+void FSelection::MoveShipTo(FPosition InPosition) const
 {
+    if (SelectedShip == nullptr)
+    {
+        return; 
+    }
+    
     auto ShipPositions = SelectedShip->GetPositions();
     for (int Index = 0; Index < SelectedShip->GetDimension(); Index++)
     {

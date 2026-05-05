@@ -22,7 +22,7 @@ public:
     std::shared_ptr<FShip> SelectShipByName(std::string InName) const;
     
     void MoveShipTo(FPosition InPosition) const;
-    void RotateSelectedShip();
+    void RotateSelectedShip() const;
     
     bool IsShotPositionValid(FPosition InPosition) const;
     EEnemyTileType Player1Shoot(FPosition ShotPosition);

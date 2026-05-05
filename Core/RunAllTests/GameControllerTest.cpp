@@ -31,7 +31,7 @@ TEST(GameController, gamecontroller_should_receive_selection_reference)
     EXPECT_TRUE(GameController->GetSelection() != nullptr); 
 }
 
-TEST(GameControllerSelection, gamecontroller_should_select_ship_at_position)
+TEST(GameController, gamecontroller_should_select_ship_at_position)
 {
     std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>();
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
@@ -48,6 +48,45 @@ TEST(GameControllerSelection, gamecontroller_should_select_ship_at_position)
     EXPECT_TRUE(Ship != nullptr);
     EXPECT_TRUE(Ship->GetIsSelected());
     EXPECT_EQ(GameController->GetSelection()->GetSelectedShip(), Ship);
+}
+
+TEST(GameController, gamecontroller_should_clear_selection_when_invalid_ship_name_is_selected)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
+
+    GameController->SetBoard(Board);
+    GameController->SetSelection(Selection);
+    GameController->GetSelection()->SetBoard(Board);
+
+    GameController->InitGame();
+
+    std::shared_ptr<FShip> Ship = GameController->SelectShipByName("submarine");
+
+    EXPECT_TRUE(Ship != nullptr);
+    EXPECT_TRUE(Ship->GetIsSelected());
+
+    std::shared_ptr<FShip> InvalidShip = GameController->SelectShipByName("invalid ship");
+
+    EXPECT_TRUE(InvalidShip == nullptr);
+    EXPECT_TRUE(GameController->GetSelection()->GetSelectedShip() == nullptr);
+    EXPECT_FALSE(Ship->GetIsSelected());
+}
+
+TEST(GameController, gamecontroller_should_not_crash_when_moving_without_selected_ship)
+{
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
+
+    GameController->SetBoard(Board);
+    GameController->SetSelection(Selection);
+    GameController->GetSelection()->SetBoard(Board);
+
+    GameController->InitGame();
+
+    EXPECT_NO_THROW(GameController->MoveShipTo(FPosition{ELetter::C, ENumber::Four}));
 }
 
 TEST(GameController, gamecontroller_should_be_initialized_with_starting_ships)

@@ -10,12 +10,13 @@ void APurgatorySeaBoardPositions::PlaceShips(const std::vector<std::shared_ptr<F
 	ClearShips();
 
 	FActorSpawnParameters Params;
-	FRotator Rot = FRotator::ZeroRotator;
 
 	for (const std::shared_ptr<FShip>& Ship : CoreShips)
 	{
 		if (!Ship)
+		{
 			continue;
+		}
 
 		FPosition Position = Ship->GetFirstPosition();
 
@@ -23,6 +24,13 @@ void APurgatorySeaBoardPositions::PlaceShips(const std::vector<std::shared_ptr<F
 		Loc.X = static_cast<int>(Position.Letter) * 100.f;
 		Loc.Y = static_cast<int>(Position.Number) * 100.f;
 		Loc.Z = 0.f;
+
+		FRotator Rot = FRotator::ZeroRotator;
+
+		if (Ship->GetRotation() == ERotation::Horizontal)
+		{
+			Rot = FRotator(0.f, -90.f, 0.f);
+		}
 
 		SpawnShip(Ship, Loc, Rot, Params);
 	}
@@ -66,10 +74,9 @@ void APurgatorySeaBoardPositions::SpawnShip(
 	FVector Loc,
 	FRotator Rot,
 	FActorSpawnParameters Params
-)
+	)
 {
-	if (!Ship)
-		return;
+	if (!Ship) return;
 
 	TSubclassOf<AShipActor> ShipClass = GetShipClassByName(Ship->GetName());
 

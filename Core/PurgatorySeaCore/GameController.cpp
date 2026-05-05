@@ -22,6 +22,11 @@ std::shared_ptr<FShip> FGameController::SelectShipAt(FPosition InPosition) const
 
 std::shared_ptr<FShip> FGameController::SelectShipByName(std::string InName) const
 {
+    if (Selection->GetSelectedShip())
+    {
+        Selection->GetSelectedShip()->SetIsSelected(false);
+    }
+    
     for (auto Ship : Board->GetShips())
     {
         if (Ship->GetName() == InName)
@@ -32,6 +37,7 @@ std::shared_ptr<FShip> FGameController::SelectShipByName(std::string InName) con
         }
     }
     
+    Selection->SetSelectedShip(nullptr);
     return nullptr;
 }
 
@@ -40,7 +46,7 @@ void FGameController::MoveShipTo(FPosition InPosition) const
     Selection->MoveShipTo(InPosition);
 }
 
-void FGameController::RotateSelectedShip()
+void FGameController::RotateSelectedShip() const
 {
     if (Selection == nullptr)
     {
