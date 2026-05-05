@@ -1,5 +1,28 @@
 #include "Ship.h"
 
+void FShip::GeneratePositionsFromFirstPosition(FPosition InFirstPosition)
+{
+    Positions.clear();
+
+    for (int Index = 0; Index < Dimension; Index++)
+    {
+        if (Rotation == ERotation::Vertical)
+        {
+            Positions.emplace_back(FPosition{
+                InFirstPosition.Letter,
+                InFirstPosition.Number - Index
+            });
+        }
+        else if (Rotation == ERotation::Horizontal)
+        {
+            Positions.emplace_back(FPosition{
+                InFirstPosition.Letter - Index,
+                InFirstPosition.Number
+            });
+        }
+    }
+}
+
 FShip::FShip(FPosition InPosition, int InDimension)
     : bIsSelected(false)
     , bIsErrorHighlighted(false)
@@ -7,11 +30,12 @@ FShip::FShip(FPosition InPosition, int InDimension)
     , Name("null") 
     , Rotation(ERotation::Vertical)
 {
-    for (int Y = 0; Y < Dimension; Y++)
+    /*for (int Y = 0; Y < Dimension; Y++)
     {
         int Number = InPosition.Number; 
         SetPosition(FPosition{InPosition.Letter, Number-Y}); 
-    }
+    }*/
+    GeneratePositionsFromFirstPosition(InPosition);
 }
 
 bool FShip::GetIsSelected() const
@@ -81,5 +105,8 @@ void FShip::SetName(std::string InName)
 
 void FShip::SetRotation(ERotation InRotation)
 {
-     Rotation = InRotation;
+    FPosition FirstPosition = Positions.front();
+    Rotation = InRotation;
+
+    GeneratePositionsFromFirstPosition(FirstPosition);
 }

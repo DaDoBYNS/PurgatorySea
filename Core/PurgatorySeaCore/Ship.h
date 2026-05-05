@@ -13,6 +13,7 @@ class FShip
     std::string Name;
     ERotation Rotation;
     int Dimension; 
+    void GeneratePositionsFromFirstPosition(FPosition InFirstPosition);
 public:
     FShip(FPosition InPosition, int InDimension);
     
