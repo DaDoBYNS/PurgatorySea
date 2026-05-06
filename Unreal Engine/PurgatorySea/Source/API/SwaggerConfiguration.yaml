@@ -10,7 +10,7 @@ servers:
     description: "Localhost"
   - url: http://10.0.0.140:8842
     description: "Silvia11"
-  - url: http://manuelm11:8842
+  - url: http://10.0.0.139:8842
     description: "Manuelm11"
     
 tags:
