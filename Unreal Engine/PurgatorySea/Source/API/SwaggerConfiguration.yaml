@@ -1,0 +1,103 @@
+openapi: 3.0.3
+
+info:
+  title: Sida Drive
+  description: Driving simulator
+  version: 1.0.0
+  
+servers:
+  - url: http://localhost:8842
+    description: "Localhost"
+  - url: http://10.0.0.140:8842
+    description: "Silvia11"
+  - url: http://manuelm11:8842
+    description: "Manuelm11"
+    
+tags:
+  - name: System
+    description: System functionalities and information
+    
+paths:
+  /session:
+    post:
+      summary: Create a new session
+      tags:
+        - System
+      responses:
+        '200':
+          description: OK | Creates a session
+        '401':
+          description: Denied | Session failed to create
+  /ready:
+    get:
+      summary: Get if player is ready
+      tags:
+        - System
+      responses:
+        '200':
+          description: OK | Returning player is ready
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bIsReady:
+                    type: boolean        
+        '401':
+          description: Denied | Player is not ready yet
+  /fireshot:
+    post:
+      summary: Fire a shot
+      description: Sends a shot request to the opponent host at the given board position.
+      tags:
+        - System
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - HitPosition
+              properties:
+                HitPosition:
+                  $ref: "#/components/schemas/Position"
+      responses:
+        '200':
+          description: OK | Returning miss, hit, sink, alreadyshot or gameover
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  HitStatus:
+                    type: string
+                    example: "Hit"
+        '401':
+          description: Denied | Not the right turn or wrong action
+  /forfeit:
+    post:
+      summary: Forfeit match
+      description: Ends the current match because the current host forfeited.
+      tags:
+        - System
+      responses:
+        '200':
+          description: OK | Match ended by forfeit
+        '401':
+          description: Denied | Cannot forfeit the match
+          
+components:
+  schemas:
+    Position:
+      type: object
+      properties:
+        Letter:
+          type: integer
+          example: 6
+        Number:
+          type: integer
+          example: 7
+      required:
+        - Letter
+        - Number

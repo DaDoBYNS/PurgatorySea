@@ -3,6 +3,13 @@
 
 #include "PurgatorySeaControllerActor.h"
 
+#include "WebServerSubsystem.h"
+
+
+FString APurgatorySeaControllerActor::MakeShotKey(int32 Letter, int32 Number) const
+{
+	return FString::Printf(TEXT("%d_%d"), Letter, Number);
+}
 
 // Sets default values
 APurgatorySeaControllerActor::APurgatorySeaControllerActor()
@@ -15,7 +22,15 @@ void APurgatorySeaControllerActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GameController = std::make_shared<FGameController>();
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		if (GameInstance->GetSubsystem<UWebServerSubsystem>())
+		{
+			GameInstance->GetSubsystem<UWebServerSubsystem>()->SetMultiplayerHandler(this);
+		}
+	}
+	
+	GameController = std::make_shared<FGameController>(); 
 
 	std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
 	std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
@@ -155,4 +170,53 @@ void APurgatorySeaControllerActor::RotateSelectedShip()
 	GameController->RotateSelectedShip();
 	
 	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+}
+
+FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnrealPosition Position)
+{
+	if (!GameController)
+	{
+		return TEXT("Error");
+	}
+
+	FPosition CorePosition{
+		static_cast<ELetter>(Position.Letter),
+		static_cast<ENumber>(Position.Number)
+	};
+
+	for (const auto &Ship : GameController->GetBoard()->GetShips())
+	{
+		for (const auto &Position : Ship->GetPositions())
+		{
+			if (Position.Letter == CorePosition.Letter && Position.Number == CorePosition.Number)
+			{
+				return TEXT("Hit");
+			}
+		}
+	}
+	
+	UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("HandleFireShotRequest called. Letter: %d, Number: %d"),
+			Position.Letter,
+			Position.Number
+		);
+	
+	return TEXT("Miss");
+}
+
+void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
+
+		if (WebServerSubsystem)
+		{
+			WebServerSubsystem->SetMultiplayerHandler(nullptr);
+		}
+	}
+	
+	Super::EndPlay(EndPlayReason);
 }
