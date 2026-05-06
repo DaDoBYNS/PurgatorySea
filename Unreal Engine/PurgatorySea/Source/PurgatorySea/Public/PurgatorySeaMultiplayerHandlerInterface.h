@@ -18,4 +18,10 @@ class PURGATORYSEA_API IPurgatorySeaMultiplayerHandlerInterface
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	FString HandleFireShotRequest(FUnrealPosition Position);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	FString HandleSessionRequest();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	FString HandleSessionAccepted();
 };

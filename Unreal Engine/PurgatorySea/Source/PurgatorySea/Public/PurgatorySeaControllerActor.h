@@ -12,13 +12,16 @@
 #include "PurgatorySeaControllerActor.generated.h"
 
 UCLASS()
-class PURGATORYSEA_API APurgatorySeaControllerActor : public AActor, public IPurgatorySeaMultiplayerHandlerInterface
+class PURGATORYSEA_API APurgatorySeaControllerActor : 
+	public AActor, 
+	public IPurgatorySeaMultiplayerHandlerInterface
 {
 	GENERATED_BODY()
 
 	std::shared_ptr<FGameController> GameController; 
 	TSet<FString> ReceivedShots;
-	FString MakeShotKey(int32 Letter, int32 Number) const;
+	bool bHasSession;
+	FString CreateLocalSession();
 public:
 	// Sets default values for this actor's properties
 	APurgatorySeaControllerActor();
@@ -54,6 +57,13 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void RotateSelectedShip();
+	
+	UFUNCTION(BlueprintCallable)
+	void RequestSession(const FString& OpponentIpAddress);
+
+	virtual FString HandleSessionRequest_Implementation() override;
+
+	virtual FString HandleSessionAccepted_Implementation() override;
 	
 	virtual FString HandleFireShotRequest_Implementation(FUnrealPosition Position) override;
 

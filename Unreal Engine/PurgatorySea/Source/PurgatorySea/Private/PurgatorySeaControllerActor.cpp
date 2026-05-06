@@ -5,14 +5,9 @@
 
 #include "WebServerSubsystem.h"
 
-
-FString APurgatorySeaControllerActor::MakeShotKey(int32 Letter, int32 Number) const
-{
-	return FString::Printf(TEXT("%d_%d"), Letter, Number);
-}
-
 // Sets default values
 APurgatorySeaControllerActor::APurgatorySeaControllerActor()
+	: bHasSession(false)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -21,7 +16,7 @@ APurgatorySeaControllerActor::APurgatorySeaControllerActor()
 void APurgatorySeaControllerActor::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
 		if (GameInstance->GetSubsystem<UWebServerSubsystem>())
@@ -43,6 +38,8 @@ void APurgatorySeaControllerActor::BeginPlay()
 	GameController->InitGame();
 	
 	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+	
+	//RequestSession(TEXT("127.0.0.1"));
 }
 
 // Called every frame
@@ -128,8 +125,8 @@ void APurgatorySeaControllerActor::OnTileClicked(AActor* HitActor)
 	{
 		PositionsText += FString::Printf(
 			TEXT("[Letter = %d, Number = %d] "),
-			static_cast<int>(ShipPosition.Letter),
-			static_cast<int>(ShipPosition.Number)
+			ShipPosition.Letter,
+			ShipPosition.Number
 		);
 	}
 
@@ -170,6 +167,48 @@ void APurgatorySeaControllerActor::RotateSelectedShip()
 	GameController->RotateSelectedShip();
 	
 	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+}
+
+void APurgatorySeaControllerActor::RequestSession(const FString& OpponentIpAddress)
+{
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
+
+		if (WebServerSubsystem)
+		{
+			WebServerSubsystem->SendSessionRequest(OpponentIpAddress);
+		}
+	}
+}
+
+FString APurgatorySeaControllerActor::CreateLocalSession()
+{
+	if (bHasSession)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Session already created."));
+		return TEXT("Created");
+	}
+
+	bHasSession = true;
+
+	UE_LOG(LogTemp, Warning, TEXT("Local session created."));
+
+	return TEXT("Created");
+}
+
+FString APurgatorySeaControllerActor::HandleSessionRequest_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleSessionRequest called."));
+
+	return CreateLocalSession();
+}
+
+FString APurgatorySeaControllerActor::HandleSessionAccepted_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleSessionAccepted called."));
+
+	return CreateLocalSession();
 }
 
 FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnrealPosition Position)

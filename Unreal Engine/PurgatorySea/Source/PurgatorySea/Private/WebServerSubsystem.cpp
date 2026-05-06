@@ -7,6 +7,9 @@
 #include "JsonObjectConverter.h"
 #include "PurgatorySeaMultiplayerHandlerInterface.h"
 #include "UnrealPosition.h"
+#include "HttpModule.h"
+#include "Interfaces/IHttpRequest.h"
+#include "Interfaces/IHttpResponse.h"
 
 void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -14,6 +17,56 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 	auto Router = FHttpServerModule::Get().GetHttpRouter(8842);
 
+	Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+{
+	TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
+
+	TArray<FString> AccessControlAllowOrigin;
+	AccessControlAllowOrigin.Add(TEXT("*"));
+	Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
+
+	TArray<FString> AccessControlAllowMethods;
+	AccessControlAllowMethods.Add(TEXT("POST, GET, PUT, DELETE, OPTIONS"));
+	Response->Headers.Add(TEXT("Access-Control-Allow-Methods"), AccessControlAllowMethods);
+
+	TArray<FString> AccessControlAllowHeaders;
+	AccessControlAllowHeaders.Add(TEXT("*"));
+	Response->Headers.Add(TEXT("Access-Control-Allow-Headers"), AccessControlAllowHeaders);
+
+	OnComplete(MoveTemp(Response));
+	return true;
+}));
+
+	Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	{
+		FString SessionStatus = TEXT("NoHandler");
+
+		if (MultiplayerHandler && MultiplayerHandler->GetClass()->ImplementsInterface(UPurgatorySeaMultiplayerHandlerInterface::StaticClass()))
+		{
+			SessionStatus = IPurgatorySeaMultiplayerHandlerInterface::Execute_HandleSessionRequest(
+				MultiplayerHandler
+			);
+		}
+
+		UE_LOG(LogTemp, Warning, TEXT("POST /session returning SessionStatus: %s"), *SessionStatus);
+
+		EHttpServerResponseCodes ResponseCode = EHttpServerResponseCodes::Denied;
+
+		if (SessionStatus == TEXT("Created"))
+		{
+			ResponseCode = EHttpServerResponseCodes::Ok;
+		}
+
+		TUniquePtr<FHttpServerResponse> Response = CreateJsonResponse(
+			TEXT("SessionStatus"),
+			SessionStatus,
+			ResponseCode
+		);
+
+		OnComplete(MoveTemp(Response));
+		return true;
+	}));
+	
 	Router->BindRoute({"/fireshot"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
@@ -161,4 +214,81 @@ TUniquePtr<FHttpServerResponse> UWebServerSubsystem::CreateJsonResponse(
 	Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
 
 	return Response;
+}
+
+void UWebServerSubsystem::SendSessionRequest(const FString& OpponentIpAddress)
+{
+	FString Url = FString::Printf(
+		TEXT("http://%s:8842/session"),
+		*OpponentIpAddress
+	);
+
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
+
+	Request->SetURL(Url);
+	Request->SetVerb(TEXT("POST"));
+	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+
+	Request->OnProcessRequestComplete().BindUObject(
+		this,
+		&UWebServerSubsystem::OnSessionResponseReceived
+	);
+
+	UE_LOG(LogTemp, Warning, TEXT("Sending POST /session to: %s"), *Url);
+
+	Request->ProcessRequest();
+}
+
+void UWebServerSubsystem::OnSessionResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	if (!bWasSuccessful || !Response.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Session request failed. No valid response."));
+		return;
+	}
+
+	FString ResponseBody = Response->GetContentAsString();
+
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("Session response code: %d body: %s"),
+		Response->GetResponseCode(),
+		*ResponseBody
+	);
+
+	if (Response->GetResponseCode() != 200)
+	{
+		return;
+	}
+
+	TSharedPtr<FJsonObject> JsonObject;
+	const TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(ResponseBody);
+
+	if (!FJsonSerializer::Deserialize(Reader, JsonObject) || !JsonObject.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Invalid session response json."));
+		return;
+	}
+
+	FString SessionStatus;
+
+	if (!JsonObject->TryGetStringField(TEXT("SessionStatus"), SessionStatus))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Missing SessionStatus field."));
+		return;
+	}
+
+	if (SessionStatus != TEXT("Created"))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Session was not created by opponent."));
+		return;
+	}
+
+	if (MultiplayerHandler && MultiplayerHandler->GetClass()->ImplementsInterface(UPurgatorySeaMultiplayerHandlerInterface::StaticClass()))
+	{
+		IPurgatorySeaMultiplayerHandlerInterface::Execute_HandleSessionAccepted(
+			MultiplayerHandler
+		);
+	}
 }

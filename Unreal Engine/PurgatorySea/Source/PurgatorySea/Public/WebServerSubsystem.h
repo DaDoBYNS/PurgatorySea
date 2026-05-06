@@ -6,6 +6,8 @@
 #include "HttpServerConstants.h"
 #include "HttpServerRequest.h"
 #include "HttpServerResponse.h"
+#include "Interfaces/IHttpRequest.h"
+#include "Interfaces/IHttpResponse.h"
 #include "WebServerSubsystem.generated.h"
 /**
  * 
@@ -25,7 +27,10 @@ public:
 		EHttpServerResponseCodes Code
 	);
 	
+	void SendSessionRequest(const FString& OpponentIpAddress);
+	
 private:
+	void OnSessionResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 	UPROPERTY()
 	TObjectPtr<UObject> MultiplayerHandler = nullptr;
 };
