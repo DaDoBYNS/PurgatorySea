@@ -27,3 +27,18 @@ TEST(ShipSinking, ship_should_not_be_sunk_when_no_position_was_hit)
     
     EXPECT_TRUE(!Ship->GetIsSunk()); 
 }
+
+TEST(ShipSinking, ship_should_not_be_sunk_when_only_one_position_was_hit)
+{
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+    std::shared_ptr<FGameController> GameController = std::make_shared<FGameController>();
+    std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
+    GameController->SetBoard(Board);
+    GameController->SetSelection(Selection);
+    GameController->GetSelection()->SetBoard(Board);
+    
+    std::shared_ptr<FShip> Ship = Board->CreateShip(FPosition{ELetter::A, ENumber::Four}, 1, "null");
+    GameController->Shoot(FPosition{ELetter::A, ENumber::Three}); 
+    
+    EXPECT_TRUE(!Ship->GetIsSunk()); 
+}
