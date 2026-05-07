@@ -29,6 +29,7 @@ FShip::FShip(FPosition InPosition, int InDimension)
     , Dimension(InDimension)
     , Name("null") 
     , Rotation(ERotation::Vertical)
+    , bIsSunk(false)
 {
     /*for (int Y = 0; Y < Dimension; Y++)
     {
@@ -71,6 +72,11 @@ std::string FShip::GetName() const
 ERotation FShip::GetRotation() const
 {
     return Rotation; 
+}
+
+bool FShip::GetIsSunk() const
+{
+    return bIsSunk;
 }
 
 void FShip::SetIsSelected(bool bInIsSelected)

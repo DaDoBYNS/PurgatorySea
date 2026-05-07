@@ -9,6 +9,7 @@ class FShip
 {
     bool bIsSelected;
     bool bIsErrorHighlighted;
+    bool bIsSunk; 
     std::vector<FPosition> Positions; 
     std::string Name;
     ERotation Rotation;
@@ -25,6 +26,7 @@ public:
     bool GetIsErrorHighlighted() const;
     std::string GetName() const; 
     ERotation GetRotation() const;
+    bool GetIsSunk() const;
 
     // Setter
     void SetIsSelected(bool bInIsSelected);
