@@ -18,37 +18,72 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	auto Router = FHttpServerModule::Get().GetHttpRouter(8842);
 
 	Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
-{
-	TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
+	{
+		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
 
-	TArray<FString> AccessControlAllowOrigin;
-	AccessControlAllowOrigin.Add(TEXT("*"));
-	Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
+		TArray<FString> AccessControlAllowOrigin;
+		AccessControlAllowOrigin.Add(TEXT("*"));
+		Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
 
-	TArray<FString> AccessControlAllowMethods;
-	AccessControlAllowMethods.Add(TEXT("POST, GET, PUT, DELETE, OPTIONS"));
-	Response->Headers.Add(TEXT("Access-Control-Allow-Methods"), AccessControlAllowMethods);
+		TArray<FString> AccessControlAllowMethods;
+		AccessControlAllowMethods.Add(TEXT("POST, GET, PUT, DELETE, OPTIONS"));
+		Response->Headers.Add(TEXT("Access-Control-Allow-Methods"), AccessControlAllowMethods);
 
-	TArray<FString> AccessControlAllowHeaders;
-	AccessControlAllowHeaders.Add(TEXT("*"));
-	Response->Headers.Add(TEXT("Access-Control-Allow-Headers"), AccessControlAllowHeaders);
+		TArray<FString> AccessControlAllowHeaders;
+		AccessControlAllowHeaders.Add(TEXT("*"));
+		Response->Headers.Add(TEXT("Access-Control-Allow-Headers"), AccessControlAllowHeaders);
 
-	OnComplete(MoveTemp(Response));
-	return true;
-}));
+		OnComplete(MoveTemp(Response));
+		return true;
+	}));
 
 	Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
+		TSharedPtr<FJsonObject> JsonObject;
+
+		if (!GetJsonObjectFromRequest(Request, JsonObject))
+		{
+			TUniquePtr<FHttpServerResponse> Response = CreateJsonResponse(
+				TEXT("Error"),
+				TEXT("InvalidJsonBody"),
+				EHttpServerResponseCodes::BadRequest
+			);
+
+			OnComplete(MoveTemp(Response));
+			return true;
+		}
+
+		FString RequesterIpAddress;
+
+		if (!JsonObject->TryGetStringField(TEXT("RequesterIpAddress"), RequesterIpAddress) || RequesterIpAddress.IsEmpty())
+		{
+			TUniquePtr<FHttpServerResponse> Response = CreateJsonResponse(
+				TEXT("Error"),
+				TEXT("MissingRequesterIpAddress"),
+				EHttpServerResponseCodes::BadRequest
+			);
+
+			OnComplete(MoveTemp(Response));
+			return true;
+		}
+
 		FString SessionStatus = TEXT("NoHandler");
 
 		if (MultiplayerHandler && MultiplayerHandler->GetClass()->ImplementsInterface(UPurgatorySeaMultiplayerHandlerInterface::StaticClass()))
 		{
 			SessionStatus = IPurgatorySeaMultiplayerHandlerInterface::Execute_HandleSessionRequest(
-				MultiplayerHandler
+				MultiplayerHandler,
+				RequesterIpAddress
 			);
 		}
 
-		UE_LOG(LogTemp, Warning, TEXT("POST /session returning SessionStatus: %s"), *SessionStatus);
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("POST /session from %s returning SessionStatus: %s"),
+			*RequesterIpAddress,
+			*SessionStatus
+		);
 
 		EHttpServerResponseCodes ResponseCode = EHttpServerResponseCodes::Denied;
 
@@ -441,25 +476,41 @@ void UWebServerSubsystem::OnForfeitResponseReceived(FHttpRequestPtr Request, FHt
 	UE_LOG(LogTemp, Warning, TEXT("Forfeit accepted. Local player lost."));
 }
 
-void UWebServerSubsystem::SendSessionRequest(const FString& OpponentIpAddress)
+void UWebServerSubsystem::SendSessionRequest(const FString& OpponentIpAddress, const FString& LocalIpAddress)
 {
+	PendingSessionOpponentIpAddress = OpponentIpAddress;
+
 	FString Url = FString::Printf(
 		TEXT("http://%s:8842/session"),
 		*OpponentIpAddress
 	);
+
+	const TSharedPtr<FJsonObject> JsonObject = MakeShared<FJsonObject>();
+	JsonObject->SetStringField(TEXT("RequesterIpAddress"), LocalIpAddress);
+
+	FString RequestBody;
+	const TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
+	FJsonSerializer::Serialize(JsonObject.ToSharedRef(), Writer);
 
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
 
 	Request->SetURL(Url);
 	Request->SetVerb(TEXT("POST"));
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+	Request->SetContentAsString(RequestBody);
 
 	Request->OnProcessRequestComplete().BindUObject(
 		this,
 		&UWebServerSubsystem::OnSessionResponseReceived
 	);
 
-	UE_LOG(LogTemp, Warning, TEXT("Sending POST /session to: %s"), *Url);
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("Sending POST /session to: %s with LocalIpAddress: %s"),
+		*Url,
+		*LocalIpAddress
+	);
 
 	Request->ProcessRequest();
 }
@@ -536,7 +587,8 @@ void UWebServerSubsystem::OnSessionResponseReceived(FHttpRequestPtr Request, FHt
 	if (MultiplayerHandler && MultiplayerHandler->GetClass()->ImplementsInterface(UPurgatorySeaMultiplayerHandlerInterface::StaticClass()))
 	{
 		IPurgatorySeaMultiplayerHandlerInterface::Execute_HandleSessionAccepted(
-			MultiplayerHandler
+			MultiplayerHandler,
+			PendingSessionOpponentIpAddress
 		);
 	}
 }

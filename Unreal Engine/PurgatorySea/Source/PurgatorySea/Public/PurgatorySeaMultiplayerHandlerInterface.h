@@ -20,10 +20,10 @@ public:
 	FString HandleFireShotRequest(FUnrealPosition Position);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	FString HandleSessionRequest();
+	FString HandleSessionRequest(const FString& RequesterIpAddress);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	FString HandleSessionAccepted();
+	FString HandleSessionAccepted(const FString& OpponentIpAddress);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool HandleReadyRequest();

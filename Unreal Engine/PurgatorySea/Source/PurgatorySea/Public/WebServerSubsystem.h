@@ -28,7 +28,7 @@ public:
 	);
 	
 	void SendReadyRequest(const FString& OpponentIpAddress);
-	void SendSessionRequest(const FString& OpponentIpAddress);
+	void SendSessionRequest(const FString& OpponentIpAddress, const FString& LocalIpAddress);
 	
 	void SendForfeitRequest(const FString& OpponentIpAddress);
 	
@@ -44,6 +44,6 @@ private:
 		bool bFieldValue,
 		EHttpServerResponseCodes Code
 	);
-	
+	FString PendingSessionOpponentIpAddress;
 	void OnForfeitResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };

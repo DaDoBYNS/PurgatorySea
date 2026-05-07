@@ -44,8 +44,6 @@ void APurgatorySeaControllerActor::BeginPlay()
 	GameController->InitGame();
 	
 	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-	
-	//RequestSession(TEXT("127.0.0.1"));
 }
 
 // Called every frame
@@ -175,46 +173,80 @@ void APurgatorySeaControllerActor::RotateSelectedShip()
 	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
 
-void APurgatorySeaControllerActor::RequestSession(const FString& OpponentIpAddress)
+void APurgatorySeaControllerActor::RequestSession(const FString& InOpponentIpAddress, const FString& LocalIpAddress)
 {
+	if (InOpponentIpAddress.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot request session. Opponent IP is empty."));
+		return;
+	}
+
+	if (LocalIpAddress.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot request session. Local IP is empty."));
+		return;
+	}
+
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
 		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
 
 		if (WebServerSubsystem)
 		{
-			WebServerSubsystem->SendSessionRequest(OpponentIpAddress);
+			WebServerSubsystem->SendSessionRequest(InOpponentIpAddress, LocalIpAddress);
 		}
 	}
 }
 
-FString APurgatorySeaControllerActor::CreateLocalSession()
+FString APurgatorySeaControllerActor::CreateLocalSession(const FString& InOpponentIpAddress)
 {
+	if (InOpponentIpAddress.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot create session. Opponent IP is empty."));
+		return TEXT("Denied");
+	}
+
 	if (bHasSession)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Session already created."));
 		return TEXT("Created");
 	}
 
+	OpponentIpAddress = InOpponentIpAddress;
 	bHasSession = true;
 
-	UE_LOG(LogTemp, Warning, TEXT("Local session created."));
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("Local session created. Opponent IP saved: %s"),
+		*OpponentIpAddress
+	);
 
 	return TEXT("Created");
 }
 
-FString APurgatorySeaControllerActor::HandleSessionRequest_Implementation()
+FString APurgatorySeaControllerActor::HandleSessionRequest_Implementation(const FString& RequesterIpAddress)
 {
-	UE_LOG(LogTemp, Warning, TEXT("HandleSessionRequest called."));
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("HandleSessionRequest called. Requester IP: %s"),
+		*RequesterIpAddress
+	);
 
-	return CreateLocalSession();
+	return CreateLocalSession(RequesterIpAddress);
 }
 
-FString APurgatorySeaControllerActor::HandleSessionAccepted_Implementation()
+FString APurgatorySeaControllerActor::HandleSessionAccepted_Implementation(const FString& InOpponentIpAddress)
 {
-	UE_LOG(LogTemp, Warning, TEXT("HandleSessionAccepted called."));
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("HandleSessionAccepted called. Opponent IP: %s"),
+		*InOpponentIpAddress
+	);
 
-	return CreateLocalSession();
+	return CreateLocalSession(InOpponentIpAddress);
 }
 
 FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnrealPosition Position)
@@ -265,8 +297,14 @@ FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnre
 	return TEXT("Miss");
 }
 
-void APurgatorySeaControllerActor::RequestReady(const FString& OpponentIpAddress)
+void APurgatorySeaControllerActor::RequestReady()
 {
+	if (OpponentIpAddress.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot ready. Opponent IP is empty."));
+		return;
+	}
+	
 	if (bHasMatchStarted)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Match already started. Cannot send ready again."));
@@ -323,8 +361,14 @@ bool APurgatorySeaControllerActor::ValidateLocalShips()
 	return bIsValid;
 }
 
-void APurgatorySeaControllerActor::RequestForfeit(const FString& OpponentIpAddress)
+void APurgatorySeaControllerActor::RequestForfeit()
 {
+	if (OpponentIpAddress.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot forfeit. Opponent IP is empty."));
+		return;
+	}
+	
 	if (bHasMatchEnded)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Cannot forfeit. Match already ended."));

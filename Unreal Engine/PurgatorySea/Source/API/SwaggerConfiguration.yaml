@@ -21,11 +21,34 @@ paths:
   /session:
     post:
       summary: Create a new session
+      description: Creates a session and sends the requester IP address to the opponent.
       tags:
         - System
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - RequesterIpAddress
+              properties:
+                RequesterIpAddress:
+                  type: string
+                  example: "10.0.0.139"
       responses:
         '200':
           description: OK | Creates a session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SessionStatus:
+                    type: string
+                    example: "Created"
+        '400':
+          description: Bad Request | Invalid or missing requester IP
         '401':
           description: Denied | Session failed to create
   /ready:

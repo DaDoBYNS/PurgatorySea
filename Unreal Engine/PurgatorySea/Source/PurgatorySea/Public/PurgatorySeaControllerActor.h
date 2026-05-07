@@ -34,7 +34,7 @@ class PURGATORYSEA_API APurgatorySeaControllerActor :
 	UPROPERTY()
 	bool bHasLocalPlayerLost;
 	
-	FString CreateLocalSession();
+	FString CreateLocalSession(const FString& InOpponentIpAddress);
 	
 public:
 	// Sets default values for this actor's properties
@@ -73,22 +73,25 @@ public:
 	void RotateSelectedShip();
 	
 	UFUNCTION(BlueprintCallable)
-	void RequestSession(const FString& OpponentIpAddress);
+	void RequestSession(const FString& InOpponentIpAddress, const FString& LocalIpAddress);
 
-	virtual FString HandleSessionRequest_Implementation() override;
+	virtual FString HandleSessionRequest_Implementation(const FString& RequesterIpAddress) override;
 
-	virtual FString HandleSessionAccepted_Implementation() override;
+	virtual FString HandleSessionAccepted_Implementation(const FString& InOpponentIpAddress) override;
 	
 	virtual FString HandleFireShotRequest_Implementation(FUnrealPosition Position) override;
 	
+	UPROPERTY(BlueprintReadOnly)
+	FString OpponentIpAddress;
+	
 	UFUNCTION(BlueprintCallable)
-	void RequestReady(const FString& OpponentIpAddress);
+	void RequestReady(); 
 
 	UFUNCTION(BlueprintCallable)
 	bool ValidateLocalShips();
 	
 	UFUNCTION(BlueprintCallable)
-	void RequestForfeit(const FString& OpponentIpAddress);
+	void RequestForfeit();
 
 	bool TryStartMatch();
 
