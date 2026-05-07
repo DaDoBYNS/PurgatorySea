@@ -3,15 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Subsystems/GameInstanceSubsystem.h"
 #include "HttpServerConstants.h"
 #include "HttpServerRequest.h"
 #include "HttpServerResponse.h"
+#include "IHttpRouter.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
 #include "WebServerSubsystem.generated.h"
-/**
- * 
- */
+
 UCLASS()
 class PURGATORYSEA_API UWebServerSubsystem : public UGameInstanceSubsystem
 {
@@ -19,6 +19,7 @@ class PURGATORYSEA_API UWebServerSubsystem : public UGameInstanceSubsystem
 
 public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+	virtual void Deinitialize() override;
 
 	void SetMultiplayerHandler(UObject* InHandler);
 
@@ -38,7 +39,13 @@ private:
 		EHttpServerResponseCodes Code
 	);
 
+	void UnbindAllRequests();
+
 private:
+	TSharedPtr<IHttpRouter> Router;
+
+	TArray<FHttpRouteHandle> RouteHandles;
+	
 	UPROPERTY()
 	TObjectPtr<UObject> MultiplayerHandler = nullptr;
 };

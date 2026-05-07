@@ -10,9 +10,17 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-	auto Router = FHttpServerModule::Get().GetHttpRouter(8842);
+	Router = FHttpServerModule::Get().GetHttpRouter(8842);
 
-	Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	if (!Router.IsValid())
+	{
+		UE_LOG(LogTemp, Error, TEXT("WebServerSubsystem: Router is not valid"));
+		return;
+	}
+
+	RouteHandles.Empty();
+
+	RouteHandles.Add(Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
 
@@ -30,9 +38,9 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
-	Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	RouteHandles.Add(Router->BindRoute({"/session"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TSharedPtr<FJsonObject> JsonObject;
 
@@ -95,9 +103,9 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
-	Router->BindRoute({"/ready"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	RouteHandles.Add(Router->BindRoute({"/ready"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
 
@@ -115,9 +123,9 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
-	Router->BindRoute({"/ready"}, EHttpServerRequestVerbs::VERB_GET, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	RouteHandles.Add(Router->BindRoute({"/ready"}, EHttpServerRequestVerbs::VERB_GET, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		bool bIsReady = false;
 
@@ -142,9 +150,9 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
-	Router->BindRoute({"/fireshot"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	RouteHandles.Add(Router->BindRoute({"/fireshot"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
 
@@ -162,9 +170,9 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
-	Router->BindRoute({"/fireshot"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	RouteHandles.Add(Router->BindRoute({"/fireshot"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TSharedPtr<FJsonObject> JsonObject;
 
@@ -228,9 +236,9 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
-	Router->BindRoute({"/forfeit"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	RouteHandles.Add(Router->BindRoute({"/forfeit"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
 
@@ -248,9 +256,9 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
-	Router->BindRoute({"/forfeit"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
+	RouteHandles.Add(Router->BindRoute({"/forfeit"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		FString ForfeitStatus = TEXT("NoHandler");
 
@@ -278,9 +286,19 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 		OnComplete(MoveTemp(Response));
 		return true;
-	}));
+	})));
 
 	FHttpServerModule::Get().StartAllListeners();
+}
+
+void UWebServerSubsystem::Deinitialize()
+{
+	UnbindAllRequests();
+
+	MultiplayerHandler = nullptr;
+	Router.Reset();
+
+	Super::Deinitialize();
 }
 
 void UWebServerSubsystem::SetMultiplayerHandler(UObject* InHandler)
@@ -368,4 +386,19 @@ TUniquePtr<FHttpServerResponse> UWebServerSubsystem::CreateJsonBoolResponse(
 	Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
 
 	return Response;
+}
+
+void UWebServerSubsystem::UnbindAllRequests()
+{
+	if (!Router.IsValid())
+	{
+		return;
+	}
+
+	for (const FHttpRouteHandle& RouteHandle : RouteHandles)
+	{
+		Router->UnbindRoute(RouteHandle);
+	}
+
+	RouteHandles.Empty();
 }
