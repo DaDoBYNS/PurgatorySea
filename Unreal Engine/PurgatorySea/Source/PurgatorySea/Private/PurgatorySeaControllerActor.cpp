@@ -250,52 +250,90 @@ FString APurgatorySeaControllerActor::HandleSessionAccepted_Implementation(const
 	return CreateLocalSession(InOpponentIpAddress);
 }
 
+FString APurgatorySeaControllerActor::ConvertHitStatusToString(EHitStatus HitStatus) const
+{
+	switch (HitStatus)
+	{
+	case EHitStatus::Miss:
+		return TEXT("Miss");
+
+	case EHitStatus::Hit:
+		return TEXT("Hit");
+
+	case EHitStatus::Sink:
+		return TEXT("Sink");
+
+	case EHitStatus::AlredyShot:
+		return TEXT("AlreadyShot");
+
+	default:
+		return TEXT("Error");
+	}
+}
+
 FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnrealPosition Position)
 {
 	if (!GameController)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot handle fire shot. Missing GameController."));
 		return TEXT("Error");
-
-	FPosition CorePosition{
-		Position.Letter,
-		Position.Number
-	};
-
-	if (!GameController->IsShotPositionValid(CorePosition))
-		return TEXT("Invalid");
-
-	for (const auto& PreviosShot : GameController->GetReceivedShot())
-	{
-		if (PreviosShot.Letter == CorePosition.Letter && 
-			PreviosShot.Number == CorePosition.Number)
-		{
-			return TEXT("AlreadyShot");
-		}
 	}
-	
-	GameController->RegisterReceivedShot(CorePosition);
-	
-	for (const auto& Ship : GameController->GetBoard()->GetShips())
+
+	if (bHasMatchEnded)
 	{
-		for (const auto& ShipPosition : Ship->GetPositions())
-		{
-			if (ShipPosition.Letter == CorePosition.Letter && 
-				ShipPosition.Number == CorePosition.Number)
-			{
-				if (Ship->GetDimension() == 0) // Cambiare in GetIsSink
-				{
-					return TEXT("Sink");
-				}
-					return TEXT("Hit");
-			}
-		}
-	}
-	
-	if (GameController->HasWon())
-	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot handle fire shot. Match already ended."));
 		return TEXT("GameOver");
 	}
 
-	return TEXT("Miss");
+	FPosition CorePosition{
+		static_cast<ELetter>(Position.Letter),
+		static_cast<ENumber>(Position.Number)
+	};
+
+	EHitStatus ShotResult = GameController->ReceiveShot(CorePosition);
+
+	if (ShotResult == EHitStatus::AlredyShot)
+	{
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("FireShot received at Letter: %d, Number: %d. Result: AlreadyShot"),
+			Position.Letter,
+			Position.Number
+		);
+
+		return TEXT("AlreadyShot");
+	}
+
+	if (GameController->HasLost())
+	{
+		bHasMatchEnded = true;
+		bHasLocalPlayerLost = true;
+		bHasLocalPlayerWon = false;
+
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("FireShot received at Letter: %d, Number: %d. Local player lost. Returning GameOver."),
+			Position.Letter,
+			Position.Number
+		);
+
+		return TEXT("GameOver");
+	}
+
+	FString ShotResultText = ConvertHitStatusToString(ShotResult);
+
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("FireShot received at Letter: %d, Number: %d. Result: %s"),
+		Position.Letter,
+		Position.Number,
+		*ShotResultText
+	);
+
+	return ShotResultText;
 }
 
 void APurgatorySeaControllerActor::RequestReady()
@@ -458,6 +496,64 @@ FString APurgatorySeaControllerActor::HandleForfeitRequest_Implementation()
 	UE_LOG(LogTemp, Warning, TEXT("Opponent forfeited. Local player won."));
 
 	return TEXT("Won");
+}
+
+void APurgatorySeaControllerActor::HandleFireShotResponse_Implementation(FUnrealPosition Position, const FString& HitStatus)
+{
+	if (!GameController)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot handle fire shot response. Missing GameController."));
+		return;
+	}
+
+	FPosition CorePosition{
+		static_cast<ELetter>(Position.Letter),
+		static_cast<ENumber>(Position.Number)
+	};
+
+	if (HitStatus == TEXT("Miss"))
+	{
+		GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Miss);
+
+		UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Miss."));
+		return;
+	}
+
+	if (HitStatus == TEXT("Hit"))
+	{
+		GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Hit);
+
+		UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Hit."));
+		return;
+	}
+
+	if (HitStatus == TEXT("Sink"))
+	{
+		GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+
+		UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Sink."));
+		return;
+	}
+
+	if (HitStatus == TEXT("AlreadyShot"))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: AlreadyShot."));
+		return;
+	}
+
+	if (HitStatus == TEXT("GameOver"))
+	{
+		GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+
+		bHasMatchEnded = true;
+		bHasLocalPlayerWon = true;
+		bHasLocalPlayerLost = false;
+
+		UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Opponent lost. Local player won."));
+		return;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Unknown FireShot response: %s"), *HitStatus);
 }
 
 bool APurgatorySeaControllerActor::HandleReadyRequest_Implementation()

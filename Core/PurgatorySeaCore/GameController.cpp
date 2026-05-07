@@ -2,7 +2,8 @@
 
 FGameController::FGameController()
     : bIsGameReady(false)
-{}
+{
+}
 
 void FGameController::InitGame()
 {
@@ -11,7 +12,7 @@ void FGameController::InitGame()
     Board->CreateShip(FPosition{ELetter::C, ENumber::Eight}, 3, "swiftboat");
     Board->CreateShip(FPosition{ELetter::D, ENumber::Eight}, 4, "battleship");
     Board->CreateShip(FPosition{ELetter::E, ENumber::Eight}, 5, "aircraft carrier");
-    
+
     bIsGameReady = true;
 }
 
@@ -26,17 +27,18 @@ std::shared_ptr<FShip> FGameController::SelectShipByName(std::string InName) con
     {
         Selection->GetSelectedShip()->SetIsSelected(false);
     }
-    
+
     for (auto Ship : Board->GetShips())
     {
         if (Ship->GetName() == InName)
         {
             Ship->SetIsSelected(true);
-            Selection->SetSelectedShip(Ship); 
+            Selection->SetSelectedShip(Ship);
+
             return Ship;
         }
     }
-    
+
     Selection->SetSelectedShip(nullptr);
     return nullptr;
 }
@@ -58,10 +60,73 @@ void FGameController::RotateSelectedShip() const
 
 void FGameController::EmptySelectedShip() const
 {
-    if (!Selection->GetSelectedShip()) return; 
-    
+    if (!Selection->GetSelectedShip())
+    {
+        return;
+    }
+
     Selection->GetSelectedShip()->SetIsSelected(false);
     Selection->SetSelectedShip(nullptr);
+}
+
+bool FGameController::IsShotPositionValid(FPosition ShotPosition) const
+{
+    return ShotPosition.Letter >= static_cast<int>(ELetter::A)
+        && ShotPosition.Letter <= static_cast<int>(ELetter::J)
+        && ShotPosition.Number >= static_cast<int>(ENumber::One)
+        && ShotPosition.Number <= static_cast<int>(ENumber::Ten);
+}
+
+EHitStatus FGameController::ReceiveShot(FPosition ShotPosition)
+{
+    if (!IsShotPositionValid(ShotPosition))
+    {
+        return EHitStatus::AlredyShot;
+    }
+
+    if (Board == nullptr)
+    {
+        return EHitStatus::Miss;
+    }
+
+    return Board->ReceiveShot(ShotPosition);
+}
+
+EHitStatus FGameController::RegisterEnemyBoardShot(FPosition ShotPosition, EHitStatus ShotResult)
+{
+    if (!IsShotPositionValid(ShotPosition))
+    {
+        return EHitStatus::AlredyShot;
+    }
+
+    return EnemyBoard.SetHitPosition(ShotPosition, ShotResult);
+}
+
+bool FGameController::HasWon() const
+{
+    if (Board == nullptr)
+    {
+        return false;
+    }
+
+    int TotalShips = static_cast<int>(Board->GetShips().size());
+
+    if (TotalShips <= 0)
+    {
+        return false;
+    }
+
+    return EnemyBoard.GetSunkShipsCount() >= TotalShips;
+}
+
+bool FGameController::HasLost() const
+{
+    if (Board == nullptr)
+    {
+        return false;
+    }
+
+    return Board->AreAllShipsSunk();
 }
 
 void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
@@ -71,7 +136,7 @@ void FGameController::SetBoard(std::shared_ptr<FBoard>& InBoard)
 
 void FGameController::SetSelection(std::shared_ptr<FSelection>& InSelection)
 {
-    Selection = InSelection;    
+    Selection = InSelection;
 }
 
 std::shared_ptr<FBoard> FGameController::GetBoard() const
@@ -81,80 +146,15 @@ std::shared_ptr<FBoard> FGameController::GetBoard() const
 
 std::shared_ptr<FSelection> FGameController::GetSelection() const
 {
-    return Selection; 
+    return Selection;
 }
 
 bool FGameController::GetIsGameReady() const
 {
-    return bIsGameReady; 
+    return bIsGameReady;
 }
 
-
-void FGameController::SetEnemyShipPositions(const std::vector<FPosition>& Positions)
-{
-    EnemyBoard.InitEnemyBoard();
-    for (const auto& Position : Positions)
-    {
-        EnemyBoard.AddShipPosition(Position);
-    }
-}
-
-bool FGameController::IsShotPositionValid(FPosition ShotPosition) const
-{
-    return ShotPosition.Letter >= static_cast<int>(ELetter::A) 
-        && ShotPosition.Letter <= static_cast<int>(ELetter::J)
-        && ShotPosition.Number >= static_cast<int>(ENumber::One) 
-        && ShotPosition.Number <= static_cast<int>(ENumber::Ten);
-}
-
-EHitStatus FGameController::Shoot(FPosition ShotPosition)
-{
-    if (!IsShotPositionValid(ShotPosition))
-        return EHitStatus::AlredyShot;
-    
-    return EnemyBoard.SetHitPosition(ShotPosition);
-}
-
-
-bool FGameController::HasWon() const
-{
-    auto ShipPositions = EnemyBoard.GetEnemyShipPositions();
-    auto HitPositions = EnemyBoard.GetHitPositions();
-
-    if (ShipPositions.empty())
-        return false;
-
-    for (const auto& ShipPosition : ShipPositions)
-    {
-        bool bWasHit = false;
-        for (const auto& Hit : HitPositions)
-        {
-            if (Hit.Position == ShipPosition && Hit.Type == EHitStatus::Hit)
-            {
-                bWasHit = true;
-                break;
-            }
-        }
-
-        if (!bWasHit)
-            return false;
-    }
-
-    return true;
-}
-
-FEnemyBoard FGameController::GetEnemyBoard()
+FEnemyBoard FGameController::GetEnemyBoard() const
 {
     return EnemyBoard;
 }
-
-void FGameController::RegisterReceivedShot(FPosition ShotPosition)
-{
-    ReceivedShot.emplace_back(ShotPosition);
-}
-
-std::vector<FPosition> FGameController::GetReceivedShot()
-{
-    return ReceivedShot;
-}
-

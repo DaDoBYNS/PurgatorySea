@@ -31,4 +31,7 @@ private:
 	TObjectPtr<UObject> MultiplayerHandler = nullptr;
 
 	FString PendingSessionOpponentIpAddress;
+	
+	FUnrealPosition PendingFireShotPosition;
+	bool bHasPendingFireShotPosition = false;
 };

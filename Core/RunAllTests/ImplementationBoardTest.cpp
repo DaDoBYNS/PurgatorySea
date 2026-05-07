@@ -75,9 +75,9 @@ TEST(ImplementationBoard, check_if_place_ship_general_case_works)
 TEST(ImplementationBoard, check_if_enemy_board_is_empty_if_not_initialized)
 {
     auto EBoard = std::make_shared<FEnemyBoard>();
-    auto Ships = EBoard->GetEnemyShipPositions();
+    auto HitPositions = EBoard->GetHitPositions();
 
-    EXPECT_TRUE(Ships.empty());
+    EXPECT_TRUE(HitPositions.empty());
 }
 
 TEST(ImplementationBoard, check_if_enemy_board_is_empty_after_initialization)
@@ -85,79 +85,89 @@ TEST(ImplementationBoard, check_if_enemy_board_is_empty_after_initialization)
     auto Board = std::make_shared<FEnemyBoard>();
     Board->InitEnemyBoard();
 
-    auto Ships = Board->GetEnemyShipPositions();
+    auto HitPositions = Board->GetHitPositions();
 
-    EXPECT_TRUE(Ships.empty());
+    EXPECT_TRUE(HitPositions.empty());
 }
 
 TEST(ImplementationBoard, check_if_enemy_board_init_clears_all_data)
 {
     std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
 
-    Board->AddShipPosition({ELetter::A, ENumber::One});
-    Board->SetHitPosition({ELetter::B, ENumber::Two});
+    Board->SetHitPosition({ELetter::A, ENumber::One}, EHitStatus::Miss);
+    Board->SetHitPosition({ELetter::B, ENumber::Two}, EHitStatus::Hit);
+    Board->SetHitPosition({ELetter::C, ENumber::Three}, EHitStatus::Sink);
 
     Board->InitEnemyBoard();
 
-    EXPECT_TRUE(Board->GetEnemyShipPositions().empty());
     EXPECT_TRUE(Board->GetHitPositions().empty());
 }
 
-TEST(ImplementationBoard, check_if_enemy_ship_position_is_added_correctly)
+TEST(ImplementationBoard, check_if_enemy_board_registers_miss_correctly)
 {
     std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
 
-    bool Result = Board->AddShipPosition({ELetter::C, ENumber::Four});
-
-    EXPECT_TRUE(Result);
-    EXPECT_EQ(Board->GetEnemyShipPositions().size(), 1);
-}
-
-TEST(ImplementationBoard, check_if_enemy_ship_position_cannot_be_duplicated)
-{
-    std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
-
-    Board->AddShipPosition({ELetter::D, ENumber::Five});
-    bool Result = Board->AddShipPosition({ELetter::D, ENumber::Five});
-
-    EXPECT_FALSE(Result);
-    EXPECT_EQ(Board->GetEnemyShipPositions().size(), 1);
-}
-
-TEST(ImplementationBoard, check_if_hit_is_registered_correctly)
-{
-    std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
-
-    Board->AddShipPosition({ELetter::B, ENumber::Three});
-
-    auto Result = Board->SetHitPosition({ELetter::B, ENumber::Three});
-
-    EXPECT_EQ(Result, EHitStatus::Hit);
+    EHitStatus Result = Board->SetHitPosition({ELetter::H, ENumber::Nine}, EHitStatus::Miss);
 
     const auto& Hits = Board->GetHitPositions();
-    EXPECT_EQ(Hits.size(), 1);
-}
-
-TEST(ImplementationBoard, check_if_miss_is_registered_correctly)
-{
-    std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
-
-    auto Result = Board->SetHitPosition({ELetter::H, ENumber::Nine});
 
     EXPECT_EQ(Result, EHitStatus::Miss);
-
-    const auto& Hits = Board->GetHitPositions();
     EXPECT_EQ(Hits.size(), 1);
+    EXPECT_EQ(Hits[0].Position, (FPosition{ELetter::H, ENumber::Nine}));
+    EXPECT_EQ(Hits[0].Type, EHitStatus::Miss);
 }
 
-TEST(ImplementationBoard, check_if_duplicate_shot_is_not_added)
+TEST(ImplementationBoard, check_if_enemy_board_registers_hit_correctly)
 {
     std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
 
-    Board->SetHitPosition({ELetter::A, ENumber::One});
-    Board->SetHitPosition({ELetter::A, ENumber::One});
+    EHitStatus Result = Board->SetHitPosition({ELetter::B, ENumber::Three}, EHitStatus::Hit);
 
     const auto& Hits = Board->GetHitPositions();
 
+    EXPECT_EQ(Result, EHitStatus::Hit);
     EXPECT_EQ(Hits.size(), 1);
+    EXPECT_EQ(Hits[0].Position, (FPosition{ELetter::B, ENumber::Three}));
+    EXPECT_EQ(Hits[0].Type, EHitStatus::Hit);
+}
+
+TEST(ImplementationBoard, check_if_enemy_board_registers_sink_correctly)
+{
+    std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
+
+    EHitStatus Result = Board->SetHitPosition({ELetter::C, ENumber::Four}, EHitStatus::Sink);
+
+    const auto& Hits = Board->GetHitPositions();
+
+    EXPECT_EQ(Result, EHitStatus::Sink);
+    EXPECT_EQ(Hits.size(), 1);
+    EXPECT_EQ(Hits[0].Position, (FPosition{ELetter::C, ENumber::Four}));
+    EXPECT_EQ(Hits[0].Type, EHitStatus::Sink);
+}
+
+TEST(ImplementationBoard, check_if_duplicate_enemy_board_shot_is_not_added)
+{
+    std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
+
+    EHitStatus FirstResult = Board->SetHitPosition({ELetter::A, ENumber::One}, EHitStatus::Miss);
+    EHitStatus SecondResult = Board->SetHitPosition({ELetter::A, ENumber::One}, EHitStatus::Hit);
+
+    const auto& Hits = Board->GetHitPositions();
+
+    EXPECT_EQ(FirstResult, EHitStatus::Miss);
+    EXPECT_EQ(SecondResult, EHitStatus::AlredyShot);
+    EXPECT_EQ(Hits.size(), 1);
+    EXPECT_EQ(Hits[0].Type, EHitStatus::Miss);
+}
+
+TEST(ImplementationBoard, check_if_enemy_board_counts_sunk_ships_correctly)
+{
+    std::shared_ptr<FEnemyBoard> Board = std::make_shared<FEnemyBoard>();
+
+    Board->SetHitPosition({ELetter::A, ENumber::One}, EHitStatus::Sink);
+    Board->SetHitPosition({ELetter::B, ENumber::Two}, EHitStatus::Hit);
+    Board->SetHitPosition({ELetter::C, ENumber::Three}, EHitStatus::Miss);
+    Board->SetHitPosition({ELetter::D, ENumber::Four}, EHitStatus::Sink);
+
+    EXPECT_EQ(Board->GetSunkShipsCount(), 2);
 }

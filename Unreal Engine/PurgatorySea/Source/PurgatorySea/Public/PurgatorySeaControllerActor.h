@@ -78,7 +78,8 @@ public:
 	virtual FString HandleSessionRequest_Implementation(const FString& RequesterIpAddress) override;
 
 	virtual FString HandleSessionAccepted_Implementation(const FString& InOpponentIpAddress) override;
-	
+	FString ConvertHitStatusToString(EHitStatus HitStatus) const;
+
 	virtual FString HandleFireShotRequest_Implementation(FUnrealPosition Position) override;
 	
 	UPROPERTY(BlueprintReadOnly)
@@ -98,6 +99,7 @@ public:
 	virtual bool HandleReadyRequest_Implementation() override; 
 	virtual void HandleOpponentReadyAccepted_Implementation() override;
 	virtual FString HandleForfeitRequest_Implementation() override;
+	virtual void HandleFireShotResponse_Implementation(FUnrealPosition Position, const FString& HitStatus) override;
 protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };

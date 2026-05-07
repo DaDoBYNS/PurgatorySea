@@ -6,62 +6,49 @@ FEnemyBoard::FEnemyBoard()
 
 void FEnemyBoard::InitEnemyBoard()
 {
-    EnemyShipPosition.clear();
     HitPositions.clear();
 }
 
-EHitStatus FEnemyBoard::SetHitPosition(FPosition HitPosition)
+EHitStatus FEnemyBoard::SetHitPosition(FPosition HitPosition, EHitStatus HitStatus)
 {
     if (CheckShot(HitPosition))
     {
         return EHitStatus::AlredyShot;
     }
 
-    for (auto ShipPosition : EnemyShipPosition)
-    {
-        if (ShipPosition == HitPosition)
-        {
-            HitPositions.push_back({ShipPosition, EHitStatus::Hit});
-            return EHitStatus::Hit;
-        }
-    }
-
-    HitPositions.push_back({HitPosition, EHitStatus::Miss});
-    return EHitStatus::Miss;
+    HitPositions.push_back({HitPosition, HitStatus});
+    return HitStatus;
 }
 
-bool FEnemyBoard::CheckShot(FPosition HitPosition)
+bool FEnemyBoard::CheckShot(FPosition HitPosition) const
 {
-    for (auto ShotPosition : HitPositions)
+    for (const auto& ShotPosition : HitPositions)
     {
-        if ( HitPosition == ShotPosition.Position)
+        if (HitPosition == ShotPosition.Position)
         {
             return true;
         }
     }
+
     return false;
 }
 
-std::vector<FPosition> FEnemyBoard::GetEnemyShipPositions() const
+int FEnemyBoard::GetSunkShipsCount() const
 {
-    return EnemyShipPosition;
+    int SunkShipsCount = 0;
+
+    for (const auto& HitPosition : HitPositions)
+    {
+        if (HitPosition.Type == EHitStatus::Sink)
+        {
+            SunkShipsCount++;
+        }
+    }
+
+    return SunkShipsCount;
 }
 
 std::vector<SEnemyBoard> FEnemyBoard::GetHitPositions() const
 {
     return HitPositions;
-}
-
-bool FEnemyBoard::AddShipPosition(FPosition ShipPosition)
-{
-    for ( auto OldPosition : EnemyShipPosition)
-    {
-        if (OldPosition == ShipPosition)
-        {
-            return false;
-        }
-    }
-
-    EnemyShipPosition.push_back(ShipPosition);
-    return true;
 }

@@ -4,5 +4,6 @@ enum class EHitStatus
 {
     AlredyShot,
     Hit,
-    Miss
+    Miss,
+    Sink
 };

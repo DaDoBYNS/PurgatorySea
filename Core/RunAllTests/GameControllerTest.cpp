@@ -297,90 +297,175 @@ TEST(GameController, gamecontroller_should_not_crash_when_empty_invalid_selected
     EXPECT_NO_THROW(GameController->EmptySelectedShip());
 }
 
-TEST(GameControllerTest, check_no_winner_at_start)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
-
-    EXPECT_FALSE(Controller.HasWon());
-}
-
-TEST(GameControllerTest, check_enemy_positions_initialized_correctly)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::C, ENumber::Five}});
-
-    EXPECT_FALSE(Controller.GetEnemyBoard().GetEnemyShipPositions().empty());
-}
-
-TEST(GameControllerTest, check_shoot_returns_hit_on_ship_position)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
-
-    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EHitStatus::Hit);
-}
-
-TEST(GameControllerTest, check_shoot_returns_miss_on_empty_position)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
-
-    EXPECT_EQ(Controller.Shoot({ELetter::B, ENumber::Two}), EHitStatus::Miss);
-}
-
-TEST(GameControllerTest, check_shoot_returns_already_shot_on_duplicate)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
-
-    Controller.Shoot({ELetter::A, ENumber::One});
-    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EHitStatus::AlredyShot);
-}
-
-TEST(GameControllerTest, check_shoot_returns_invalid_out_of_bounds)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
-
-    EXPECT_EQ(Controller.Shoot({static_cast<ELetter>(-1), ENumber::One}), EHitStatus::AlredyShot);
-}
-
-TEST(GameControllerTest, check_player_wins_after_hitting_all_enemy_ships)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
-
-    Controller.Shoot({ELetter::A, ENumber::One});
-    Controller.Shoot({ELetter::A, ENumber::Two});
-
-    EXPECT_TRUE(Controller.HasWon());
-}
-
-TEST(GameControllerTest, check_no_winner_after_partial_hits)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
-
-    Controller.Shoot({ELetter::A, ENumber::One});
-
-    EXPECT_FALSE(Controller.HasWon());
-}
-
-TEST(GameControllerTest, check_miss_does_not_trigger_win)
-{
-    FGameController Controller;
-    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
-
-    Controller.Shoot({ELetter::B, ENumber::Two});
-
-    EXPECT_FALSE(Controller.HasWon());
-}
-
 TEST(GameControllerTest, check_shot_position_is_invalid_out_of_bounds)
 {
     FGameController Controller;
 
     EXPECT_FALSE(Controller.IsShotPositionValid({static_cast<ELetter>(-1), ENumber::One}));
     EXPECT_FALSE(Controller.IsShotPositionValid({ELetter::A, static_cast<ENumber>(11)}));
+}
+
+TEST(GameControllerTest, receive_shot_should_return_miss_when_no_ship_is_hit)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+    Board->CreateShip({ELetter::A, ENumber::One}, 2, "torpedo");
+
+    EXPECT_EQ(Controller->ReceiveShot({ELetter::C, ENumber::Three}), EHitStatus::Miss);
+}
+
+TEST(GameControllerTest, receive_shot_should_return_hit_when_ship_position_is_hit)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+    Board->CreateShip({ELetter::A, ENumber::Two}, 2, "torpedo");
+
+    EXPECT_EQ(Controller->ReceiveShot({ELetter::A, ENumber::Two}), EHitStatus::Hit);
+}
+
+TEST(GameControllerTest, receive_shot_should_return_sink_when_all_ship_positions_are_hit)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+
+    std::shared_ptr<FShip> Ship = Board->CreateShip({ELetter::A, ENumber::Two}, 2, "torpedo");
+
+    EXPECT_EQ(Controller->ReceiveShot({ELetter::A, ENumber::Two}), EHitStatus::Hit);
+    EXPECT_EQ(Controller->ReceiveShot({ELetter::A, ENumber::One}), EHitStatus::Sink);
+
+    EXPECT_TRUE(Ship->GetIsSunk());
+}
+
+TEST(GameControllerTest, receive_shot_should_return_already_shot_when_same_position_is_received_twice)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+    Board->CreateShip({ELetter::A, ENumber::Two}, 2, "torpedo");
+
+    EXPECT_EQ(Controller->ReceiveShot({ELetter::A, ENumber::Two}), EHitStatus::Hit);
+    EXPECT_EQ(Controller->ReceiveShot({ELetter::A, ENumber::Two}), EHitStatus::AlredyShot);
+}
+
+TEST(GameControllerTest, receive_shot_should_return_already_shot_when_position_is_out_of_bounds)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+
+    EXPECT_EQ(
+        Controller->ReceiveShot({static_cast<ELetter>(-1), ENumber::One}),
+        EHitStatus::AlredyShot
+    );
+}
+
+TEST(GameControllerTest, register_enemy_board_shot_should_save_miss_result)
+{
+    FGameController Controller;
+
+    EXPECT_EQ(
+        Controller.RegisterEnemyBoardShot({ELetter::B, ENumber::Two}, EHitStatus::Miss),
+        EHitStatus::Miss
+    );
+
+    std::vector<SEnemyBoard> HitPositions = Controller.GetEnemyBoard().GetHitPositions();
+
+    EXPECT_EQ(HitPositions.size(), 1);
+    EXPECT_EQ(HitPositions[0].Position, FPosition({ELetter::B, ENumber::Two}));
+    EXPECT_EQ(HitPositions[0].Type, EHitStatus::Miss);
+}
+
+TEST(GameControllerTest, register_enemy_board_shot_should_save_hit_result)
+{
+    FGameController Controller;
+
+    EXPECT_EQ(
+        Controller.RegisterEnemyBoardShot({ELetter::C, ENumber::Three}, EHitStatus::Hit),
+        EHitStatus::Hit
+    );
+
+    std::vector<SEnemyBoard> HitPositions = Controller.GetEnemyBoard().GetHitPositions();
+
+    EXPECT_EQ(HitPositions.size(), 1);
+    EXPECT_EQ(HitPositions[0].Position, FPosition({ELetter::C, ENumber::Three}));
+    EXPECT_EQ(HitPositions[0].Type, EHitStatus::Hit);
+}
+
+TEST(GameControllerTest, register_enemy_board_shot_should_save_sink_result)
+{
+    FGameController Controller;
+
+    EXPECT_EQ(
+        Controller.RegisterEnemyBoardShot({ELetter::D, ENumber::Four}, EHitStatus::Sink),
+        EHitStatus::Sink
+    );
+
+    std::vector<SEnemyBoard> HitPositions = Controller.GetEnemyBoard().GetHitPositions();
+
+    EXPECT_EQ(HitPositions.size(), 1);
+    EXPECT_EQ(HitPositions[0].Position, FPosition({ELetter::D, ENumber::Four}));
+    EXPECT_EQ(HitPositions[0].Type, EHitStatus::Sink);
+}
+
+TEST(GameControllerTest, register_enemy_board_shot_should_return_already_shot_on_duplicate_position)
+{
+    FGameController Controller;
+
+    Controller.RegisterEnemyBoardShot({ELetter::E, ENumber::Five}, EHitStatus::Miss);
+
+    EXPECT_EQ(
+        Controller.RegisterEnemyBoardShot({ELetter::E, ENumber::Five}, EHitStatus::Hit),
+        EHitStatus::AlredyShot
+    );
+
+    EXPECT_EQ(Controller.GetEnemyBoard().GetHitPositions().size(), 1);
+}
+
+TEST(GameControllerTest, has_won_should_return_false_when_enemy_board_has_no_sink_results)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+    Controller->InitGame();
+
+    EXPECT_FALSE(Controller->HasWon());
+}
+
+TEST(GameControllerTest, has_won_should_return_false_when_not_all_enemy_ships_are_sunk)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+    Controller->InitGame();
+
+    Controller->RegisterEnemyBoardShot({ELetter::A, ENumber::One}, EHitStatus::Sink);
+
+    EXPECT_FALSE(Controller->HasWon());
+}
+
+TEST(GameControllerTest, has_won_should_return_true_when_all_enemy_ships_are_sunk)
+{
+    std::shared_ptr<FGameController> Controller = std::make_shared<FGameController>();
+    std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
+
+    Controller->SetBoard(Board);
+    Controller->InitGame();
+
+    Controller->RegisterEnemyBoardShot({ELetter::A, ENumber::One}, EHitStatus::Sink);
+    Controller->RegisterEnemyBoardShot({ELetter::B, ENumber::One}, EHitStatus::Sink);
+    Controller->RegisterEnemyBoardShot({ELetter::C, ENumber::One}, EHitStatus::Sink);
+    Controller->RegisterEnemyBoardShot({ELetter::D, ENumber::One}, EHitStatus::Sink);
+    Controller->RegisterEnemyBoardShot({ELetter::E, ENumber::One}, EHitStatus::Sink);
+
+    EXPECT_TRUE(Controller->HasWon());
 }

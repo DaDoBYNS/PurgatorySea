@@ -1,8 +1,21 @@
 #include "Ship.h"
 
+FShip::FShip(FPosition InPosition, int InDimension)
+    : bIsSelected(false)
+    , bIsErrorHighlighted(false)
+    , bIsSunk(false)
+    , Name("null")
+    , Rotation(ERotation::Vertical)
+    , Dimension(InDimension)
+{
+    GeneratePositionsFromFirstPosition(InPosition);
+}
+
 void FShip::GeneratePositionsFromFirstPosition(FPosition InFirstPosition)
 {
     Positions.clear();
+    HitPositions.clear();
+    bIsSunk = false;
 
     for (int Index = 0; Index < Dimension; Index++)
     {
@@ -23,20 +36,52 @@ void FShip::GeneratePositionsFromFirstPosition(FPosition InFirstPosition)
     }
 }
 
-FShip::FShip(FPosition InPosition, int InDimension)
-    : bIsSelected(false)
-    , bIsErrorHighlighted(false)
-    , Dimension(InDimension)
-    , Name("null") 
-    , Rotation(ERotation::Vertical)
-    , bIsSunk(false)
+bool FShip::ContainsPosition(FPosition InPosition) const
 {
-    /*for (int Y = 0; Y < Dimension; Y++)
+    for (const auto& Position : Positions)
     {
-        int Number = InPosition.Number; 
-        SetPosition(FPosition{InPosition.Letter, Number-Y}); 
-    }*/
-    GeneratePositionsFromFirstPosition(InPosition);
+        if (Position == InPosition)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool FShip::HasHitPosition(FPosition InPosition) const
+{
+    for (const auto& HitPosition : HitPositions)
+    {
+        if (HitPosition == InPosition)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool FShip::RegisterHit(FPosition InPosition)
+{
+    if (!ContainsPosition(InPosition))
+    {
+        return false;
+    }
+
+    if (HasHitPosition(InPosition))
+    {
+        return false;
+    }
+
+    HitPositions.emplace_back(InPosition);
+
+    if (HitPositions.size() == Positions.size())
+    {
+        bIsSunk = true;
+    }
+
+    return true;
 }
 
 bool FShip::GetIsSelected() const
@@ -46,7 +91,12 @@ bool FShip::GetIsSelected() const
 
 std::vector<FPosition> FShip::GetPositions() const
 {
-    return Positions; 
+    return Positions;
+}
+
+std::vector<FPosition> FShip::GetHitPositions() const
+{
+    return HitPositions;
 }
 
 int FShip::GetDimension() const
@@ -61,17 +111,17 @@ FPosition FShip::GetFirstPosition() const
 
 bool FShip::GetIsErrorHighlighted() const
 {
-    return bIsErrorHighlighted; 
+    return bIsErrorHighlighted;
 }
 
 std::string FShip::GetName() const
 {
-    return Name; 
+    return Name;
 }
 
 ERotation FShip::GetRotation() const
 {
-    return Rotation; 
+    return Rotation;
 }
 
 bool FShip::GetIsSunk() const
@@ -115,4 +165,9 @@ void FShip::SetRotation(ERotation InRotation)
     Rotation = InRotation;
 
     GeneratePositionsFromFirstPosition(FirstPosition);
+}
+
+void FShip::SetIsSunk(bool bInIsSunk)
+{
+    bIsSunk = bInIsSunk;
 }

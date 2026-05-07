@@ -73,6 +73,9 @@ void UWebClientSubsystem::SendReadyRequest(const FString& OpponentIpAddress)
 
 void UWebClientSubsystem::SendFireShotRequest(const FString& OpponentIpAddress, const FUnrealPosition& HitPosition)
 {
+	PendingFireShotPosition = HitPosition;
+	bHasPendingFireShotPosition = true;
+	
 	FString Url = FString::Printf(
 		TEXT("http://%s:8842/fireshot"),
 		*OpponentIpAddress
@@ -275,6 +278,23 @@ void UWebClientSubsystem::OnFireShotResponseReceived(FHttpRequestPtr Request, FH
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("FireShot result: %s"), *HitStatus); 
+	
+	if (!bHasPendingFireShotPosition)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot handle fire shot response. Missing pending fire shot position."));
+		return;
+	}
+
+	if (MultiplayerHandler && MultiplayerHandler->GetClass()->ImplementsInterface(UPurgatorySeaMultiplayerHandlerInterface::StaticClass()))
+	{
+		IPurgatorySeaMultiplayerHandlerInterface::Execute_HandleFireShotResponse(
+			MultiplayerHandler,
+			PendingFireShotPosition,
+			HitStatus
+		);
+	}
+
+	bHasPendingFireShotPosition = false;
 }
 
 void UWebClientSubsystem::OnForfeitResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
