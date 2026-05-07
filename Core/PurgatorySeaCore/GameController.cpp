@@ -176,7 +176,6 @@ bool FGameController::HasWon(const FEnemyBoard& EnemyBoard)
     return true;
 }
 
-
 int FGameController::CheckWinner()
 {    
     if (HasWon(Player2Board))

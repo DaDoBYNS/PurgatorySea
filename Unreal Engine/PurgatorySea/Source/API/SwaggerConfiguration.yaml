@@ -1,8 +1,8 @@
 openapi: 3.0.3
 
 info:
-  title: Sida Drive
-  description: Driving simulator
+  title: Purgatory Sea
+  description: Simple battleship game
   version: 1.0.0
   
 servers:

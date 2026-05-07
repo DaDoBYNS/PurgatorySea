@@ -21,7 +21,21 @@ class PURGATORYSEA_API APurgatorySeaControllerActor :
 	std::shared_ptr<FGameController> GameController; 
 	TSet<FString> ReceivedShots;
 	bool bHasSession;
+	bool bIsLocalReady;
+	bool bIsOpponentReady;
+	bool bHasMatchStarted;
+	
+	UPROPERTY()
+	bool bHasMatchEnded;
+
+	UPROPERTY()
+	bool bHasLocalPlayerWon;
+
+	UPROPERTY()
+	bool bHasLocalPlayerLost;
+	
 	FString CreateLocalSession();
+	
 public:
 	// Sets default values for this actor's properties
 	APurgatorySeaControllerActor();
@@ -66,7 +80,21 @@ public:
 	virtual FString HandleSessionAccepted_Implementation() override;
 	
 	virtual FString HandleFireShotRequest_Implementation(FUnrealPosition Position) override;
+	
+	UFUNCTION(BlueprintCallable)
+	void RequestReady(const FString& OpponentIpAddress);
 
+	UFUNCTION(BlueprintCallable)
+	bool ValidateLocalShips();
+	
+	UFUNCTION(BlueprintCallable)
+	void RequestForfeit(const FString& OpponentIpAddress);
+
+	bool TryStartMatch();
+
+	virtual bool HandleReadyRequest_Implementation() override; 
+	virtual void HandleOpponentReadyAccepted_Implementation() override;
+	virtual FString HandleForfeitRequest_Implementation() override;
 protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };

@@ -27,10 +27,23 @@ public:
 		EHttpServerResponseCodes Code
 	);
 	
+	void SendReadyRequest(const FString& OpponentIpAddress);
 	void SendSessionRequest(const FString& OpponentIpAddress);
+	
+	void SendForfeitRequest(const FString& OpponentIpAddress);
 	
 private:
 	void OnSessionResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 	UPROPERTY()
 	TObjectPtr<UObject> MultiplayerHandler = nullptr;
+	
+	void OnReadyResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	TUniquePtr<FHttpServerResponse> CreateJsonBoolResponse(
+		const FString& FieldName,
+		bool bFieldValue,
+		EHttpServerResponseCodes Code
+	);
+	
+	void OnForfeitResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };

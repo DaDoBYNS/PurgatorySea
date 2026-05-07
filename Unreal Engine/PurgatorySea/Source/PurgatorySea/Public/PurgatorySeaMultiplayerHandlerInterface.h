@@ -24,4 +24,13 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	FString HandleSessionAccepted();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool HandleReadyRequest();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void HandleOpponentReadyAccepted();
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	FString HandleForfeitRequest();
 };

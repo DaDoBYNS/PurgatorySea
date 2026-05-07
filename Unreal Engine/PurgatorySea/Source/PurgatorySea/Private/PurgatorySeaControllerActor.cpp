@@ -5,11 +5,17 @@
 
 #include "WebServerSubsystem.h"
 
-// Sets default values
+#include "Validation.h"
+
 APurgatorySeaControllerActor::APurgatorySeaControllerActor()
 	: bHasSession(false)
+	, bIsLocalReady(false)
+	, bIsOpponentReady(false)
+	, bHasMatchStarted(false)
+	, bHasMatchEnded(false)
+	, bHasLocalPlayerWon(false)
+	, bHasLocalPlayerLost(false)
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
@@ -243,6 +249,167 @@ FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnre
 		);
 	
 	return TEXT("Miss");
+}
+
+void APurgatorySeaControllerActor::RequestReady(const FString& OpponentIpAddress)
+{
+	if (bHasMatchStarted)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Match already started. Cannot send ready again."));
+		return;
+	}
+
+	if (!bHasSession)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot ready. No session created yet."));
+		return;
+	}
+
+	if (!ValidateLocalShips())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot ready. Ships are not valid."));
+		return;
+	}
+
+	bIsLocalReady = true;
+
+	UE_LOG(LogTemp, Warning, TEXT("Local player is now ready. Sending GET /ready to opponent."));
+
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
+
+		if (WebServerSubsystem)
+		{
+			WebServerSubsystem->SendReadyRequest(OpponentIpAddress);
+		}
+	}
+
+	TryStartMatch();
+}
+
+bool APurgatorySeaControllerActor::ValidateLocalShips()
+{
+	if (!GameController || !GameController->GetBoard())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot validate ships. Missing GameController or Board."));
+		return false;
+	}
+
+	FValidation Validation;
+	Validation.SetBoard(GameController->GetBoard());
+	Validation.ValidateShips();
+
+	bool bIsValid = Validation.GetIsValid();
+
+	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+
+	UE_LOG(LogTemp, Warning, TEXT("Local ships validation result: %s"), bIsValid ? TEXT("Valid") : TEXT("Invalid"));
+
+	return bIsValid;
+}
+
+void APurgatorySeaControllerActor::RequestForfeit(const FString& OpponentIpAddress)
+{
+	if (bHasMatchEnded)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot forfeit. Match already ended."));
+		return;
+	}
+
+	if (!bHasSession)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot forfeit. No session created yet."));
+		return;
+	}
+
+	bHasMatchEnded = true;
+	bHasLocalPlayerLost = true;
+	bHasLocalPlayerWon = false;
+
+	UE_LOG(LogTemp, Warning, TEXT("Local player forfeited. Local player lost. Opponent won."));
+
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
+
+		if (WebServerSubsystem)
+		{
+			WebServerSubsystem->SendForfeitRequest(OpponentIpAddress);
+		}
+	}
+}
+
+bool APurgatorySeaControllerActor::TryStartMatch()
+{
+	if (bHasMatchStarted)
+	{
+		return true;
+	}
+
+	if (!bIsLocalReady || !bIsOpponentReady)
+	{
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("Match cannot start yet. LocalReady: %s, OpponentReady: %s"),
+			bIsLocalReady ? TEXT("true") : TEXT("false"),
+			bIsOpponentReady ? TEXT("true") : TEXT("false")
+		);
+
+		return false;
+	}
+
+	bHasMatchStarted = true;
+
+	UE_LOG(LogTemp, Warning, TEXT("Both players are ready. Match can start."));
+
+	return true;
+}
+
+void APurgatorySeaControllerActor::HandleOpponentReadyAccepted_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleOpponentReadyAccepted called."));
+
+	bIsOpponentReady = true;
+
+	TryStartMatch();
+}
+
+FString APurgatorySeaControllerActor::HandleForfeitRequest_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleForfeitRequest called. Opponent forfeited."));
+
+	if (bHasMatchEnded)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot accept forfeit. Match already ended."));
+		return TEXT("Denied");
+	}
+
+	if (!bHasSession)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot accept forfeit. No session created yet."));
+		return TEXT("Denied");
+	}
+
+	bHasMatchEnded = true;
+	bHasLocalPlayerWon = true;
+	bHasLocalPlayerLost = false;
+
+	UE_LOG(LogTemp, Warning, TEXT("Opponent forfeited. Local player won."));
+
+	return TEXT("Won");
+}
+
+bool APurgatorySeaControllerActor::HandleReadyRequest_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleReadyRequest called. Opponent is ready."));
+
+	bIsOpponentReady = true;
+
+	TryStartMatch();
+
+	return bIsLocalReady;
 }
 
 void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
