@@ -6,9 +6,9 @@ FGameController::FGameController()
 
 void FGameController::InitGame()
 {
-    Board->CreateShip(FPosition{ELetter::A, ENumber::Eight}, 2, "null");
+    Board->CreateShip(FPosition{ELetter::A, ENumber::Eight}, 2, "torpedo");
     Board->CreateShip(FPosition{ELetter::B, ENumber::Eight}, 3, "submarine");
-    Board->CreateShip(FPosition{ELetter::C, ENumber::Eight}, 3, "null");
+    Board->CreateShip(FPosition{ELetter::C, ENumber::Eight}, 3, "swiftboat");
     Board->CreateShip(FPosition{ELetter::D, ENumber::Eight}, 4, "battleship");
     Board->CreateShip(FPosition{ELetter::E, ENumber::Eight}, 5, "aircraft carrier");
     

@@ -65,6 +65,16 @@ TSubclassOf<AShipActor> APurgatorySeaBoardPositions::GetShipClassByName(const st
 	{
 		return SubmarineClass;
 	}
+	
+	if (ShipName == "torpedo")
+	{
+		return TorpedoClass;
+	}
+	
+	if (ShipName == "swiftboat")
+	{
+		return SwiftBoatClass;
+	}
 
 	return nullptr;
 }

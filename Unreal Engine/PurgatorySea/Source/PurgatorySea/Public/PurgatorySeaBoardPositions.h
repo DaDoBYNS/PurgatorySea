@@ -32,6 +32,12 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = "Ships")
 	TSubclassOf<AShipActor> SubmarineClass;
+	
+	UPROPERTY(EditAnywhere, Category = "Ships")
+	TSubclassOf<AShipActor> TorpedoClass;
+	
+	UPROPERTY(EditAnywhere, Category = "Ships")
+	TSubclassOf<AShipActor> SwiftBoatClass;
 
 	UPROPERTY(EditAnywhere, Category = "Ships")
 	UMaterialInterface* SelectedShipMaterial;
