@@ -28,7 +28,7 @@ public:
     bool IsShotPositionValid(FPosition InPosition) const;
     void EmptySelectedShip() const;
     
-    EEnemyTileType Shoot(FPosition ShotPosition);
+    EHitStatus Shoot(FPosition ShotPosition);
     
     bool HasWon() const;
     

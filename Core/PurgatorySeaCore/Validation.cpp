@@ -1,6 +1,6 @@
 #include "Validation.h"
 
-#include "TileType.h"
+#include "HitStatus.h"
 
 FValidation::FValidation()
     : bIsValid(false)

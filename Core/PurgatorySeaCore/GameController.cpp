@@ -107,10 +107,10 @@ bool FGameController::IsShotPositionValid(FPosition ShotPosition) const
         && ShotPosition.Number <= static_cast<int>(ENumber::Ten);
 }
 
-EEnemyTileType FGameController::Shoot(FPosition ShotPosition)
+EHitStatus FGameController::Shoot(FPosition ShotPosition)
 {
     if (!IsShotPositionValid(ShotPosition))
-        return EEnemyTileType::AlredyShot;
+        return EHitStatus::AlredyShot;
     
     return EnemyBoard.SetHitPosition(ShotPosition);
 }
@@ -129,7 +129,7 @@ bool FGameController::HasWon() const
         bool bWasHit = false;
         for (const auto& Hit : HitPositions)
         {
-            if (Hit.Position == ShipPosition && Hit.Type == EEnemyTileType::Hit)
+            if (Hit.Position == ShipPosition && Hit.Type == EHitStatus::Hit)
             {
                 bWasHit = true;
                 break;

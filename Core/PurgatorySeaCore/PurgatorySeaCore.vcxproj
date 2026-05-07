@@ -26,7 +26,7 @@
     <ClInclude Include="Number.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Rotation.h" />
-    <ClInclude Include="TileType.h" />
+    <ClInclude Include="HitStatus.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Validation.h" />

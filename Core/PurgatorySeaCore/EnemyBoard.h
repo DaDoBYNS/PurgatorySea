@@ -2,12 +2,12 @@
 #include <vector>
 
 #include "Position.h"
-#include "TileType.h"
+#include "HitStatus.h"
 
 struct SEnemyBoard
 {
     FPosition Position;
-    EEnemyTileType Type;
+    EHitStatus Type;
 };
 
 
@@ -24,7 +24,7 @@ public:
     
     bool AddShipPosition(FPosition ShipPosition);
     
-    EEnemyTileType SetHitPosition(FPosition HitPosition);
+    EHitStatus SetHitPosition(FPosition HitPosition);
     
     bool CheckShot(FPosition HitPosition);
     

@@ -132,7 +132,7 @@ TEST(ImplementationBoard, check_if_hit_is_registered_correctly)
 
     auto Result = Board->SetHitPosition({ELetter::B, ENumber::Three});
 
-    EXPECT_EQ(Result, EEnemyTileType::Hit);
+    EXPECT_EQ(Result, EHitStatus::Hit);
 
     const auto& Hits = Board->GetHitPositions();
     EXPECT_EQ(Hits.size(), 1);
@@ -144,7 +144,7 @@ TEST(ImplementationBoard, check_if_miss_is_registered_correctly)
 
     auto Result = Board->SetHitPosition({ELetter::H, ENumber::Nine});
 
-    EXPECT_EQ(Result, EEnemyTileType::Miss);
+    EXPECT_EQ(Result, EHitStatus::Miss);
 
     const auto& Hits = Board->GetHitPositions();
     EXPECT_EQ(Hits.size(), 1);

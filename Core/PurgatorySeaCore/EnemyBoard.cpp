@@ -10,24 +10,24 @@ void FEnemyBoard::InitEnemyBoard()
     HitPositions.clear();
 }
 
-EEnemyTileType FEnemyBoard::SetHitPosition(FPosition HitPosition)
+EHitStatus FEnemyBoard::SetHitPosition(FPosition HitPosition)
 {
     if (CheckShot(HitPosition))
     {
-        return EEnemyTileType::AlredyShot;
+        return EHitStatus::AlredyShot;
     }
 
     for (auto ShipPosition : EnemyShipPosition)
     {
         if (ShipPosition == HitPosition)
         {
-            HitPositions.push_back({ShipPosition, EEnemyTileType::Hit});
-            return EEnemyTileType::Hit;
+            HitPositions.push_back({ShipPosition, EHitStatus::Hit});
+            return EHitStatus::Hit;
         }
     }
 
-    HitPositions.push_back({HitPosition, EEnemyTileType::Miss});
-    return EEnemyTileType::Miss;
+    HitPositions.push_back({HitPosition, EHitStatus::Miss});
+    return EHitStatus::Miss;
 }
 
 bool FEnemyBoard::CheckShot(FPosition HitPosition)

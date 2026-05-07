@@ -318,7 +318,7 @@ TEST(GameControllerTest, check_shoot_returns_hit_on_ship_position)
     FGameController Controller;
     Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
 
-    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EEnemyTileType::Hit);
+    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EHitStatus::Hit);
 }
 
 TEST(GameControllerTest, check_shoot_returns_miss_on_empty_position)
@@ -326,7 +326,7 @@ TEST(GameControllerTest, check_shoot_returns_miss_on_empty_position)
     FGameController Controller;
     Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
 
-    EXPECT_EQ(Controller.Shoot({ELetter::B, ENumber::Two}), EEnemyTileType::Miss);
+    EXPECT_EQ(Controller.Shoot({ELetter::B, ENumber::Two}), EHitStatus::Miss);
 }
 
 TEST(GameControllerTest, check_shoot_returns_already_shot_on_duplicate)
@@ -335,7 +335,7 @@ TEST(GameControllerTest, check_shoot_returns_already_shot_on_duplicate)
     Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
 
     Controller.Shoot({ELetter::A, ENumber::One});
-    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EEnemyTileType::AlredyShot);
+    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EHitStatus::AlredyShot);
 }
 
 TEST(GameControllerTest, check_shoot_returns_invalid_out_of_bounds)
@@ -343,7 +343,7 @@ TEST(GameControllerTest, check_shoot_returns_invalid_out_of_bounds)
     FGameController Controller;
     Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
 
-    EXPECT_EQ(Controller.Shoot({static_cast<ELetter>(-1), ENumber::One}), EEnemyTileType::AlredyShot);
+    EXPECT_EQ(Controller.Shoot({static_cast<ELetter>(-1), ENumber::One}), EHitStatus::AlredyShot);
 }
 
 TEST(GameControllerTest, check_player_wins_after_hitting_all_enemy_ships)
