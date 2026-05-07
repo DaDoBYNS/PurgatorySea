@@ -16,34 +16,29 @@ UCLASS()
 class PURGATORYSEA_API UWebServerSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
+
 public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+
 	void SetMultiplayerHandler(UObject* InHandler);
-	bool GetJsonObjectFromRequest(const FHttpServerRequest& request, TSharedPtr<FJsonObject>& jsonObject);
-	FString BytesToStringFixed(const uint8* bytes, int32 length);
-	TUniquePtr<FHttpServerResponse> CreateJsonResponse( 
+
+private:
+	bool GetJsonObjectFromRequest(const FHttpServerRequest& Request, TSharedPtr<FJsonObject>& JsonObject);
+	FString BytesToStringFixed(const uint8* Bytes, int32 Length);
+
+	TUniquePtr<FHttpServerResponse> CreateJsonResponse(
 		const FString& FieldName,
 		const FString& FieldValue,
 		EHttpServerResponseCodes Code
 	);
-	
-	void SendReadyRequest(const FString& OpponentIpAddress);
-	void SendSessionRequest(const FString& OpponentIpAddress, const FString& LocalIpAddress);
-	
-	void SendForfeitRequest(const FString& OpponentIpAddress);
-	
-private:
-	void OnSessionResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	UPROPERTY()
-	TObjectPtr<UObject> MultiplayerHandler = nullptr;
-	
-	void OnReadyResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 	TUniquePtr<FHttpServerResponse> CreateJsonBoolResponse(
 		const FString& FieldName,
 		bool bFieldValue,
 		EHttpServerResponseCodes Code
 	);
-	FString PendingSessionOpponentIpAddress;
-	void OnForfeitResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+private:
+	UPROPERTY()
+	TObjectPtr<UObject> MultiplayerHandler = nullptr;
 };

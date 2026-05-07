@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "WebServerSubsystem.h"
 
 #include "HttpServerModule.h"
@@ -7,9 +5,6 @@
 #include "JsonObjectConverter.h"
 #include "PurgatorySeaMultiplayerHandlerInterface.h"
 #include "UnrealPosition.h"
-#include "HttpModule.h"
-#include "Interfaces/IHttpRequest.h"
-#include "Interfaces/IHttpResponse.h"
 
 void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -101,7 +96,7 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		OnComplete(MoveTemp(Response));
 		return true;
 	}));
-	
+
 	Router->BindRoute({"/ready"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
@@ -148,7 +143,7 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		OnComplete(MoveTemp(Response));
 		return true;
 	}));
-	
+
 	Router->BindRoute({"/fireshot"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
 		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
@@ -211,7 +206,7 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 			OnComplete(MoveTemp(Response));
 			return true;
-		}  
+		}
 
 		FString HitStatus = TEXT("NoHandler");
 
@@ -222,7 +217,7 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 				UnrealPosition
 			);
 		}
-		
+
 		UE_LOG(LogTemp, Warning, TEXT("POST /fireshot returning HitStatus: %s"), *HitStatus);
 
 		TUniquePtr<FHttpServerResponse> Response = CreateJsonResponse(
@@ -234,26 +229,26 @@ void UWebServerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		OnComplete(MoveTemp(Response));
 		return true;
 	}));
-	
+
 	Router->BindRoute({"/forfeit"}, EHttpServerRequestVerbs::VERB_OPTIONS, FHttpRequestHandler([](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
-{
-	TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
+	{
+		TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Ok();
 
-	TArray<FString> AccessControlAllowOrigin;
-	AccessControlAllowOrigin.Add(TEXT("*"));
-	Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
+		TArray<FString> AccessControlAllowOrigin;
+		AccessControlAllowOrigin.Add(TEXT("*"));
+		Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
 
-	TArray<FString> AccessControlAllowMethods;
-	AccessControlAllowMethods.Add(TEXT("POST, GET, PUT, DELETE, OPTIONS"));
-	Response->Headers.Add(TEXT("Access-Control-Allow-Methods"), AccessControlAllowMethods);
+		TArray<FString> AccessControlAllowMethods;
+		AccessControlAllowMethods.Add(TEXT("POST, GET, PUT, DELETE, OPTIONS"));
+		Response->Headers.Add(TEXT("Access-Control-Allow-Methods"), AccessControlAllowMethods);
 
-	TArray<FString> AccessControlAllowHeaders;
-	AccessControlAllowHeaders.Add(TEXT("*"));
-	Response->Headers.Add(TEXT("Access-Control-Allow-Headers"), AccessControlAllowHeaders);
+		TArray<FString> AccessControlAllowHeaders;
+		AccessControlAllowHeaders.Add(TEXT("*"));
+		Response->Headers.Add(TEXT("Access-Control-Allow-Headers"), AccessControlAllowHeaders);
 
-	OnComplete(MoveTemp(Response));
-	return true;
-}));
+		OnComplete(MoveTemp(Response));
+		return true;
+	}));
 
 	Router->BindRoute({"/forfeit"}, EHttpServerRequestVerbs::VERB_POST, FHttpRequestHandler([this](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)->bool
 	{
@@ -348,80 +343,6 @@ TUniquePtr<FHttpServerResponse> UWebServerSubsystem::CreateJsonResponse(
 	return Response;
 }
 
-void UWebServerSubsystem::SendReadyRequest(const FString& OpponentIpAddress)
-{
-	FString Url = FString::Printf(
-		TEXT("http://%s:8842/ready"),
-		*OpponentIpAddress
-	);
-
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
-
-	Request->SetURL(Url);
-	Request->SetVerb(TEXT("GET"));
-	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-
-	Request->OnProcessRequestComplete().BindUObject(
-		this,
-		&UWebServerSubsystem::OnReadyResponseReceived
-	);
-
-	UE_LOG(LogTemp, Warning, TEXT("Sending GET /ready to: %s"), *Url);
-
-	Request->ProcessRequest();
-}
-
-void UWebServerSubsystem::OnReadyResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-{
-	if (!bWasSuccessful || !Response.IsValid())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Ready request failed. No valid response."));
-		return;
-	}
-
-	FString ResponseBody = Response->GetContentAsString();
-
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("Ready response code: %d body: %s"),
-		Response->GetResponseCode(),
-		*ResponseBody
-	);
-
-	TSharedPtr<FJsonObject> JsonObject;
-	const TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(ResponseBody);
-
-	if (!FJsonSerializer::Deserialize(Reader, JsonObject) || !JsonObject.IsValid())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Invalid ready response json."));
-		return;
-	}
-
-	bool bOpponentIsReady = false;
-
-	if (!JsonObject->TryGetBoolField(TEXT("bIsReady"), bOpponentIsReady))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Missing bIsReady field."));
-		return;
-	}
-
-	if (!bOpponentIsReady)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Opponent is not ready yet."));
-		return;
-	}
-
-	UE_LOG(LogTemp, Warning, TEXT("Opponent is already ready."));
-
-	if (MultiplayerHandler && MultiplayerHandler->GetClass()->ImplementsInterface(UPurgatorySeaMultiplayerHandlerInterface::StaticClass()))
-	{
-		IPurgatorySeaMultiplayerHandlerInterface::Execute_HandleOpponentReadyAccepted(
-			MultiplayerHandler
-		);
-	}
-}
-
 TUniquePtr<FHttpServerResponse> UWebServerSubsystem::CreateJsonBoolResponse(
 	const FString& FieldName,
 	bool bFieldValue,
@@ -447,148 +368,4 @@ TUniquePtr<FHttpServerResponse> UWebServerSubsystem::CreateJsonBoolResponse(
 	Response->Headers.Add(TEXT("Access-Control-Allow-Origin"), AccessControlAllowOrigin);
 
 	return Response;
-}
-
-void UWebServerSubsystem::OnForfeitResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-{
-	if (!bWasSuccessful || !Response.IsValid())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Forfeit request failed. No valid response."));
-		return;
-	}
-
-	FString ResponseBody = Response->GetContentAsString();
-
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("Forfeit response code: %d body: %s"),
-		Response->GetResponseCode(),
-		*ResponseBody
-	);
-
-	if (Response->GetResponseCode() != 200)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Forfeit denied by opponent."));
-		return;
-	}
-
-	UE_LOG(LogTemp, Warning, TEXT("Forfeit accepted. Local player lost."));
-}
-
-void UWebServerSubsystem::SendSessionRequest(const FString& OpponentIpAddress, const FString& LocalIpAddress)
-{
-	PendingSessionOpponentIpAddress = OpponentIpAddress;
-
-	FString Url = FString::Printf(
-		TEXT("http://%s:8842/session"),
-		*OpponentIpAddress
-	);
-
-	const TSharedPtr<FJsonObject> JsonObject = MakeShared<FJsonObject>();
-	JsonObject->SetStringField(TEXT("RequesterIpAddress"), LocalIpAddress);
-
-	FString RequestBody;
-	const TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestBody);
-	FJsonSerializer::Serialize(JsonObject.ToSharedRef(), Writer);
-
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
-
-	Request->SetURL(Url);
-	Request->SetVerb(TEXT("POST"));
-	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-	Request->SetContentAsString(RequestBody);
-
-	Request->OnProcessRequestComplete().BindUObject(
-		this,
-		&UWebServerSubsystem::OnSessionResponseReceived
-	);
-
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("Sending POST /session to: %s with LocalIpAddress: %s"),
-		*Url,
-		*LocalIpAddress
-	);
-
-	Request->ProcessRequest();
-}
-
-void UWebServerSubsystem::SendForfeitRequest(const FString& OpponentIpAddress)
-{
-	FString Url = FString::Printf(
-		TEXT("http://%s:8842/forfeit"),
-		*OpponentIpAddress
-	);
-
-	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> Request = FHttpModule::Get().CreateRequest();
-
-	Request->SetURL(Url);
-	Request->SetVerb(TEXT("POST"));
-	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-
-	Request->OnProcessRequestComplete().BindUObject(
-		this,
-		&UWebServerSubsystem::OnForfeitResponseReceived
-	);
-
-	UE_LOG(LogTemp, Warning, TEXT("Sending POST /forfeit to: %s"), *Url);
-
-	Request->ProcessRequest();
-}
-
-void UWebServerSubsystem::OnSessionResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-{
-	if (!bWasSuccessful || !Response.IsValid())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Session request failed. No valid response."));
-		return;
-	}
-
-	FString ResponseBody = Response->GetContentAsString();
-
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("Session response code: %d body: %s"),
-		Response->GetResponseCode(),
-		*ResponseBody
-	);
-
-	if (Response->GetResponseCode() != 200)
-	{
-		return;
-	}
-
-	TSharedPtr<FJsonObject> JsonObject;
-	const TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(ResponseBody);
-
-	if (!FJsonSerializer::Deserialize(Reader, JsonObject) || !JsonObject.IsValid())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Invalid session response json."));
-		return;
-	}
-
-	FString SessionStatus;
-
-	if (!JsonObject->TryGetStringField(TEXT("SessionStatus"), SessionStatus))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Missing SessionStatus field."));
-		return;
-	}
-
-	if (SessionStatus != TEXT("Created"))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Session was not created by opponent."));
-		return;
-	}
-
-	if (MultiplayerHandler && MultiplayerHandler->GetClass()->ImplementsInterface(UPurgatorySeaMultiplayerHandlerInterface::StaticClass()))
-	{
-		IPurgatorySeaMultiplayerHandlerInterface::Execute_HandleSessionAccepted(
-			MultiplayerHandler,
-			PendingSessionOpponentIpAddress
-		);
-	}
 }

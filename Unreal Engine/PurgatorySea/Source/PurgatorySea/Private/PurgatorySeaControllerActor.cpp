@@ -6,6 +6,7 @@
 #include "WebServerSubsystem.h"
 
 #include "Validation.h"
+#include "WebClientSubsystem.h"
 
 APurgatorySeaControllerActor::APurgatorySeaControllerActor()
 	: bHasSession(false)
@@ -189,11 +190,11 @@ void APurgatorySeaControllerActor::RequestSession(const FString& InOpponentIpAdd
 
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
-		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
+		UWebClientSubsystem* WebClientSubsystem = GetGameInstance()->GetSubsystem<UWebClientSubsystem>();
 
-		if (WebServerSubsystem)
+		if (WebClientSubsystem)
 		{
-			WebServerSubsystem->SendSessionRequest(InOpponentIpAddress, LocalIpAddress);
+			WebClientSubsystem->SendSessionRequest(InOpponentIpAddress, LocalIpAddress);
 		}
 	}
 }
@@ -329,11 +330,11 @@ void APurgatorySeaControllerActor::RequestReady()
 
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
-		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
+		UWebClientSubsystem* WebClientSubsystem = GetGameInstance()->GetSubsystem<UWebClientSubsystem>();
 
-		if (WebServerSubsystem)
+		if (WebClientSubsystem)
 		{
-			WebServerSubsystem->SendReadyRequest(OpponentIpAddress);
+			WebClientSubsystem->SendReadyRequest(OpponentIpAddress);
 		}
 	}
 
@@ -389,11 +390,11 @@ void APurgatorySeaControllerActor::RequestForfeit()
 
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
-		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
+		UWebClientSubsystem* WebClientSubsystem = GetGameInstance()->GetSubsystem<UWebClientSubsystem>();
 
-		if (WebServerSubsystem)
+		if (WebClientSubsystem)
 		{
-			WebServerSubsystem->SendForfeitRequest(OpponentIpAddress);
+			WebClientSubsystem->SendForfeitRequest(OpponentIpAddress);
 		}
 	}
 }
