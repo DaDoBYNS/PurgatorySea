@@ -10,7 +10,6 @@ void FEnemyBoard::InitEnemyBoard()
     HitPositions.clear();
 }
 
-
 EEnemyTileType FEnemyBoard::SetHitPosition(FPosition HitPosition)
 {
     if (CheckShot(HitPosition))
