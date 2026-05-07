@@ -197,131 +197,7 @@ TEST(GameControllerTest, check_no_winner_if_no_ships_registered)
 {
     FGameController Controller;
 
-    EXPECT_EQ(Controller.CheckWinner(), 0);
-}
-
-TEST(GameControllerTest, check_no_winner_at_start)
-{
-    FGameController Controller;
-    Controller.SetPlayer1ShipPositions({{ELetter::A, ENumber::One}});
-    Controller.SetPlayer2ShipPositions({{ELetter::B, ENumber::Two}});
-
-    EXPECT_EQ(Controller.CheckWinner(), 0);
-}
-
-TEST(GameControllerTest, check_if_positions_player_1_is_inizialized_correctly)
-{
-    FGameController Controller;
-    Controller.SetPlayer1ShipPositions({{ELetter::C, ENumber::Five}});
-
-    EXPECT_EQ(Controller.GetPlayer1ShipPositions().GetEnemyShipPositions().empty(), false);
-}
-
-TEST(GameControllerTest, check_if_positions_player_2_is_inizialized_correctly)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::F, ENumber::Seven}});
-
-    EXPECT_EQ(Controller.GetPlayer2ShipPositions().GetEnemyShipPositions().empty(), false);
-}
-
-TEST(GameControllerTest, check_player1_can_hit_all_enemy_ships)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
-    Controller.SetPlayer1ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    EXPECT_EQ(Controller.Player1Shoot({ELetter::A, ENumber::One}), EEnemyTileType::Hit);
-    
-    EXPECT_EQ(Controller.Player1Shoot({ELetter::A, ENumber::Two}), EEnemyTileType::Hit);
-}
-
-TEST(GameControllerTest, check_player2_can_hit_all_enemy_ships)
-{
-    FGameController Controller;
-    Controller.SetPlayer1ShipPositions({{ELetter::C, ENumber::Eight}, {ELetter::C, ENumber::Nine}});
-    Controller.SetPlayer2ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    EXPECT_EQ(Controller.Player2Shoot({ELetter::C, ENumber::Eight}), EEnemyTileType::Hit);
-    
-    EXPECT_EQ(Controller.Player2Shoot({ELetter::C, ENumber::Nine}), EEnemyTileType::Hit);
-}
-
-TEST(GameControllerTest, check_player1_can_hit_all_enemy_ships_x)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
-    Controller.SetPlayer1ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    Controller.Player1Shoot({ELetter::A, ENumber::One});
-    Controller.Player1Shoot({ELetter::A, ENumber::Two});
-    
-    EXPECT_EQ(Controller.CheckWinner(), 1);
-}
-
-TEST(GameControllerTest, check_player2_can_hit_all_enemy_ships_x)
-{
-    FGameController Controller;
-    Controller.SetPlayer1ShipPositions({{ELetter::C, ENumber::Eight}, {ELetter::C, ENumber::Nine}});
-    Controller.SetPlayer2ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    Controller.Player2Shoot({ELetter::C, ENumber::Eight});
-    Controller.Player2Shoot({ELetter::C, ENumber::Nine});
-    
-    EXPECT_EQ(Controller.CheckWinner(), 2);
-}
-
-TEST(GameControllerTest, check_no_winner_after_partial_hits)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
-    Controller.SetPlayer1ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    Controller.Player1Shoot({ELetter::A, ENumber::One});
-
-    EXPECT_EQ(Controller.CheckWinner(), 0);
-}
-
-TEST(GameControllerTest, check_miss_does_not_trigger_win)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}});
-    Controller.SetPlayer1ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    EXPECT_EQ(Controller.Player1Shoot({ELetter::B, ENumber::Two}), EEnemyTileType::Miss);
-
-    EXPECT_EQ(Controller.Player1Shoot({ELetter::B, ENumber::Two}), EEnemyTileType::AlredyShot);
-    
-    EXPECT_EQ(Controller.CheckWinner(), 0);
-}
-
-TEST(GameControllerTest, check_multiple_shot_to_win)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}});
-    Controller.SetPlayer1ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    Controller.Player1Shoot({ELetter::B, ENumber::Two});
-    Controller.Player2Shoot({ELetter::A, ENumber::One});
-    Controller.Player1Shoot({ELetter::C, ENumber::Two});
-    Controller.Player2Shoot({ELetter::H, ENumber::Eight});
-    
-    EXPECT_EQ(Controller.CheckWinner(), 2);
-}
-
-TEST(GameControllerTest, check_multiple_shot_to_win_and_multiple_ships)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
-    Controller.SetPlayer1ShipPositions({{ELetter::H, ENumber::Eight}});
-
-    Controller.Player1Shoot({ELetter::A, ENumber::Two});
-    Controller.Player2Shoot({ELetter::A, ENumber::One});
-    Controller.Player1Shoot({ELetter::C, ENumber::Two});
-    Controller.Player2Shoot({ELetter::H, ENumber::Six});
-    Controller.Player1Shoot({ELetter::A, ENumber::One});
-    
-    EXPECT_EQ(Controller.CheckWinner(), 1);
+    EXPECT_EQ(Controller.HasWon(), false);
 }
 
 TEST(GameControllerTest, check_shot_position_is_valid_in_bounds)
@@ -331,22 +207,6 @@ TEST(GameControllerTest, check_shot_position_is_valid_in_bounds)
     EXPECT_TRUE(Controller.IsShotPositionValid({ELetter::A, ENumber::One}));
     EXPECT_TRUE(Controller.IsShotPositionValid({ELetter::J, ENumber::Ten}));
     EXPECT_TRUE(Controller.IsShotPositionValid({ELetter::E, ENumber::Five}));
-}
-
-TEST(GameControllerTest, check_player1_shoot_returns_invalid_out_of_bounds)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}});
-
-    EXPECT_EQ(Controller.Player1Shoot({static_cast<ELetter>(-1), ENumber::One}), EEnemyTileType::AlredyShot);
-}
-
-TEST(GameControllerTest, check_player2_shoot_returns_invalid_out_of_bounds)
-{
-    FGameController Controller;
-    Controller.SetPlayer1ShipPositions({{ELetter::A, ENumber::One}});
-
-    EXPECT_EQ(Controller.Player2Shoot({static_cast<ELetter>(-1), ENumber::One}), EEnemyTileType::AlredyShot);
 }
 
 TEST(GameController, gamecontroller_should_rotate_selected_ship_through_selection)
@@ -372,14 +232,7 @@ TEST(GameController, gamecontroller_should_rotate_selected_ship_through_selectio
     EXPECT_TRUE(Ship->GetRotation() != StartRotation);
 }
 
-TEST(GameControllerTest, check_player1_shoot_returns_already_shot_on_duplicate)
-{
-    FGameController Controller;
-    Controller.SetPlayer2ShipPositions({{ELetter::A, ENumber::One}});
 
-    Controller.Player1Shoot({ELetter::A, ENumber::One});
-    EXPECT_EQ(Controller.Player1Shoot({ELetter::A, ENumber::One}), EEnemyTileType::AlredyShot);
-}
 
 TEST(GameController, gamecontroller_should_be_able_to_empty_selected_ship_when_requested)
 {
@@ -412,4 +265,92 @@ TEST(GameController, gamecontroller_should_not_crash_when_empty_invalid_selected
     GameController->GetSelection()->SetBoard(Board);
     
     EXPECT_NO_THROW(GameController->EmptySelectedShip());
+}
+
+TEST(GameControllerTest, check_no_winner_at_start)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
+
+    EXPECT_FALSE(Controller.HasWon());
+}
+
+TEST(GameControllerTest, check_enemy_positions_initialized_correctly)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::C, ENumber::Five}});
+
+    EXPECT_FALSE(Controller.GetEnemyBoard().GetEnemyShipPositions().empty());
+}
+
+TEST(GameControllerTest, check_shoot_returns_hit_on_ship_position)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
+
+    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EEnemyTileType::Hit);
+}
+
+TEST(GameControllerTest, check_shoot_returns_miss_on_empty_position)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
+
+    EXPECT_EQ(Controller.Shoot({ELetter::B, ENumber::Two}), EEnemyTileType::Miss);
+}
+
+TEST(GameControllerTest, check_shoot_returns_already_shot_on_duplicate)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
+
+    Controller.Shoot({ELetter::A, ENumber::One});
+    EXPECT_EQ(Controller.Shoot({ELetter::A, ENumber::One}), EEnemyTileType::AlredyShot);
+}
+
+TEST(GameControllerTest, check_shoot_returns_invalid_out_of_bounds)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
+
+    EXPECT_EQ(Controller.Shoot({static_cast<ELetter>(-1), ENumber::One}), EEnemyTileType::AlredyShot);
+}
+
+TEST(GameControllerTest, check_player_wins_after_hitting_all_enemy_ships)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
+
+    Controller.Shoot({ELetter::A, ENumber::One});
+    Controller.Shoot({ELetter::A, ENumber::Two});
+
+    EXPECT_TRUE(Controller.HasWon());
+}
+
+TEST(GameControllerTest, check_no_winner_after_partial_hits)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}, {ELetter::A, ENumber::Two}});
+
+    Controller.Shoot({ELetter::A, ENumber::One});
+
+    EXPECT_FALSE(Controller.HasWon());
+}
+
+TEST(GameControllerTest, check_miss_does_not_trigger_win)
+{
+    FGameController Controller;
+    Controller.SetEnemyShipPositions({{ELetter::A, ENumber::One}});
+
+    Controller.Shoot({ELetter::B, ENumber::Two});
+
+    EXPECT_FALSE(Controller.HasWon());
+}
+
+TEST(GameControllerTest, check_shot_position_is_invalid_out_of_bounds)
+{
+    FGameController Controller;
+
+    EXPECT_FALSE(Controller.IsShotPositionValid({static_cast<ELetter>(-1), ENumber::One}));
+    EXPECT_FALSE(Controller.IsShotPositionValid({ELetter::A, static_cast<ENumber>(11)}));
 }

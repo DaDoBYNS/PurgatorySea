@@ -11,8 +11,9 @@ class FGameController
     std::shared_ptr<FSelection> Selection;
     
     bool bIsGameReady;
-    FEnemyBoard Player1Board;
-    FEnemyBoard Player2Board;
+    FEnemyBoard EnemyBoard;
+    std::vector<FPosition> ReceivedShot;
+    
     
 public:
     FGameController();
@@ -27,21 +28,18 @@ public:
     bool IsShotPositionValid(FPosition InPosition) const;
     void EmptySelectedShip() const;
     
-    EEnemyTileType Player1Shoot(FPosition ShotPosition);
-    EEnemyTileType Player2Shoot(FPosition ShotPosition);
+    EEnemyTileType Shoot(FPosition ShotPosition);
     
-    bool HasWon(const FEnemyBoard& EnemyBoard);
-    int CheckWinner();
+    bool HasWon() const;
     
     void SetBoard(std::shared_ptr<FBoard>& InBoard);
     void SetSelection(std::shared_ptr<FSelection>& InSelection);
-    void SetPlayerShipPositions(const std::vector<FPosition>& Positions);
-    void SetPlayer1ShipPositions(const std::vector<FPosition>& Positions);
-    void SetPlayer2ShipPositions(const std::vector<FPosition>& Positions);
+    void SetEnemyShipPositions(const std::vector<FPosition>& Positions);
     
     std::shared_ptr<FBoard> GetBoard() const;
     std::shared_ptr<FSelection> GetSelection() const;
     bool GetIsGameReady() const;
-    FEnemyBoard GetPlayer1ShipPositions();
-    FEnemyBoard GetPlayer2ShipPositions();
+    FEnemyBoard GetEnemyBoard();
+    void RegisterReceivedShot(FPosition ShotPosition);
+    std::vector<FPosition> GetReceivedShot();
 };

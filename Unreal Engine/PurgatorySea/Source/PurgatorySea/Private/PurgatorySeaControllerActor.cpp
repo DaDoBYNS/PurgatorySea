@@ -220,34 +220,48 @@ FString APurgatorySeaControllerActor::HandleSessionAccepted_Implementation()
 FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnrealPosition Position)
 {
 	if (!GameController)
-	{
 		return TEXT("Error");
-	}
 
 	FPosition CorePosition{
-		static_cast<ELetter>(Position.Letter),
-		static_cast<ENumber>(Position.Number)
+		Position.Letter,
+		Position.Number
 	};
 
-	for (const auto &Ship : GameController->GetBoard()->GetShips())
+	if (!GameController->IsShotPositionValid(CorePosition))
+		return TEXT("Invalid");
+
+	for (const auto& PreviosShot : GameController->GetReceivedShot())
 	{
-		for (const auto &Position : Ship->GetPositions())
+		if (PreviosShot.Letter == CorePosition.Letter && 
+			PreviosShot.Number == CorePosition.Number)
 		{
-			if (Position.Letter == CorePosition.Letter && Position.Number == CorePosition.Number)
+			return TEXT("AlreadyShot");
+		}
+	}
+	
+	GameController->RegisterReceivedShot(CorePosition);
+	
+	for (const auto& Ship : GameController->GetBoard()->GetShips())
+	{
+		for (const auto& ShipPosition : Ship->GetPositions())
+		{
+			if (ShipPosition.Letter == CorePosition.Letter && 
+				ShipPosition.Number == CorePosition.Number)
 			{
-				return TEXT("Hit");
+				if (Ship->GetDimension() == 0) // Cambiare in GetIsSink
+				{
+					return TEXT("Sink");
+				}
+					return TEXT("Hit");
 			}
 		}
 	}
 	
-	UE_LOG(
-			LogTemp,
-			Warning,
-			TEXT("HandleFireShotRequest called. Letter: %d, Number: %d"),
-			Position.Letter,
-			Position.Number
-		);
-	
+	if (GameController->HasWon())
+	{
+		return TEXT("GameOver");
+	}
+
 	return TEXT("Miss");
 }
 
