@@ -5,9 +5,6 @@
 
 #include "WebServerSubsystem.h"
 
-#include "PurgatorySeaWidget.h"
-#include "Engine/Engine.h"
-
 #include "Validation.h"
 #include "WebClientSubsystem.h"
 
@@ -29,14 +26,9 @@ void APurgatorySeaControllerActor::BeginPlay()
 	
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
-		if (UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>())
+		if (GameInstance->GetSubsystem<UWebServerSubsystem>())
 		{
-			WebServerSubsystem->SetMultiplayerHandler(this);
-		}
-
-		if (UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>())
-		{
-			WebClientSubsystem->SetMultiplayerHandler(this);
+			GameInstance->GetSubsystem<UWebServerSubsystem>()->SetMultiplayerHandler(this);
 		}
 	}
 	
@@ -51,14 +43,6 @@ void APurgatorySeaControllerActor::BeginPlay()
 	Selection->SetBoard(Board);
 
 	GameController->InitGame();
-	
-	if (GEngine && GEngine->GameViewport)
-	{
-		SAssignNew(PurgatorySeaWidget, SPurgatorySeaWidget)
-		.ControllerActor(this);
-
-		GEngine->GameViewport->AddViewportWidgetContent(PurgatorySeaWidget.ToSharedRef());
-	}
 	
 	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
@@ -374,17 +358,17 @@ void APurgatorySeaControllerActor::RequestReady()
 
 	if (!ValidateLocalShips())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Ships validation failed. Ready request will not be sent."));
+		UE_LOG(LogTemp, Warning, TEXT("Cannot ready. Ships are not valid."));
 		return;
 	}
 
 	bIsLocalReady = true;
 
-	UE_LOG(LogTemp, Warning, TEXT("Ships validation passed. Local player is ready. Sending ready request to opponent."));
+	UE_LOG(LogTemp, Warning, TEXT("Local player is now ready. Sending GET /ready to opponent."));
 
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
-		UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
+		UWebClientSubsystem* WebClientSubsystem = GetGameInstance()->GetSubsystem<UWebClientSubsystem>();
 
 		if (WebClientSubsystem)
 		{
@@ -585,26 +569,13 @@ bool APurgatorySeaControllerActor::HandleReadyRequest_Implementation()
 
 void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	if (GEngine && GEngine->GameViewport && PurgatorySeaWidget.IsValid())
-	{
-		GEngine->GameViewport->RemoveViewportWidgetContent(PurgatorySeaWidget.ToSharedRef());
-		PurgatorySeaWidget.Reset();
-	}
-
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
 		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
-		
+
 		if (WebServerSubsystem)
 		{
 			WebServerSubsystem->SetMultiplayerHandler(nullptr);
-		}
-
-		UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
-
-		if (WebClientSubsystem)
-		{
-			WebClientSubsystem->SetMultiplayerHandler(nullptr);
 		}
 	}
 	

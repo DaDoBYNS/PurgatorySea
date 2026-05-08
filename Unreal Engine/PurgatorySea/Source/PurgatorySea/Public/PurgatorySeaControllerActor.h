@@ -34,8 +34,6 @@ class PURGATORYSEA_API APurgatorySeaControllerActor :
 	UPROPERTY()
 	bool bHasLocalPlayerLost;
 	
-	TSharedPtr<class SPurgatorySeaWidget> PurgatorySeaWidget;
-	
 	FString CreateLocalSession(const FString& InOpponentIpAddress);
 	
 public:

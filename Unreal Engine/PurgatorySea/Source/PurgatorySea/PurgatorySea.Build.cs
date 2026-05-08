@@ -22,9 +22,7 @@ public class PurgatorySea : ModuleRules
 			"Networking",
 			"HttpServer",
 			"Json",
-			"JsonUtilities",
-			"Slate",
-			"SlateCore"
+			"JsonUtilities"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore"});
