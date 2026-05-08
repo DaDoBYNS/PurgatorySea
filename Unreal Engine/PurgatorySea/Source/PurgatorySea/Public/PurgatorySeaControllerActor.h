@@ -31,21 +31,13 @@ class PURGATORYSEA_API APurgatorySeaControllerActor :
     UPROPERTY()
     bool bHasLocalPlayerWon;
 
-<<<<<<< HEAD
     UPROPERTY()
     bool bHasLocalPlayerLost;
     
     TSharedPtr<class SPurgatorySeaWidget> PurgatorySeaWidget;
     
     FString CreateLocalSession(const FString& InOpponentIpAddress);
-    
-=======
-	UPROPERTY()
-	bool bHasLocalPlayerLost;
-	
-	FString CreateLocalSession(const FString& InOpponentIpAddress);
-	
->>>>>>> fde050f (Revert "Implemented validation button")
+
 public:
     // Sets default values for this actor's properties
     APurgatorySeaControllerActor();

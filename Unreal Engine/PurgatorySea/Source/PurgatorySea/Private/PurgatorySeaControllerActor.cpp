@@ -5,6 +5,9 @@
 
 #include "WebServerSubsystem.h"
 
+#include "PurgatorySeaWidget.h"
+#include "Engine/Engine.h"
+
 #include "Validation.h"
 #include "WebClientSubsystem.h"
 
@@ -22,7 +25,6 @@ APurgatorySeaControllerActor::APurgatorySeaControllerActor()
 
 void APurgatorySeaControllerActor::BeginPlay()
 {
-<<<<<<< HEAD
     Super::BeginPlay();
     
     if (UGameInstance* GameInstance = GetGameInstance())
@@ -39,19 +41,6 @@ void APurgatorySeaControllerActor::BeginPlay()
     }
     
     GameController = std::make_shared<FGameController>(); 
-=======
-	Super::BeginPlay();
-	
-	if (UGameInstance* GameInstance = GetGameInstance())
-	{
-		if (GameInstance->GetSubsystem<UWebServerSubsystem>())
-		{
-			GameInstance->GetSubsystem<UWebServerSubsystem>()->SetMultiplayerHandler(this);
-		}
-	}
-	
-	GameController = std::make_shared<FGameController>(); 
->>>>>>> fde050f (Revert "Implemented validation button")
 
     std::shared_ptr<FBoard> Board = std::make_shared<FBoard>();
     std::shared_ptr<FSelection> Selection = std::make_shared<FSelection>();
@@ -61,7 +50,6 @@ void APurgatorySeaControllerActor::BeginPlay()
 
     Selection->SetBoard(Board);
 
-<<<<<<< HEAD
     GameController->InitGame();
     
     if (GEngine && GEngine->GameViewport)
@@ -73,11 +61,6 @@ void APurgatorySeaControllerActor::BeginPlay()
     }
     
     BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-=======
-	GameController->InitGame();
-	
-	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
->>>>>>> fde050f (Revert "Implemented validation button")
 }
 
 // Called every frame
@@ -390,35 +373,19 @@ void APurgatorySeaControllerActor::RequestReady()
        return;
     }
 
-<<<<<<< HEAD
     if (!ValidateLocalShips())
     {
        UE_LOG(LogTemp, Warning, TEXT("Ships validation failed. Ready request will not be sent."));
        return;
     }
-=======
-	if (!ValidateLocalShips())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Cannot ready. Ships are not valid."));
-		return;
-	}
->>>>>>> fde050f (Revert "Implemented validation button")
 
     bIsLocalReady = true;
 
-<<<<<<< HEAD
     UE_LOG(LogTemp, Warning, TEXT("Ships validation passed. Local player is ready. Sending ready request to opponent."));
 
     if (UGameInstance* GameInstance = GetGameInstance())
     {
        UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
-=======
-	UE_LOG(LogTemp, Warning, TEXT("Local player is now ready. Sending GET /ready to opponent."));
-
-	if (UGameInstance* GameInstance = GetGameInstance())
-	{
-		UWebClientSubsystem* WebClientSubsystem = GetGameInstance()->GetSubsystem<UWebClientSubsystem>();
->>>>>>> fde050f (Revert "Implemented validation button")
 
        if (WebClientSubsystem)
        {
@@ -619,7 +586,6 @@ bool APurgatorySeaControllerActor::HandleReadyRequest_Implementation()
 
 void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-<<<<<<< HEAD
     if (GEngine && GEngine->GameViewport && PurgatorySeaWidget.IsValid())
     {
        GEngine->GameViewport->RemoveViewportWidgetContent(PurgatorySeaWidget.ToSharedRef());
@@ -630,17 +596,9 @@ void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayRea
     {
        UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
        
-		
        if (WebServerSubsystem)
        {
           WebServerSubsystem->SetMultiplayerHandler(nullptr);
-		}
-
-		UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
-
-		if (WebClientSubsystem)
-		{
-			WebClientSubsystem->SetMultiplayerHandler(nullptr);
        }
 
        UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
@@ -652,18 +610,4 @@ void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayRea
     }
     
     Super::EndPlay(EndPlayReason);
-=======
-	if (UGameInstance* GameInstance = GetGameInstance())
-	{
-		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
-
-		if (WebServerSubsystem)
-		{
-			WebServerSubsystem->SetMultiplayerHandler(nullptr);
-		}
-	}
-	
-	Super::EndPlay(EndPlayReason);
->>>>>>> fde050f (Revert "Implemented validation button")
-}
- 
+} 
