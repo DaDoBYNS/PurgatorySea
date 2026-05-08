@@ -596,9 +596,17 @@ void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayRea
     {
        UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
        
+		
        if (WebServerSubsystem)
        {
           WebServerSubsystem->SetMultiplayerHandler(nullptr);
+		}
+
+		UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
+
+		if (WebClientSubsystem)
+		{
+			WebClientSubsystem->SetMultiplayerHandler(nullptr);
        }
 
        UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();

@@ -12,11 +12,22 @@ class PURGATORYSEA_API AShipActor : public AActor
 public:
 	AShipActor();
 
-protected:
 	virtual void BeginPlay() override;
 
-public:
-	virtual void Tick(float DeltaTime) override;
+	void SetVisualState(
+		bool bIsSelected,
+		bool bIsErrorHighlighted,
+		UMaterialInterface* SelectedMaterial,
+		UMaterialInterface* ErrorMaterial
+	);
 
-	void SetSelectedVisual(bool bIsSelected, UMaterialInterface* SelectedMaterial);
+private:
+	void CacheOriginalMaterials();
+	void ApplyMaterialToAllSlots(UMaterialInterface* Material);
+	void RestoreOriginalMaterials();
+
+private:
+	TMap<UPrimitiveComponent*, TArray<UMaterialInterface*>> OriginalMaterials;
+
+	bool bOriginalMaterialsCached = false;
 };
