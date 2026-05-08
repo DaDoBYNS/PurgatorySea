@@ -30,7 +30,10 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void HandleOpponentReadyAccepted();
-	
+    
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	FString HandleForfeitRequest();
+    
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void HandleFireShotResponse(FUnrealPosition Position, const FString& HitStatus);
 };

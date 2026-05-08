@@ -13,91 +13,96 @@
 
 UCLASS()
 class PURGATORYSEA_API APurgatorySeaControllerActor : 
-	public AActor, 
-	public IPurgatorySeaMultiplayerHandlerInterface
+    public AActor, 
+    public IPurgatorySeaMultiplayerHandlerInterface
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	std::shared_ptr<FGameController> GameController; 
-	TSet<FString> ReceivedShots;
-	bool bHasSession;
-	bool bIsLocalReady;
-	bool bIsOpponentReady;
-	bool bHasMatchStarted;
-	
-	UPROPERTY()
-	bool bHasMatchEnded;
+    std::shared_ptr<FGameController> GameController; 
+    TSet<FString> ReceivedShots;
+    bool bHasSession;
+    bool bIsLocalReady;
+    bool bIsOpponentReady;
+    bool bHasMatchStarted;
+    
+    UPROPERTY()
+    bool bHasMatchEnded;
 
-	UPROPERTY()
-	bool bHasLocalPlayerWon;
+    UPROPERTY()
+    bool bHasLocalPlayerWon;
 
-	UPROPERTY()
-	bool bHasLocalPlayerLost;
-	
-	FString CreateLocalSession(const FString& InOpponentIpAddress);
-	
+    UPROPERTY()
+    bool bHasLocalPlayerLost;
+    
+    TSharedPtr<class SPurgatorySeaWidget> PurgatorySeaWidget;
+    
+    FString CreateLocalSession(const FString& InOpponentIpAddress);
+    
 public:
-	// Sets default values for this actor's properties
-	APurgatorySeaControllerActor();
+    // Sets default values for this actor's properties
+    APurgatorySeaControllerActor();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	
-	UFUNCTION(BlueprintCallable)
-	void SelectShip(int Letter, int Number);
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+    
+    UFUNCTION(BlueprintCallable)
+    void SelectShip(int Letter, int Number);
 
-	UFUNCTION(BlueprintCallable)
-	void MoveSelectedShip(int Letter, int Number);
-	
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Purgatory Sea")
-	APurgatorySeaBoardPositions* BoardPositions;
-	
-	UFUNCTION(BlueprintCallable)
-	void InitGame();
-	
-	UFUNCTION(BlueprintCallable)
-	void OnShipClicked(AActor* HitActor);
+    UFUNCTION(BlueprintCallable)
+    void MoveSelectedShip(int Letter, int Number);
+    
+    UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Purgatory Sea")
+    APurgatorySeaBoardPositions* BoardPositions;
+    
+    UFUNCTION(BlueprintCallable)
+    void InitGame();
+    
+    UFUNCTION(BlueprintCallable)
+    void OnShipClicked(AActor* HitActor);
 
-	UFUNCTION(BlueprintCallable)
-	void OnTileClicked(AActor* HitActor);
-	
-	UFUNCTION(BlueprintCallable)
-	void EmptySelectedShip();
-	
-	UFUNCTION(BlueprintCallable)
-	void RotateSelectedShip();
-	
-	UFUNCTION(BlueprintCallable)
-	void RequestSession(const FString& InOpponentIpAddress, const FString& LocalIpAddress);
+    UFUNCTION(BlueprintCallable)
+    void OnTileClicked(AActor* HitActor);
+    
+    UFUNCTION(BlueprintCallable)
+    void EmptySelectedShip();
+    
+    UFUNCTION(BlueprintCallable)
+    void RotateSelectedShip();
+    
+    UFUNCTION(BlueprintCallable)
+    void RequestSession(const FString& InOpponentIpAddress, const FString& LocalIpAddress);
 
-	virtual FString HandleSessionRequest_Implementation(const FString& RequesterIpAddress) override;
+    virtual FString HandleSessionRequest_Implementation(const FString& RequesterIpAddress) override;
 
-	virtual FString HandleSessionAccepted_Implementation(const FString& InOpponentIpAddress) override;
-	
-	virtual FString HandleFireShotRequest_Implementation(FUnrealPosition Position) override;
-	
-	UPROPERTY(BlueprintReadOnly)
-	FString OpponentIpAddress;
-	
-	UFUNCTION(BlueprintCallable)
-	void RequestReady(); 
+    virtual FString HandleSessionAccepted_Implementation(const FString& InOpponentIpAddress) override;
+    FString ConvertHitStatusToString(EHitStatus HitStatus) const;
 
-	UFUNCTION(BlueprintCallable)
-	bool ValidateLocalShips();
-	
-	UFUNCTION(BlueprintCallable)
-	void RequestForfeit();
+    virtual FString HandleFireShotRequest_Implementation(FUnrealPosition Position) override;
+    
+    UPROPERTY(BlueprintReadOnly)
+    FString OpponentIpAddress;
+    
+    UFUNCTION(BlueprintCallable)
+    void RequestReady(); 
 
-	bool TryStartMatch();
+    UFUNCTION(BlueprintCallable)
+    bool ValidateLocalShips();
+    
+    UFUNCTION(BlueprintCallable)
+    void RequestForfeit();
 
-	virtual bool HandleReadyRequest_Implementation() override; 
-	virtual void HandleOpponentReadyAccepted_Implementation() override;
-	virtual FString HandleForfeitRequest_Implementation() override;
+    bool TryStartMatch();
+
+    virtual bool HandleReadyRequest_Implementation() override; 
+    virtual void HandleOpponentReadyAccepted_Implementation() override;
+    virtual FString HandleForfeitRequest_Implementation() override;
+    virtual void HandleFireShotResponse_Implementation(FUnrealPosition Position, const FString& HitStatus) override;
 protected:
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };
+ 
