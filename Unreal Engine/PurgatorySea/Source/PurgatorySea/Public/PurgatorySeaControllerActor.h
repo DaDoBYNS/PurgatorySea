@@ -64,6 +64,9 @@ public:
     
     UFUNCTION(BlueprintCallable)
     void OnShipClicked(AActor* HitActor);
+    
+    UFUNCTION(BlueprintCallable)
+    void OnEnemyTileClicked(AActor* HitActor);
 
     UFUNCTION(BlueprintCallable)
     void OnTileClicked(AActor* HitActor);

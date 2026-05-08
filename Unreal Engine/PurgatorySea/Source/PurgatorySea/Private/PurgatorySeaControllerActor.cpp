@@ -127,6 +127,87 @@ void APurgatorySeaControllerActor::OnShipClicked(AActor* HitActor)
     BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
 }
 
+void APurgatorySeaControllerActor::OnEnemyTileClicked(AActor* HitActor)
+{
+    if (!HitActor)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. HitActor is null."));
+        return;
+    }
+
+    if (!HitActor->ActorHasTag(TEXT("ETile")))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Actor is not an enemy tile."));
+        return;
+    }
+
+    if (OpponentIpAddress.IsEmpty())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Opponent IP is empty."));
+        return;
+    }
+
+    if (!bHasSession)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. No session created yet."));
+        return;
+    }
+
+    if (!bHasMatchStarted)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Match has not started yet."));
+        return;
+    }
+
+    if (bHasMatchEnded)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Match already ended."));
+        return;
+    }
+
+    FVector EnemyTileLocation = HitActor->GetActorLocation();
+
+    int Letter = FMath::RoundToInt(EnemyTileLocation.X / 100.f);
+    int Number = FMath::RoundToInt((EnemyTileLocation.Y + 1100.f) / 100.f);
+
+    if (Letter < 0 || Letter > 9 || Number < 0 || Number > 9)
+    {
+        UE_LOG(
+            LogTemp,
+            Warning,
+            TEXT("Cannot fire shot. Enemy position out of board. Letter: %d, Number: %d"),
+            Letter,
+            Number
+        );
+
+        return;
+    }
+
+    FUnrealPosition HitPosition;
+    HitPosition.Letter = Letter;
+    HitPosition.Number = Number;
+
+    UE_LOG(
+        LogTemp,
+        Warning,
+        TEXT("Enemy tile clicked. WorldX: %.2f, WorldY: %.2f, FireShot Letter: %d, Number: %d"),
+        EnemyTileLocation.X,
+        EnemyTileLocation.Y,
+        HitPosition.Letter,
+        HitPosition.Number
+    );
+
+    if (UGameInstance* GameInstance = GetGameInstance())
+    {
+        UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
+
+        if (WebClientSubsystem)
+        {
+            WebClientSubsystem->SendFireShotRequest(OpponentIpAddress, HitPosition);
+        }
+    }
+}
+
 void APurgatorySeaControllerActor::OnTileClicked(AActor* HitActor)
 {
     if (!GameController || !HitActor) return;
