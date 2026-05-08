@@ -84,9 +84,12 @@ void APurgatorySeaBoardPositions::SpawnShip(
 	FVector Loc,
 	FRotator Rot,
 	FActorSpawnParameters Params
-	)
+)
 {
-	if (!Ship) return;
+	if (!Ship)
+	{
+		return;
+	}
 
 	TSubclassOf<AShipActor> ShipClass = GetShipClassByName(Ship->GetName());
 
@@ -107,13 +110,19 @@ void APurgatorySeaBoardPositions::SpawnShip(
 		Loc,
 		Rot,
 		Params
-		
 	);
 
 	if (!ShipObj)
+	{
 		return;
+	}
 
-	ShipObj->SetSelectedVisual(Ship->GetIsSelected(), SelectedShipMaterial);
+	ShipObj->SetVisualState(
+		Ship->GetIsSelected(),
+		Ship->GetIsErrorHighlighted(),
+		SelectedShipMaterial,
+		ErrorShipMaterial
+	);
 
 	Ships.Add(ShipObj);
 }

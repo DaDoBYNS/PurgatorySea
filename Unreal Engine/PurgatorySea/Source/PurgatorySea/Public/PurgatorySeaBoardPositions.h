@@ -39,8 +39,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Ships")
 	TSubclassOf<AShipActor> SwiftBoatClass;
 
-	UPROPERTY(EditAnywhere, Category = "Ships")
+	UPROPERTY(EditAnywhere, Category = "Ships Visual")
 	UMaterialInterface* SelectedShipMaterial;
+
+	UPROPERTY(EditAnywhere, Category = "Ships Visual")
+	UMaterialInterface* ErrorShipMaterial;
 
 	void PlaceShips(const std::vector<std::shared_ptr<FShip>>& CoreShips);
 	void ClearShips();
