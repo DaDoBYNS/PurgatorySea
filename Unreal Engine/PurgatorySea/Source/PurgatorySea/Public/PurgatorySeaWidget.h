@@ -20,4 +20,5 @@ private:
 	TSharedPtr<STextBlock> StatusText;
 
 	FReply OnValidateClicked();
+	FReply OnCameraSwitchClicked();
 };

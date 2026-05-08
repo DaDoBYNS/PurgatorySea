@@ -1,6 +1,7 @@
 #include "PurgatorySeaWidget.h"
 
 #include "PurgatorySeaControllerActor.h"
+#include "GameFramework/GameSession.h"
 #include "Widgets/SOverlay.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -58,6 +59,20 @@ void SPurgatorySeaWidget::Construct(const FArguments& InArgs)
              ]
           ]
        ]
+       + SOverlay::Slot()
+       .HAlign(HAlign_Left)
+       .VAlign(VAlign_Top)
+       .Padding(20.f)
+       [
+          SNew(SButton)
+          .OnClicked(this, &SPurgatorySeaWidget::OnCameraSwitchClicked)
+          [
+            SNew(STextBlock)
+            .Text(FText::FromString(TEXT("Gira Camera")))
+            .ColorAndOpacity(FLinearColor::White)
+            .Font(FCoreStyle::GetDefaultFontStyle("Bold", 18))
+          ]
+       ]
     ];
 }
 
@@ -82,3 +97,56 @@ FReply SPurgatorySeaWidget::OnValidateClicked()
 
     return FReply::Handled();
 }
+
+FReply SPurgatorySeaWidget::OnCameraSwitchClicked()
+{
+   if (!ControllerActor.IsValid())
+   {
+      return FReply::Handled();
+   }
+
+   UWorld* World = ControllerActor->GetWorld();
+
+   if (!World)
+   {
+      return FReply::Handled();
+   }
+
+   APlayerController* PC = World->GetFirstPlayerController();
+
+   if (!PC)
+   {
+      return FReply::Handled();
+   }
+
+   if (ControllerActor->bIsUsingVerticalCamera)
+   {
+      if (ControllerActor->CameraHorizontal)
+      {
+         PC->SetViewTargetWithBlend(
+             ControllerActor->CameraHorizontal,
+             1.0f
+         );
+
+         ControllerActor->bIsUsingVerticalCamera = false;
+      }
+   }
+   else
+   {
+      if (ControllerActor->CameraVertical)
+      {
+         PC->SetViewTargetWithBlend(
+             ControllerActor->CameraVertical,
+             1.0f
+         );
+
+         ControllerActor->bIsUsingVerticalCamera = true;
+      }
+   }
+   bool bNextVertical = ControllerActor->bIsUsingVerticalCamera;
+
+   ControllerActor->UpdateBoardMaterials(bNextVertical);
+
+   return FReply::Handled();
+}
+

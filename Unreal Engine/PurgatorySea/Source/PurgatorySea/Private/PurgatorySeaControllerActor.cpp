@@ -10,6 +10,7 @@
 
 #include "Validation.h"
 #include "WebClientSubsystem.h"
+#include "Kismet/GameplayStatics.h"
 
 APurgatorySeaControllerActor::APurgatorySeaControllerActor()
     : bHasSession(false)
@@ -653,6 +654,46 @@ void APurgatorySeaControllerActor::HandleFireShotResponse_Implementation(FUnreal
 
     UE_LOG(LogTemp, Warning, TEXT("Unknown FireShot response: %s"), *HitStatus);
 }
+
+void APurgatorySeaControllerActor::UpdateBoardMaterials(bool bUseVertical)
+{
+   UMaterialInterface* MaterialToApply =
+    bUseVertical
+    ? VerticalMaterial
+    : HorizontalMaterial;
+
+   if (!MaterialToApply)
+   {
+      return;
+   }
+
+   TArray<AActor*> Tiles;
+
+   UGameplayStatics::GetAllActorsWithTag(
+       GetWorld(),
+       FName("ETile"),
+       Tiles
+   );
+
+   for (AActor* Tile : Tiles)
+   {
+      if (!Tile)
+      {
+         continue;
+      }
+
+      UStaticMeshComponent* Mesh =
+          Tile->FindComponentByClass<UStaticMeshComponent>();
+
+      if (!Mesh)
+      {
+         continue;
+      }
+
+      Mesh->SetMaterial(0, MaterialToApply);
+   }
+}
+
 
 bool APurgatorySeaControllerActor::HandleReadyRequest_Implementation()
 {

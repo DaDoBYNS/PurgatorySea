@@ -9,6 +9,7 @@
 #include "GameController.h" 
 #include "PurgatorySeaBoardPositions.h"
 #include "PurgatorySeaMultiplayerHandlerInterface.h"
+#include "Camera/CameraActor.h"
 #include "PurgatorySeaControllerActor.generated.h"
 
 UCLASS()
@@ -59,6 +60,18 @@ public:
     UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Purgatory Sea")
     APurgatorySeaBoardPositions* BoardPositions;
     
+    UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Purgatory Sea")
+    ACameraActor* CameraHorizontal;
+    
+    UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Purgatory Sea")
+    ACameraActor* CameraVertical;
+    
+    UPROPERTY(EditAnywhere, Category="Board")
+    UMaterialInterface* VerticalMaterial;
+
+    UPROPERTY(EditAnywhere, Category="Board")
+    UMaterialInterface* HorizontalMaterial;
+    
     UFUNCTION(BlueprintCallable)
     void InitGame();
     
@@ -105,6 +118,9 @@ public:
     virtual void HandleOpponentReadyAccepted_Implementation() override;
     virtual FString HandleForfeitRequest_Implementation() override;
     virtual void HandleFireShotResponse_Implementation(FUnrealPosition Position, const FString& HitStatus) override;
+    
+    void UpdateBoardMaterials(bool bUseVertical);
+    bool bIsUsingVerticalCamera;
 protected:
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };
