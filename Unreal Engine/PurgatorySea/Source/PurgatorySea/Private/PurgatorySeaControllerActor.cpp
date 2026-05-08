@@ -198,15 +198,17 @@ void APurgatorySeaControllerActor::OnEnemyTileClicked(AActor* HitActor)
         HitPosition.Number
     );
 
-    if (UGameInstance* GameInstance = GetGameInstance())
-    {
-        UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
+   if (UGameInstance* GameInstance = GetGameInstance())
+   {
+      UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
 
-        if (WebClientSubsystem)
-        {
-            WebClientSubsystem->SendFireShotRequest(OpponentIpAddress, HitPosition);
-        }
-    }
+      if (WebClientSubsystem)
+      {
+         SpawnEnemyShotPin(HitPosition, EnemyTileLocation);
+
+         WebClientSubsystem->SendFireShotRequest(OpponentIpAddress, HitPosition);
+      }
+   }
 }
 
 void APurgatorySeaControllerActor::OnTileClicked(AActor* HitActor)
@@ -613,26 +615,32 @@ void APurgatorySeaControllerActor::HandleFireShotResponse_Implementation(FUnreal
     if (HitStatus == TEXT("Miss"))
     {
        GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Miss);
+      
+       SetEnemyShotPinResult(Position, false);
 
        UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Miss."));
        return;
-    }
+    }  
 
-    if (HitStatus == TEXT("Hit"))
-    {
-       GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Hit);
+   if (HitStatus == TEXT("Hit"))
+   {
+      GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Hit);
 
-       UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Hit."));
-       return;
-    }
+      SetEnemyShotPinResult(Position, true);
 
-    if (HitStatus == TEXT("Sink"))
-    {
-       GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+      UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Hit."));
+      return;
+   }
 
-       UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Sink."));
-       return;
-    }
+   if (HitStatus == TEXT("Sink"))
+   {
+      GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+
+      SetEnemyShotPinResult(Position, true);
+
+      UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Sink."));
+      return;
+   }
 
     if (HitStatus == TEXT("AlreadyShot"))
     {
@@ -640,19 +648,114 @@ void APurgatorySeaControllerActor::HandleFireShotResponse_Implementation(FUnreal
        return;
     }
 
-    if (HitStatus == TEXT("GameOver"))
-    {
-       GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+   if (HitStatus == TEXT("GameOver"))
+   {
+      GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
 
-       bHasMatchEnded = true;
-       bHasLocalPlayerWon = true;
-       bHasLocalPlayerLost = false;
+      SetEnemyShotPinResult(Position, true);
 
-       UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Opponent lost. Local player won."));
-       return;
-    }
+      bHasMatchEnded = true;
+      bHasLocalPlayerWon = true;
+      bHasLocalPlayerLost = false;
+
+      UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Opponent lost. Local player won."));
+      return;
+   }
 
     UE_LOG(LogTemp, Warning, TEXT("Unknown FireShot response: %s"), *HitStatus);
+}
+
+void APurgatorySeaControllerActor::SpawnEnemyShotPin(FUnrealPosition Position, FVector TileLocation)
+{
+   if (!EnemyShotPinActorClass)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("EnemyShotPinActorClass is not assigned."));
+      return;
+   }
+
+   UWorld* World = GetWorld();
+
+   if (!World)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("Cannot spawn enemy shot pin. World is null."));
+      return;
+   }
+
+   FIntPoint PinKey(Position.Letter, Position.Number);
+
+   if (EnemyShotPins.Contains(PinKey))
+   {
+      UE_LOG(
+          LogTemp,
+          Warning,
+          TEXT("Enemy shot pin already exists at Letter: %d, Number: %d"),
+          Position.Letter,
+          Position.Number
+      );
+
+      return;
+   }
+
+   FVector SpawnLocation = TileLocation;
+   SpawnLocation.Z += 30.f;
+
+   FActorSpawnParameters SpawnParameters;
+   SpawnParameters.Owner = this;
+
+   AActor* SpawnedPin = World->SpawnActor<AActor>(
+       EnemyShotPinActorClass,
+       SpawnLocation,
+       FRotator::ZeroRotator,
+       SpawnParameters
+   );
+
+   if (!SpawnedPin)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("Failed to spawn enemy shot pin."));
+      return;
+   }
+
+   EnemyShotPins.Add(PinKey, SpawnedPin);
+}
+
+void APurgatorySeaControllerActor::SetEnemyShotPinResult(FUnrealPosition Position, bool bIsHit)
+{
+   FIntPoint PinKey(Position.Letter, Position.Number);
+
+   AActor** FoundPin = EnemyShotPins.Find(PinKey);
+
+   if (!FoundPin || !(*FoundPin))
+   {
+      UE_LOG(
+          LogTemp,
+          Warning,
+          TEXT("Cannot set enemy shot pin result. Pin not found at Letter: %d, Number: %d"),
+          Position.Letter,
+          Position.Number
+      );
+
+      return;
+   }
+
+   AActor* PinActor = *FoundPin;
+
+   UFunction* SetPinResultFunction = PinActor->FindFunction(TEXT("SetPinResult"));
+
+   if (!SetPinResultFunction)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("SetPinResult function not found on pin actor."));
+      return;
+   }
+
+   struct FSetPinResultParams
+   {
+      bool bIsHit;
+   };
+
+   FSetPinResultParams Params;
+   Params.bIsHit = bIsHit;
+
+   PinActor->ProcessEvent(SetPinResultFunction, &Params);
 }
 
 void APurgatorySeaControllerActor::UpdateBoardMaterials(bool bUseVertical)

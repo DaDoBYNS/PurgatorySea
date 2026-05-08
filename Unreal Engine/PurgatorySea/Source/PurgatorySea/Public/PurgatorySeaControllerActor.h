@@ -113,6 +113,16 @@ public:
     void RequestForfeit();
 
     bool TryStartMatch();
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy Board")
+    TSubclassOf<AActor> EnemyShotPinActorClass;
+
+    UPROPERTY()
+    TMap<FIntPoint, AActor*> EnemyShotPins;
+
+    void SpawnEnemyShotPin(FUnrealPosition Position, FVector TileLocation);
+
+    void SetEnemyShotPinResult(FUnrealPosition Position, bool bIsHit);
 
     virtual bool HandleReadyRequest_Implementation() override; 
     virtual void HandleOpponentReadyAccepted_Implementation() override;

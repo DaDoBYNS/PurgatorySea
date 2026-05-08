@@ -10,6 +10,7 @@
 
 #include "Validation.h"
 #include "WebClientSubsystem.h"
+#include "Kismet/GameplayStatics.h"
 
 APurgatorySeaControllerActor::APurgatorySeaControllerActor()
     : bHasSession(false)
@@ -25,7 +26,6 @@ APurgatorySeaControllerActor::APurgatorySeaControllerActor()
 
 void APurgatorySeaControllerActor::BeginPlay()
 {
-<<<<<<< HEAD
     Super::BeginPlay();
     
     if (UGameInstance* GameInstance = GetGameInstance())
@@ -34,24 +34,6 @@ void APurgatorySeaControllerActor::BeginPlay()
        {
           WebServerSubsystem->SetMultiplayerHandler(this);
        }
-=======
-	Super::BeginPlay();
-	
-	if (UGameInstance* GameInstance = GetGameInstance())
-	{
-		if (UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>())
-		{
-			WebServerSubsystem->SetMultiplayerHandler(this);
-		}
-
-		if (UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>())
-		{
-			WebClientSubsystem->SetMultiplayerHandler(this);
-		}
-	}
-	
-	GameController = std::make_shared<FGameController>(); 
->>>>>>> c85f98f (Implemented validation button)
 
        if (UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>())
        {
@@ -67,7 +49,6 @@ void APurgatorySeaControllerActor::BeginPlay()
     GameController->SetBoard(Board);
     GameController->SetSelection(Selection);
 
-<<<<<<< HEAD
     Selection->SetBoard(Board);
 
     GameController->InitGame();
@@ -81,19 +62,6 @@ void APurgatorySeaControllerActor::BeginPlay()
     }
     
     BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
-=======
-	GameController->InitGame();
-	
-	if (GEngine && GEngine->GameViewport)
-	{
-		SAssignNew(PurgatorySeaWidget, SPurgatorySeaWidget)
-		.ControllerActor(this);
-
-		GEngine->GameViewport->AddViewportWidgetContent(PurgatorySeaWidget.ToSharedRef());
-	}
-	
-	BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
->>>>>>> c85f98f (Implemented validation button)
 }
 
 // Called every frame
@@ -158,6 +126,89 @@ void APurgatorySeaControllerActor::OnShipClicked(AActor* HitActor)
     UE_LOG(LogTemp, Warning, TEXT("Selected ship name: %s"), *FString(Ship->GetName().c_str()));
     
     BoardPositions->PlaceShips(GameController->GetBoard()->GetShips());
+}
+
+void APurgatorySeaControllerActor::OnEnemyTileClicked(AActor* HitActor)
+{
+    if (!HitActor)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. HitActor is null."));
+        return;
+    }
+
+    if (!HitActor->ActorHasTag(TEXT("ETile")))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Actor is not an enemy tile."));
+        return;
+    }
+
+    if (OpponentIpAddress.IsEmpty())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Opponent IP is empty."));
+        return;
+    }
+
+    if (!bHasSession)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. No session created yet."));
+        return;
+    }
+
+    if (!bHasMatchStarted)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Match has not started yet."));
+        return;
+    }
+
+    if (bHasMatchEnded)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cannot fire shot. Match already ended."));
+        return;
+    }
+
+    FVector EnemyTileLocation = HitActor->GetActorLocation();
+
+    int Letter = FMath::RoundToInt(EnemyTileLocation.X / 100.f);
+    int Number = FMath::RoundToInt((EnemyTileLocation.Y + 1100.f) / 100.f);
+
+    if (Letter < 0 || Letter > 9 || Number < 0 || Number > 9)
+    {
+        UE_LOG(
+            LogTemp,
+            Warning,
+            TEXT("Cannot fire shot. Enemy position out of board. Letter: %d, Number: %d"),
+            Letter,
+            Number
+        );
+
+        return;
+    }
+
+    FUnrealPosition HitPosition;
+    HitPosition.Letter = Letter;
+    HitPosition.Number = Number;
+
+    UE_LOG(
+        LogTemp,
+        Warning,
+        TEXT("Enemy tile clicked. WorldX: %.2f, WorldY: %.2f, FireShot Letter: %d, Number: %d"),
+        EnemyTileLocation.X,
+        EnemyTileLocation.Y,
+        HitPosition.Letter,
+        HitPosition.Number
+    );
+
+   if (UGameInstance* GameInstance = GetGameInstance())
+   {
+      UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
+
+      if (WebClientSubsystem)
+      {
+         SpawnEnemyShotPin(HitPosition, EnemyTileLocation);
+
+         WebClientSubsystem->SendFireShotRequest(OpponentIpAddress, HitPosition);
+      }
+   }
 }
 
 void APurgatorySeaControllerActor::OnTileClicked(AActor* HitActor)
@@ -406,35 +457,19 @@ void APurgatorySeaControllerActor::RequestReady()
        return;
     }
 
-<<<<<<< HEAD
     if (!ValidateLocalShips())
     {
        UE_LOG(LogTemp, Warning, TEXT("Ships validation failed. Ready request will not be sent."));
        return;
     }
-=======
-	if (!ValidateLocalShips())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Ships validation failed. Ready request will not be sent."));
-		return;
-	}
->>>>>>> c85f98f (Implemented validation button)
 
     bIsLocalReady = true;
 
-<<<<<<< HEAD
     UE_LOG(LogTemp, Warning, TEXT("Ships validation passed. Local player is ready. Sending ready request to opponent."));
 
     if (UGameInstance* GameInstance = GetGameInstance())
     {
        UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
-=======
-	UE_LOG(LogTemp, Warning, TEXT("Ships validation passed. Local player is ready. Sending ready request to opponent."));
-
-	if (UGameInstance* GameInstance = GetGameInstance())
-	{
-		UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
->>>>>>> c85f98f (Implemented validation button)
 
        if (WebClientSubsystem)
        {
@@ -580,26 +615,32 @@ void APurgatorySeaControllerActor::HandleFireShotResponse_Implementation(FUnreal
     if (HitStatus == TEXT("Miss"))
     {
        GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Miss);
+      
+       SetEnemyShotPinResult(Position, false);
 
        UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Miss."));
        return;
-    }
+    }  
 
-    if (HitStatus == TEXT("Hit"))
-    {
-       GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Hit);
+   if (HitStatus == TEXT("Hit"))
+   {
+      GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Hit);
 
-       UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Hit."));
-       return;
-    }
+      SetEnemyShotPinResult(Position, true);
 
-    if (HitStatus == TEXT("Sink"))
-    {
-       GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+      UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Hit."));
+      return;
+   }
 
-       UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Sink."));
-       return;
-    }
+   if (HitStatus == TEXT("Sink"))
+   {
+      GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+
+      SetEnemyShotPinResult(Position, true);
+
+      UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Result: Sink."));
+      return;
+   }
 
     if (HitStatus == TEXT("AlreadyShot"))
     {
@@ -607,20 +648,157 @@ void APurgatorySeaControllerActor::HandleFireShotResponse_Implementation(FUnreal
        return;
     }
 
-    if (HitStatus == TEXT("GameOver"))
-    {
-       GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
+   if (HitStatus == TEXT("GameOver"))
+   {
+      GameController->RegisterEnemyBoardShot(CorePosition, EHitStatus::Sink);
 
-       bHasMatchEnded = true;
-       bHasLocalPlayerWon = true;
-       bHasLocalPlayerLost = false;
+      SetEnemyShotPinResult(Position, true);
 
-       UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Opponent lost. Local player won."));
-       return;
-    }
+      bHasMatchEnded = true;
+      bHasLocalPlayerWon = true;
+      bHasLocalPlayerLost = false;
+
+      UE_LOG(LogTemp, Warning, TEXT("FireShot response handled. Opponent lost. Local player won."));
+      return;
+   }
 
     UE_LOG(LogTemp, Warning, TEXT("Unknown FireShot response: %s"), *HitStatus);
 }
+
+<<<<<<< HEAD
+void APurgatorySeaControllerActor::UpdateBoardMaterials(bool bUseVertical)
+{
+   UMaterialInterface* MaterialToApply =
+    bUseVertical
+    ? VerticalMaterial
+    : HorizontalMaterial;
+
+   if (!MaterialToApply)
+   {
+      return;
+   }
+
+   TArray<AActor*> Tiles;
+
+   UGameplayStatics::GetAllActorsWithTag(
+       GetWorld(),
+       FName("ETile"),
+       Tiles
+   );
+
+   for (AActor* Tile : Tiles)
+   {
+      if (!Tile)
+      {
+         continue;
+      }
+
+      UStaticMeshComponent* Mesh =
+          Tile->FindComponentByClass<UStaticMeshComponent>();
+
+      if (!Mesh)
+      {
+         continue;
+      }
+
+      Mesh->SetMaterial(0, MaterialToApply);
+   }
+}
+
+=======
+void APurgatorySeaControllerActor::SpawnEnemyShotPin(FUnrealPosition Position, FVector TileLocation)
+{
+   if (!EnemyShotPinActorClass)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("EnemyShotPinActorClass is not assigned."));
+      return;
+   }
+
+   UWorld* World = GetWorld();
+
+   if (!World)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("Cannot spawn enemy shot pin. World is null."));
+      return;
+   }
+
+   FIntPoint PinKey(Position.Letter, Position.Number);
+
+   if (EnemyShotPins.Contains(PinKey))
+   {
+      UE_LOG(
+          LogTemp,
+          Warning,
+          TEXT("Enemy shot pin already exists at Letter: %d, Number: %d"),
+          Position.Letter,
+          Position.Number
+      );
+
+      return;
+   }
+
+   FVector SpawnLocation = TileLocation;
+   SpawnLocation.Z += 30.f;
+
+   FActorSpawnParameters SpawnParameters;
+   SpawnParameters.Owner = this;
+
+   AActor* SpawnedPin = World->SpawnActor<AActor>(
+       EnemyShotPinActorClass,
+       SpawnLocation,
+       FRotator::ZeroRotator,
+       SpawnParameters
+   );
+
+   if (!SpawnedPin)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("Failed to spawn enemy shot pin."));
+      return;
+   }
+
+   EnemyShotPins.Add(PinKey, SpawnedPin);
+}
+
+void APurgatorySeaControllerActor::SetEnemyShotPinResult(FUnrealPosition Position, bool bIsHit)
+{
+   FIntPoint PinKey(Position.Letter, Position.Number);
+
+   AActor** FoundPin = EnemyShotPins.Find(PinKey);
+
+   if (!FoundPin || !(*FoundPin))
+   {
+      UE_LOG(
+          LogTemp,
+          Warning,
+          TEXT("Cannot set enemy shot pin result. Pin not found at Letter: %d, Number: %d"),
+          Position.Letter,
+          Position.Number
+      );
+
+      return;
+   }
+
+   AActor* PinActor = *FoundPin;
+
+   UFunction* SetPinResultFunction = PinActor->FindFunction(TEXT("SetPinResult"));
+
+   if (!SetPinResultFunction)
+   {
+      UE_LOG(LogTemp, Warning, TEXT("SetPinResult function not found on pin actor."));
+      return;
+   }
+
+   struct FSetPinResultParams
+   {
+      bool bIsHit;
+   };
+
+   FSetPinResultParams Params;
+   Params.bIsHit = bIsHit;
+
+   PinActor->ProcessEvent(SetPinResultFunction, &Params);
+}
+>>>>>>> 1569e5f (Implemented pins on enemy tiles)
 
 bool APurgatorySeaControllerActor::HandleReadyRequest_Implementation()
 {
@@ -635,7 +813,6 @@ bool APurgatorySeaControllerActor::HandleReadyRequest_Implementation()
 
 void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-<<<<<<< HEAD
     if (GEngine && GEngine->GameViewport && PurgatorySeaWidget.IsValid())
     {
        GEngine->GameViewport->RemoveViewportWidgetContent(PurgatorySeaWidget.ToSharedRef());
@@ -660,31 +837,4 @@ void APurgatorySeaControllerActor::EndPlay(const EEndPlayReason::Type EndPlayRea
     }
     
     Super::EndPlay(EndPlayReason);
-=======
-	if (GEngine && GEngine->GameViewport && PurgatorySeaWidget.IsValid())
-	{
-		GEngine->GameViewport->RemoveViewportWidgetContent(PurgatorySeaWidget.ToSharedRef());
-		PurgatorySeaWidget.Reset();
-	}
-
-	if (UGameInstance* GameInstance = GetGameInstance())
-	{
-		UWebServerSubsystem* WebServerSubsystem = GameInstance->GetSubsystem<UWebServerSubsystem>();
-		
-		if (WebServerSubsystem)
-		{
-			WebServerSubsystem->SetMultiplayerHandler(nullptr);
-		}
-
-		UWebClientSubsystem* WebClientSubsystem = GameInstance->GetSubsystem<UWebClientSubsystem>();
-
-		if (WebClientSubsystem)
-		{
-			WebClientSubsystem->SetMultiplayerHandler(nullptr);
-		}
-	}
-	
-	Super::EndPlay(EndPlayReason);
->>>>>>> c85f98f (Implemented validation button)
-}
- 
+} 
