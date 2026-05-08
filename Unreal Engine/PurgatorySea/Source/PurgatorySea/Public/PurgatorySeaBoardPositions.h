@@ -42,11 +42,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Ships")
 	TSubclassOf<AActor> MissileClass;
 
-	UPROPERTY(EditAnywhere, Category = "Ships Visual")
+	UPROPERTY(EditAnywhere, Category = "Ships")
 	UMaterialInterface* SelectedShipMaterial;
-
-	UPROPERTY(EditAnywhere, Category = "Ships Visual")
-	UMaterialInterface* ErrorShipMaterial;
 
 	void PlaceShips(const std::vector<std::shared_ptr<FShip>>& CoreShips);
 	void PlaceMissile(const FUnrealPosition Position);

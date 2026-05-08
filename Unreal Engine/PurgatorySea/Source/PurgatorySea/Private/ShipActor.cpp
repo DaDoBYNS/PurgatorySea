@@ -1,137 +1,48 @@
 #include "ShipActor.h"
-
 #include "Components/PrimitiveComponent.h"
 
 AShipActor::AShipActor()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AShipActor::BeginPlay()
 {
 	Super::BeginPlay();
-
-	CacheOriginalMaterials();
 }
 
-void AShipActor::CacheOriginalMaterials()
+void AShipActor::Tick(float DeltaTime)
 {
-	if (bOriginalMaterialsCached)
-	{
-		return;
-	}
+	Super::Tick(DeltaTime);
+}
 
-	OriginalMaterials.Empty();
-
+void AShipActor::SetSelectedVisual(bool bIsSelected, UMaterialInterface* SelectedMaterial)
+{
 	TArray<UPrimitiveComponent*> PrimitiveComponents;
 	GetComponents<UPrimitiveComponent>(PrimitiveComponents);
 
 	for (UPrimitiveComponent* PrimitiveComponent : PrimitiveComponents)
 	{
 		if (!PrimitiveComponent)
-		{
 			continue;
-		}
 
-		TArray<UMaterialInterface*> Materials;
-
-		const int MaterialCount = PrimitiveComponent->GetNumMaterials();
-
-		for (int i = 0; i < MaterialCount; i++)
+		if (bIsSelected)
 		{
-			Materials.Add(PrimitiveComponent->GetMaterial(i));
+			PrimitiveComponent->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
+
+			if (SelectedMaterial)
+			{
+				int MaterialCount = PrimitiveComponent->GetNumMaterials();
+
+				for (int i = 0; i < MaterialCount; i++)
+				{
+					PrimitiveComponent->SetMaterial(i, SelectedMaterial);
+				}
+			}
 		}
-
-		OriginalMaterials.Add(PrimitiveComponent, Materials);
-	}
-
-	bOriginalMaterialsCached = true;
-}
-
-void AShipActor::ApplyMaterialToAllSlots(UMaterialInterface* Material)
-{
-	if (!Material)
-	{
-		return;
-	}
-
-	TArray<UPrimitiveComponent*> PrimitiveComponents;
-	GetComponents<UPrimitiveComponent>(PrimitiveComponents);
-
-	for (UPrimitiveComponent* PrimitiveComponent : PrimitiveComponents)
-	{
-		if (!PrimitiveComponent)
+		else
 		{
-			continue;
-		}
-
-		const int MaterialCount = PrimitiveComponent->GetNumMaterials();
-
-		for (int i = 0; i < MaterialCount; i++)
-		{
-			PrimitiveComponent->SetMaterial(i, Material);
+			PrimitiveComponent->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 		}
 	}
-}
-
-void AShipActor::RestoreOriginalMaterials()
-{
-	CacheOriginalMaterials();
-
-	for (const TPair<UPrimitiveComponent*, TArray<UMaterialInterface*>>& Pair : OriginalMaterials)
-	{
-		UPrimitiveComponent* PrimitiveComponent = Pair.Key;
-
-		if (!PrimitiveComponent)
-		{
-			continue;
-		}
-
-		const TArray<UMaterialInterface*>& Materials = Pair.Value;
-
-		for (int i = 0; i < Materials.Num(); i++)
-		{
-			PrimitiveComponent->SetMaterial(i, Materials[i]);
-		}
-	}
-}
-
-void AShipActor::SetVisualState(
-	bool bIsSelected,
-	bool bIsErrorHighlighted,
-	UMaterialInterface* SelectedMaterial,
-	UMaterialInterface* ErrorMaterial
-)
-{
-	CacheOriginalMaterials();
-
-	TArray<UPrimitiveComponent*> PrimitiveComponents;
-	GetComponents<UPrimitiveComponent>(PrimitiveComponents);
-
-	for (UPrimitiveComponent* PrimitiveComponent : PrimitiveComponents)
-	{
-		if (!PrimitiveComponent)
-		{
-			continue;
-		}
-
-		PrimitiveComponent->SetCollisionResponseToChannel(
-			ECC_Visibility,
-			bIsSelected ? ECR_Ignore : ECR_Block
-		);
-	}
-
-	if (bIsErrorHighlighted && ErrorMaterial)
-	{
-		ApplyMaterialToAllSlots(ErrorMaterial);
-		return;
-	}
-
-	if (bIsSelected && SelectedMaterial)
-	{
-		ApplyMaterialToAllSlots(SelectedMaterial);
-		return;
-	}
-
-	RestoreOriginalMaterials();
 }
