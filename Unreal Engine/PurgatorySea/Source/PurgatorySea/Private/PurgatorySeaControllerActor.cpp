@@ -270,6 +270,7 @@ FString APurgatorySeaControllerActor::ConvertHitStatusToString(EHitStatus HitSta
 		return TEXT("Error");
 	}
 }
+	BoardPositions->PlaceMissile(Position);
 
 FString APurgatorySeaControllerActor::HandleFireShotRequest_Implementation(FUnrealPosition Position)
 {

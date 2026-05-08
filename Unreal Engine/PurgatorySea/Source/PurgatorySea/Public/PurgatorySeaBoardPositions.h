@@ -10,6 +10,7 @@
 
 #include <Ship.h>
 
+#include "UnrealPosition.h"
 #include "PurgatorySeaBoardPositions.generated.h"
 
 UCLASS()
@@ -17,7 +18,6 @@ class PURGATORYSEA_API APurgatorySeaBoardPositions : public AActor
 {
 	GENERATED_BODY()
 
-private:
 	UPROPERTY()
 	TArray<AShipActor*> Ships;
 
@@ -37,12 +37,16 @@ public:
 	TSubclassOf<AShipActor> TorpedoClass;
 	
 	UPROPERTY(EditAnywhere, Category = "Ships")
-	TSubclassOf<AShipActor> SwiftBoatClass;
+	TSubclassOf<AShipActor> SwiftBoatClass;	
+	
+	UPROPERTY(EditAnywhere, Category = "Ships")
+	TSubclassOf<AActor> MissileClass;
 
 	UPROPERTY(EditAnywhere, Category = "Ships")
 	UMaterialInterface* SelectedShipMaterial;
 
 	void PlaceShips(const std::vector<std::shared_ptr<FShip>>& CoreShips);
+	void PlaceMissile(const FUnrealPosition Position);
 	void ClearShips();
 
 private:

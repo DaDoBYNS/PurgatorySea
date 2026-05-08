@@ -36,6 +36,22 @@ void APurgatorySeaBoardPositions::PlaceShips(const std::vector<std::shared_ptr<F
 	}
 }
 
+void APurgatorySeaBoardPositions::PlaceMissile(const FUnrealPosition Position)
+{
+	FActorSpawnParameters Params;
+	FRotator Rot = FRotator::ZeroRotator;
+	FVector Loc;
+	Loc.X = static_cast<int>(Position.Letter) * 100.f;
+	Loc.Y = static_cast<int>(Position.Number) * 100.f;
+	Loc.Z = 0.f;
+	GetWorld()->SpawnActor<AActor>(
+	MissileClass,
+	Loc,
+	Rot,
+	Params
+);
+}
+
 void APurgatorySeaBoardPositions::ClearShips()
 {
 	for (AShipActor* Ship : Ships)
