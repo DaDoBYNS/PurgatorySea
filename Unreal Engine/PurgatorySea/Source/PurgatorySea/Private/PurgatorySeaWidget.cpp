@@ -125,7 +125,8 @@ FReply SPurgatorySeaWidget::OnCameraSwitchClicked()
       {
          PC->SetViewTargetWithBlend(
              ControllerActor->CameraHorizontal,
-             1.0f
+             1.0f,
+             VTBlend_Cubic
          );
 
          ControllerActor->bIsUsingVerticalCamera = false;
@@ -137,7 +138,8 @@ FReply SPurgatorySeaWidget::OnCameraSwitchClicked()
       {
          PC->SetViewTargetWithBlend(
              ControllerActor->CameraVertical,
-             1.0f
+             1.0f,
+             VTBlend_Cubic
          );
 
          ControllerActor->bIsUsingVerticalCamera = true;
