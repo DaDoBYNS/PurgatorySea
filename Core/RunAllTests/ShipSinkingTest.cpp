@@ -2,8 +2,8 @@
 
 #include <gtest/gtest.h>
 
-#include "Board.h"
-#include "GameController.h"
+#include "../PurgatorySeaCore/Board.h"
+#include "../PurgatorySeaCore/GameController.h"
 
 TEST(ShipSinking, ship_should_not_be_sunk_when_created)
 {
