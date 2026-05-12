@@ -17,3 +17,5 @@
 /Core/PurgatorySeaCore.sln.DotSettings.user
 /Unreal Engine/PurgatorySea/Build/
 /Unreal Engine/PurgatorySea/PurgatorySea.sln
+/Core/PurgatorySeaCore/PurgatorySeaCore.vcxproj
+/Core/RunAllTests/RunAllTests.vcxproj
